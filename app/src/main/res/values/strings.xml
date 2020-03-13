@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">project2v0.01</string>
+    <string name="email_hint">Your Email</string>
+    <string name="login_logo">login_logo</string>
+    <string name="password_hint">Your Password</string>
+    <string name="login_text">login to account</string>
+    <string name="need_an_account">need a new account?</string>
+    <string name="account_settings">account settings</string>
+    <string name="log_out">log out</string>
+    <string name="create_account_button">create account</string>
+    <string name="already_have_account">already have an account!</string>
+    <string name="account_settings_name">Name</string>
+    <string name="account_settings_save_btn">Save</string>
+</resources>
