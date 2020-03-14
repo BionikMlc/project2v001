@@ -1385,6 +1385,7 @@ drawable abc_textfield_search_default_mtrl_alpha
 drawable abc_textfield_search_material
 drawable abc_vector_test
 drawable action_add
+drawable add_book
 drawable avd_hide_password
 drawable avd_show_password
 drawable btn_checkbox_checked_mtrl
@@ -1540,7 +1541,9 @@ id action_text
 id actions
 id activity_chooser_view_content
 id add
-id add_post_btn
+id add_new_post
+id add_post_float_btn
+id add_post_toolbar
 id adjust_height
 id adjust_width
 id alertTitle
@@ -1552,7 +1555,6 @@ id barrier
 id beginning
 id blocking
 id bottom
-id button
 id buttonPanel
 id cancel_action
 id cancel_button
@@ -1601,7 +1603,6 @@ id dimensions
 id direct
 id disableHome
 id dropdown_menu
-id editText
 id edit_query
 id end
 id end_padder
@@ -1634,7 +1635,6 @@ id icon_group
 id icon_only
 id ifRoom
 id image
-id imageView2
 id info
 id invisible
 id italic
@@ -1707,13 +1707,16 @@ id password_toggle
 id peekHeight
 id percent
 id pin
+id post_desc
+id post_img
+id post_type_exhange
+id post_type_give_away
+id post_type_need
+id post_type_rg
+id progressBar
 id progress_circular
 id progress_horizontal
 id radio
-id radioButton
-id radioButton2
-id radioButton3
-id radioGroup
 id rectangle
 id reg_button
 id reg_conform_password

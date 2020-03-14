@@ -27,7 +27,9 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
-        <activity android:name="com.example.project2v001.PostActivity" />
+        <activity
+            android:name="com.example.project2v001.PostActivity"
+            android:parentActivityName="com.example.project2v001.MainActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" /> <!-- optional (needed if default theme has no action bar) -->

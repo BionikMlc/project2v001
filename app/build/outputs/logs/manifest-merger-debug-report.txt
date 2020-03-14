@@ -163,7 +163,9 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\Ah
 	android:theme
 		ADDED from C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:19:9-40
 activity#com.example.project2v001.PostActivity
-ADDED from C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:20:9-59
+ADDED from C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:20:9-102
+	android:parentActivityName
+		ADDED from C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:20:48-90
 	android:name
 		ADDED from C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:20:19-47
 activity#com.theartofdev.edmodo.cropper.CropImageActivity
