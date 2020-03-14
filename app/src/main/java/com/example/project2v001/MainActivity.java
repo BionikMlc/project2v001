@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Toolbar mainToolBar;
     private FloatingActionButton addPostBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +27,9 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mainToolBar = findViewById(R.id.main_toolbar);
         setSupportActionBar(mainToolBar);
-//      getSupportActionBar().setTitle("AcademiaExchange");
-        addPostBtn = findViewById(R.id.add_post_btn);
+        getSupportActionBar().setTitle("AcademiaExchange");
+        addPostBtn = findViewById(R.id.add_post_float_btn);
+
 
         addPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override

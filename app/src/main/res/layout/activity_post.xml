@@ -6,15 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".PostActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/add_post_toolbar"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/post_img"
         android:layout_width="128dp"
         android:layout_height="99dp"
         android:layout_marginTop="32dp"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/default_profile" />
+        app:layout_constraintTop_toBottomOf="@+id/add_post_toolbar"
+        app:srcCompat="@drawable/add_book" />
 
     <TextView
         android:id="@+id/textView"
@@ -25,10 +38,10 @@
         android:textAllCaps="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/post_img" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/post_type_rg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -38,7 +51,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/post_type_exhange"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
@@ -46,7 +59,7 @@
             android:text="exchange" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/post_type_need"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
@@ -54,7 +67,7 @@
             android:text="need " />
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/post_type_give_away"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
@@ -71,10 +84,10 @@
         android:textAllCaps="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/post_type_rg" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/post_desc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
@@ -86,7 +99,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/add_new_post"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
@@ -101,9 +114,11 @@
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/add_post_toolbar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

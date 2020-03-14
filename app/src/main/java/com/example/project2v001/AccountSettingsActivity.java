@@ -35,10 +35,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-/* todo
-*  break stuff into smaller functions and class for more code readability. [ ]
-*
-* */
+//todo
+// break stuff into smaller functions and class for more code readability. [ ]
+// add a contact number so students can contact each other if req approved.
+
 public class AccountSettingsActivity extends AppCompatActivity {
 
     private static final String TAG = "imageUrl";
@@ -114,7 +114,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.VISIBLE);
                     final Map<String, String> userMap = new HashMap<>();
                     userMap.put("name", name);
-
+                    //
                     firebaseFirestore.collection("Users").document(userId).set(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -127,24 +127,24 @@ public class AccountSettingsActivity extends AppCompatActivity {
                             progressBar.setVisibility(View.INVISIBLE);
                         }
                     });
-
+                    //
                     final StorageReference imagePath = storageReference.child("profile_images").child(userId + ".jpg");
-                    if(imageUri != null)
-                    imagePath.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(AccountSettingsActivity.this, "image uploaded", Toast.LENGTH_LONG).show();
+                    if (imageUri != null)
+                        imagePath.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(AccountSettingsActivity.this, "image uploaded", Toast.LENGTH_LONG).show();
 
-                            } else {
-                                String error = task.getException().getMessage();
-                                Toast.makeText(AccountSettingsActivity.this, "Error: " + error, Toast.LENGTH_LONG).show();
-                                progressBar.setVisibility(View.INVISIBLE);
+                                } else {
+                                    String error = task.getException().getMessage();
+                                    Toast.makeText(AccountSettingsActivity.this, "Error: " + error, Toast.LENGTH_LONG).show();
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                }
+
+
                             }
-
-
-                        }
-                    });
+                        });
                     startActivity(new Intent(AccountSettingsActivity.this, MainActivity.class));
                     finish();
                 }
@@ -154,6 +154,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //check device version to apply the right permissions
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (ContextCompat.checkSelfPermission(AccountSettingsActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
                             ContextCompat.checkSelfPermission(AccountSettingsActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
