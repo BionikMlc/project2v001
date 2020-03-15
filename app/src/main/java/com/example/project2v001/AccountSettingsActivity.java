@@ -45,6 +45,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
     private CircleImageView profileImage;
     private Uri imageUri = null;
     private boolean isChanged = false;
+    private final Map<String, String> userMap = new HashMap<>();
     private EditText nameText;
     private Button saveBtn;
     private ProgressBar progressBar;
@@ -90,6 +91,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
                                         .load(task.getResult().toString())
                                         .placeholder(R.drawable.default_profile)
                                         .into(profileImage);
+                                        userMap.put("img",task.getResult().toString());
                             }
                         });
                         Toast.makeText(AccountSettingsActivity.this, "data  exist: ", Toast.LENGTH_LONG).show();
@@ -112,7 +114,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
 
                 if (!TextUtils.isEmpty(name)) {
                     progressBar.setVisibility(View.VISIBLE);
-                    final Map<String, String> userMap = new HashMap<>();
+
                     userMap.put("name", name);
                     //
                     firebaseFirestore.collection("Users").document(userId).set(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -127,7 +129,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
                             progressBar.setVisibility(View.INVISIBLE);
                         }
                     });
-                    //
+                    //think the app crash becuse we save img url before we even have an img
                     final StorageReference imagePath = storageReference.child("profile_images").child(userId + ".jpg");
                     if (imageUri != null)
                         imagePath.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {

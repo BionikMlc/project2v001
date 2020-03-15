@@ -5,19 +5,25 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Toolbar mainToolBar;
     private FloatingActionButton addPostBtn;
+    private FirebaseFirestore firebaseFirestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +54,30 @@ public class MainActivity extends AppCompatActivity {
         if(user == null)
         {
             sendToLogin();
-        }
+        }else
+            {
+                String userId = mAuth.getCurrentUser().getUid();
+                firebaseFirestore = FirebaseFirestore.getInstance();
+                firebaseFirestore.collection("Users").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task)
+                    {
+                        if(task.isSuccessful())
+                        {
+                            if(!task.getResult().exists())
+                            {
+                                startActivity(new Intent(MainActivity.this, AccountSettingsActivity.class));
+                                finish();
+                            }
+                        }
+                        else
+                            {
+                                Toast.makeText(MainActivity.this, "error: "+task.getException(), Toast.LENGTH_LONG).show();
+                            }
+                    }
+                });
+
+            }
 
     }
 
