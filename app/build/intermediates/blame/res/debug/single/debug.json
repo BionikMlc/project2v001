@@ -1,5 +1,13 @@
 [
     {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_baseline_home_black_24dp.png.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-v24\\baseline_home_black_24dp.png"
+    },
+    {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_baseline_exit_to_app_black_24dp.png.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-v24\\baseline_exit_to_app_black_24dp.png"
+    },
+    {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher_round.png.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_round.png"
     },
@@ -12,12 +20,12 @@
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\menu\\main_menu.xml"
     },
     {
-        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher.png.flat",
-        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
-    },
-    {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_add_book.png.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-xxhdpi\\add_book.png"
+    },
+    {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
     },
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_search.png.flat",
@@ -30,6 +38,14 @@
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_action_add.png.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-mdpi\\action_add.png"
+    },
+    {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_baseline_exit_to_app_white_24dp.png.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-v24\\baseline_exit_to_app_white_24dp.png"
+    },
+    {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_baseline_home_black_24dp.png.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-mdpi\\baseline_home_black_24dp.png"
     },
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_logo.png.flat",
@@ -52,16 +68,20 @@
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\ic_launcher_background.png"
     },
     {
-        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_ic_launcher_foreground.xml.flat",
-        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-v24\\ic_launcher_foreground.xml"
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_baseline_exit_to_app_black_24dp.png.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-mdpi\\baseline_exit_to_app_black_24dp.png"
+    },
+    {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
     },
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_ic_search.xml.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_search.xml"
     },
     {
-        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher.png.flat",
-        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-v24\\ic_launcher_foreground.xml"
     },
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_round.png.flat",
@@ -84,12 +104,20 @@
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\mipmap-xxxhdpi\\create_account.png"
     },
     {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\menu_bottom_nav_menu.xml.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\menu\\bottom_nav_menu.xml"
+    },
+    {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_logo.png.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\mipmap-xxhdpi\\logo.png"
     },
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_action_add.png.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\mipmap-xxxhdpi\\action_add.png"
+    },
+    {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_baseline_person_black_24dp.png.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-v24\\baseline_person_black_24dp.png"
     },
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
@@ -102,6 +130,10 @@
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_search.png.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-hdpi\\ic_search.png"
+    },
+    {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_baseline_exit_to_app_white_24dp.png.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-hdpi\\baseline_exit_to_app_white_24dp.png"
     },
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_default_profile.png.flat",
@@ -124,6 +156,10 @@
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_round.png"
     },
     {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_baseline_person_black_24dp.png.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-mdpi\\baseline_person_black_24dp.png"
+    },
+    {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_ic_launcher_background.xml.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_launcher_background.xml"
     },
@@ -144,12 +180,20 @@
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_round.png"
     },
     {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_baseline_settings_white_24dp.png.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-v24\\baseline_settings_white_24dp.png"
+    },
+    {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_register.xml.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\layout\\activity_register.xml"
     },
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_logo.png.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\mipmap-hdpi\\logo.png"
+    },
+    {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_baseline_settings_white_24dp.png.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-hdpi\\baseline_settings_white_24dp.png"
     },
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_launcher_background.png.flat",
@@ -188,6 +232,10 @@
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\mipmap-xxxhdpi\\logo.png"
     },
     {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_baseline_notifications_black_24dp.png.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-v24\\baseline_notifications_black_24dp.png"
+    },
+    {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_create_account.png.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\mipmap-xhdpi\\create_account.png"
     },
@@ -202,6 +250,10 @@
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_logo.png.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\mipmap-mdpi\\logo.png"
+    },
+    {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_baseline_notifications_black_24dp.png.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-hdpi\\baseline_notifications_black_24dp.png"
     },
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_main.xml.flat",

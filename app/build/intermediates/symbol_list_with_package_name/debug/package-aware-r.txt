@@ -1388,6 +1388,12 @@ drawable action_add
 drawable add_book
 drawable avd_hide_password
 drawable avd_show_password
+drawable baseline_exit_to_app_black_24dp
+drawable baseline_exit_to_app_white_24dp
+drawable baseline_home_black_24dp
+drawable baseline_notifications_black_24dp
+drawable baseline_person_black_24dp
+drawable baseline_settings_white_24dp
 drawable btn_checkbox_checked_mtrl
 drawable btn_checkbox_checked_to_unchecked_mtrl_animation
 drawable btn_checkbox_unchecked_mtrl
@@ -1652,6 +1658,7 @@ id login_email
 id login_logo
 id login_password
 id login_progress
+id mainBottomNav
 id main_toolbar
 id masked
 id media_actions
@@ -1964,6 +1971,7 @@ layout text_view_with_line_height_from_layout
 layout text_view_with_line_height_from_style
 layout text_view_with_theme_line_height
 layout text_view_without_line_height
+menu bottom_nav_menu
 menu crop_image_menu
 menu main_menu
 mipmap action_add
