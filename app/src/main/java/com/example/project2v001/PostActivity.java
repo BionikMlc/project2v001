@@ -94,40 +94,35 @@ public class PostActivity extends AppCompatActivity {
                 int checkedRadioId = postType.getCheckedRadioButtonId();
                 String userId = firebaseAuth.getCurrentUser().getUid();
                 //check that fields are not empty
-                if(!TextUtils.isEmpty(postDescription) && checkedRadioId != -1)
-                {
+                if (!TextUtils.isEmpty(postDescription) && checkedRadioId != -1) {
                     Map<String, Object> post = new HashMap<>();
-                    switch (checkedRadioId)
-                    {
+                    switch (checkedRadioId) {
                         case RADIO_BTN_ID_1:
-                            post.put("post_type","need");
+                            post.put("post_type", "need");
                             break;
                         case RADIO_BTN_ID_2:
-                            post.put("post_type","give away");
+                            post.put("post_type", "give away");
                             break;
                         case RADIO_BTN_ID_3:
-                            post.put("post_type","exchange");
+                            post.put("post_type", "exchange");
                             break;
                         default:
                             break;
                     }
-                    post.put("desc",postDescription);
-                    post.put("user_id",userId);
+                    post.put("desc", postDescription);
+                    post.put("user_id", userId);
                     post.put("timeStamp", FieldValue.serverTimestamp());
                     firebaseFirestore.collection("Posts").add(post).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
-                            if(task.isSuccessful())
-                            {
+                            if (task.isSuccessful()) {
                                 Toast.makeText(PostActivity.this, "post added: ", Toast.LENGTH_LONG).show();
                                 startActivity(new Intent(PostActivity.this, MainActivity.class));
                                 finish();
 
+                            } else {
+                                Toast.makeText(PostActivity.this, "error: " + task.getException(), Toast.LENGTH_LONG).show();
                             }
-                            else
-                                {
-                                    Toast.makeText(PostActivity.this, "error: "+task.getException(), Toast.LENGTH_LONG).show();
-                                }
                         }
                     });
                 }

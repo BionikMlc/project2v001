@@ -91,7 +91,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
                                         .load(task.getResult().toString())
                                         .placeholder(R.drawable.default_profile)
                                         .into(profileImage);
-                                        userMap.put("img",task.getResult().toString());
+                                userMap.put("img", task.getResult().toString());
                             }
                         });
                         Toast.makeText(AccountSettingsActivity.this, "data  exist: ", Toast.LENGTH_LONG).show();
@@ -129,7 +129,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
                             progressBar.setVisibility(View.INVISIBLE);
                         }
                     });
-                    //think the app crash becuse we save img url before we even have an img
+                    //think the app crash because we save img url before we even have an img
                     final StorageReference imagePath = storageReference.child("profile_images").child(userId + ".jpg");
                     if (imageUri != null)
                         imagePath.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {

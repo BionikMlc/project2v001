@@ -1561,6 +1561,9 @@ id barrier
 id beginning
 id blocking
 id bottom
+id bottom_action_account
+id bottom_action_home
+id bottom_action_notification
 id buttonPanel
 id cancel_action
 id cancel_button
@@ -1659,6 +1662,7 @@ id login_logo
 id login_password
 id login_progress
 id mainBottomNav
+id main_fragment_container
 id main_toolbar
 id masked
 id media_actions
@@ -1912,6 +1916,9 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout fragment_account
+layout fragment_home
+layout fragment_notification
 layout mtrl_alert_dialog
 layout mtrl_alert_dialog_actions
 layout mtrl_alert_dialog_title
@@ -2059,6 +2066,7 @@ string google_api_key
 string google_app_id
 string google_crash_reporting_api_key
 string google_storage_bucket
+string hello_blank_fragment
 string hide_bottom_view_on_scroll_behavior
 string icon_content_description
 string log_out
