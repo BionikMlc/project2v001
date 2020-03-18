@@ -52,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
         homeFragment = new HomeFragment();
         accountFragment = new AccountFragment();
         notificationFragment= new NotificationFragment();
+        mainBottomNav.setSelectedItemId(R.id.bottom_action_home);
+        changeFragment(homeFragment);
+
 
 
 

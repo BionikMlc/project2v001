@@ -111,7 +111,7 @@ public class PostActivity extends AppCompatActivity {
                     }
                     post.put("desc", postDescription);
                     post.put("user_id", userId);
-                    post.put("timeStamp", FieldValue.serverTimestamp());
+                    post.put("timestamp", FieldValue.serverTimestamp());
                     firebaseFirestore.collection("Posts").add(post).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {

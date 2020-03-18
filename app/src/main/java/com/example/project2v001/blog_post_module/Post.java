@@ -1,20 +1,22 @@
 package com.example.project2v001.blog_post_module;
 
-//import java.sql.Timestamp;
+
+import java.util.Date;
 
 public class Post {
     //private thump img_url
-    private     String user_id,desc;
+    private String user_id,desc;
     //private    URL img_url;
-    private     int postType;
-//    private     Timestamp  timestamp;
+    private int postType;
+    private Date timestamp;
     public Post(){}
-    public Post(String user_id, String desc, int postType) {
+    public Post(String user_id,String desc,Date timestamp,int postType) {
         this.user_id = user_id;
         this.desc = desc;
 //        this.img_url = img_url;
+//        this.name = name;
         this.postType = postType;
-//        this.timestamp = timestamp;
+        this.timestamp = timestamp;
     }
 
     public String getUser_id() {
@@ -49,13 +51,13 @@ public class Post {
         this.postType = postType;
     }
 
-//    public Timestamp getTimestamp() {
-//        return timestamp;
-//    }
-//
-//    public void setTimestamp(Timestamp timestamp) {
-//        this.timestamp = timestamp;
-//    }
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
 
 
 
