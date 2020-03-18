@@ -84,6 +84,10 @@
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-v24\\ic_launcher_foreground.xml"
     },
     {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_post_img_user_placeholder.png.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-xxhdpi\\post_img_user_placeholder.png"
+    },
+    {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_round.png.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_round.png"
     },
@@ -248,6 +252,10 @@
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\mipmap-xhdpi\\create_account.png"
     },
     {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_post_img_book_placeholder.png.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-hdpi\\post_img_book_placeholder.png"
+    },
+    {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher_round.png.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_round.png"
     },
@@ -256,8 +264,20 @@
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\layout\\activity_account_settings.xml"
     },
     {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_post_img_user_placeholder.png.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-hdpi\\post_img_user_placeholder.png"
+    },
+    {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_post_img_book_placeholder.png.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-xxhdpi\\post_img_book_placeholder.png"
+    },
+    {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_logo.png.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\mipmap-mdpi\\logo.png"
+    },
+    {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\layout_blog_post_item.xml.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\layout\\blog_post_item.xml"
     },
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_baseline_notifications_black_24dp.png.flat",

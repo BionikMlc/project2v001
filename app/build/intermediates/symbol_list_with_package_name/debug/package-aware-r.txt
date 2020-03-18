@@ -1469,6 +1469,8 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable post_img_book_placeholder
+drawable post_img_user_placeholder
 drawable test_custom_background
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -1567,6 +1569,7 @@ id bottom_action_notification
 id buttonPanel
 id cancel_action
 id cancel_button
+id cardView
 id center
 id centerCrop
 id centerInside
@@ -1718,12 +1721,14 @@ id password_toggle
 id peekHeight
 id percent
 id pin
+id post_date
 id post_desc
 id post_img
 id post_type_exhange
 id post_type_give_away
 id post_type_need
 id post_type_rg
+id posts_list_view
 id progressBar
 id progress_circular
 id progress_horizontal
@@ -1826,6 +1831,8 @@ id uniform
 id unlabeled
 id up
 id useLogo
+id user_img
+id user_name
 id view_offset_helper
 id visible
 id wide
@@ -1898,6 +1905,7 @@ layout activity_login
 layout activity_main
 layout activity_post
 layout activity_register
+layout blog_post_item
 layout crop_image_activity
 layout crop_image_view
 layout custom_dialog
