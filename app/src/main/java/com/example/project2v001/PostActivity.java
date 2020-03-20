@@ -87,6 +87,8 @@ public class PostActivity extends AppCompatActivity {
         //check if the fields are not empty before submitting to the database
 
 
+
+
         addPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

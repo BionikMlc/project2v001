@@ -1,5 +1,6 @@
 package com.example.project2v001.blog_post_module;
 
+import android.net.Uri;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,18 +11,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.project2v001.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.Date;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private List<Post> postList;
-
     public PostAdapter(List<Post> postList)
     {
         this.postList = postList;
@@ -54,6 +60,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
             }
         });
+        holder.setUserImg();
 
         long timeInMS = postList.get(position).getTimestamp().getTime();
         String time = DateFormat.format("yyyy-MM-dd HH:mm",new Date(timeInMS)).toString();
@@ -76,6 +83,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         private TextView postUserNameView;
         private TextView postDateView;
         private ImageView postImgView;
+        private CircleImageView userImgView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mView = itemView;
@@ -90,18 +98,22 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             postUserNameView = mView.findViewById(R.id.user_name);
             postUserNameView.setText(userName);
         }
-//        public void setPostImg(String img)
-//        {
-//            StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-//            postImgView = mView.findViewById(R.id.post_img);
-//            storageReference.child("profile_images").child(userId + ".jpg").getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-//                @Override
-//                public void onComplete(@NonNull Task<Uri> task) {
-//                    Glide.with()
-//                            .load(task.getResult().toString())
-//                            .placeholder(R.drawable.default_profile)
-//                            .into(profileImage);
-//}
+        public void setUserImg()
+        {
+            String user_id = FirebaseAuth.getInstance().getUid();
+            userImgView = mView.findViewById(R.id.user_img);
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+            storageReference.child("profile_images").child(user_id + ".jpg").getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    Glide.with(itemView)
+                            .load(task.getResult().toString())
+                            .placeholder(R.drawable.default_profile)
+                            .into(userImgView);
+                }
+            });
+
+        }
 
         public void setPostDate(String date)
         {

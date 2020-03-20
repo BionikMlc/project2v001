@@ -47,47 +47,47 @@ public class MainActivity extends AppCompatActivity {
         mainToolBar = findViewById(R.id.main_toolbar);
         setSupportActionBar(mainToolBar);
         getSupportActionBar().setTitle("AcademiaExchange");
-        addPostBtn = findViewById(R.id.add_post_float_btn);
-        mainBottomNav = findViewById(R.id.mainBottomNav);
-        homeFragment = new HomeFragment();
-        accountFragment = new AccountFragment();
-        notificationFragment= new NotificationFragment();
-        mainBottomNav.setSelectedItemId(R.id.bottom_action_home);
-        changeFragment(homeFragment);
+        if(mAuth.getCurrentUser() != null) {
+            addPostBtn = findViewById(R.id.add_post_float_btn);
+            mainBottomNav = findViewById(R.id.mainBottomNav);
+            homeFragment = new HomeFragment();
+            accountFragment = new AccountFragment();
+            notificationFragment = new NotificationFragment();
+            mainBottomNav.setSelectedItemId(R.id.bottom_action_home);
+            changeFragment(homeFragment);
 
 
-
-
-        /*****************************************************
-         *                  LISTENERS
-         ******************************************************/
-        addPostBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, PostActivity.class));
-            }
-        });
-        mainBottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                switch (item.getItemId()) {
-                    case R.id.bottom_action_home :
-                        changeFragment(homeFragment);
-                        return true;
-                    case R.id.bottom_action_notification:
-                        changeFragment(notificationFragment);
-                        return true;
-                    case R.id.bottom_action_account:
-                        changeFragment(accountFragment);
-                        return true;
-                    default:
-                        changeFragment(homeFragment);
-                        return false;
+            /*****************************************************
+             *                  LISTENERS
+             ******************************************************/
+            addPostBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(MainActivity.this, PostActivity.class));
                 }
-            }
-        });
-        //end listeners
+            });
+            mainBottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                    switch (item.getItemId()) {
+                        case R.id.bottom_action_home:
+                            changeFragment(homeFragment);
+                            return true;
+                        case R.id.bottom_action_notification:
+                            changeFragment(notificationFragment);
+                            return true;
+                        case R.id.bottom_action_account:
+                            changeFragment(accountFragment);
+                            return true;
+                        default:
+                            changeFragment(homeFragment);
+                            return false;
+                    }
+                }
+            });
+            //end listeners
+        }
     }
 
     @Override

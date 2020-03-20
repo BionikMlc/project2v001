@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.project2v001.R;
 import com.example.project2v001.blog_post_module.Post;
 import com.example.project2v001.blog_post_module.PostAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -29,6 +30,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
     private RecyclerView postListView;
     private List<Post> postsList;
+    private FirebaseAuth auth;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -38,7 +40,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
+        auth = FirebaseAuth.getInstance();
         postListView = view.findViewById(R.id.posts_list_view);
         postsList = new ArrayList<>();
         final PostAdapter postAdapter = new PostAdapter(postsList);
