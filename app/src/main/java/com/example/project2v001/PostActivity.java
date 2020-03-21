@@ -1,8 +1,13 @@
 package com.example.project2v001;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +19,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +31,9 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,7 +53,7 @@ public class PostActivity extends AppCompatActivity {
     private ImageView postImg;
     private Button addPostBtn;
     private EditText postDesc;
-
+    private Uri imguri = null;
     private RadioGroup postType;
 
     private RadioButton need;
@@ -86,18 +97,35 @@ public class PostActivity extends AppCompatActivity {
         //obtain post data when add post button is clicked
         //check if the fields are not empty before submitting to the database
 
-
+        postImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //check device version to apply the right permissions
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ContextCompat.checkSelfPermission(PostActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
+                            ContextCompat.checkSelfPermission(PostActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(PostActivity.this, "permission denied: Not Enough Permissions!", Toast.LENGTH_LONG).show();
+                        ActivityCompat.requestPermissions(PostActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                    } else {
+                        CropImage
+                                .activity().setGuidelines(CropImageView.Guidelines.ON)
+                                .setAspectRatio(1, 1)
+                                .start(PostActivity.this);
+                    }
+                }
+            }
+        });
 
 
         addPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String postDescription = postDesc.getText().toString();
+                final String postDescription = postDesc.getText().toString();
                 int checkedRadioId = postType.getCheckedRadioButtonId();
-                String userId = firebaseAuth.getCurrentUser().getUid();
+                final String userId = firebaseAuth.getCurrentUser().getUid();
                 //check that fields are not empty
-                if (!TextUtils.isEmpty(postDescription) && checkedRadioId != -1) {
-                    Map<String, Object> post = new HashMap<>();
+                if (!TextUtils.isEmpty(postDescription) && checkedRadioId != -1 && imguri != null) {
+                    final Map<String, Object> post = new HashMap<>();
                     switch (checkedRadioId) {
                         case RADIO_BTN_ID_1:
                             post.put("post_type", "need");
@@ -111,27 +139,62 @@ public class PostActivity extends AppCompatActivity {
                         default:
                             break;
                     }
-                    post.put("desc", postDescription);
-                    post.put("user_id", userId);
-                    post.put("timestamp", FieldValue.serverTimestamp());
-                    firebaseFirestore.collection("Posts").add(post).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+
+                    final StorageReference imagePath = storageReference.child("posts_images").child(userId + ".jpg");
+                    UploadTask uploadTask = imagePath.putFile(imguri);
+                    Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                         @Override
-                        public void onComplete(@NonNull Task<DocumentReference> task) {
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if (!task.isSuccessful()) {
+                                throw task.getException();
+                            }
+                            return imagePath.getDownloadUrl();
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        private static final String TAG = "Tag";
+
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(PostActivity.this, "post added: ", Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(PostActivity.this, MainActivity.class));
-                                finish();
+                                Log.d(TAG, "onComplete: sss" + task.getResult());
+                                post.put("img", task.getResult().toString());
+                                post.put("desc", postDescription);
+                                post.put("user_id", userId);
+                                post.put("timestamp", FieldValue.serverTimestamp());
+                                firebaseFirestore.collection("Posts").add(post).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                                        Toast.makeText(PostActivity.this, "post added: ", Toast.LENGTH_LONG).show();
+                                        startActivity(new Intent(PostActivity.this, MainActivity.class));
+                                        finish();
+                                    }
+                                });
 
                             } else {
-                                Toast.makeText(PostActivity.this, "error: " + task.getException(), Toast.LENGTH_LONG).show();
+                                Log.d(TAG, "onComplete: " + task.getException());
                             }
                         }
                     });
-                }
 
+
+
+                }
             }
         });
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                imguri = result.getUri();
+                postImg.setImageURI(imguri);
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
+        }
+    }
 
 }

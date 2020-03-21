@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,11 +21,13 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -37,7 +40,10 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 //todo
 // break stuff into smaller functions and class for more code readability. [ ]
-// add a contact number so students can contact each other if req approved.
+// add a contact number so students can contact each other if req approved. [ ]
+// has been changed state [ ]
+// add comments [ ]
+
 
 public class AccountSettingsActivity extends AppCompatActivity {
 
@@ -84,16 +90,10 @@ public class AccountSettingsActivity extends AppCompatActivity {
                         String name = task.getResult().getString("name");
                         progressBar.setVisibility(View.VISIBLE);
                         nameText.setText(name);
-                        storageReference.child("profile_images").child(userId + ".jpg").getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Uri> task) {
-                                Glide.with(AccountSettingsActivity.this)
-                                        .load(task.getResult().toString())
-                                        .placeholder(R.drawable.default_profile)
-                                        .into(profileImage);
-                                userMap.put("img", task.getResult().toString());
-                            }
-                        });
+                        Glide.with(AccountSettingsActivity.this)
+                                .load(task.getResult().get("img"))
+                                .placeholder(R.drawable.default_profile)
+                                .into(profileImage);
                         Toast.makeText(AccountSettingsActivity.this, "data  exist: ", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(AccountSettingsActivity.this, "data doesn't exist: ", Toast.LENGTH_LONG).show();
@@ -106,6 +106,9 @@ public class AccountSettingsActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.INVISIBLE);
             }
         });
+
+
+
         //saving the data to the database when the user taps the save button
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,9 +118,39 @@ public class AccountSettingsActivity extends AppCompatActivity {
                 if (!TextUtils.isEmpty(name)) {
                     progressBar.setVisibility(View.VISIBLE);
 
+                    if (imageUri != null)
+                    {
+                        final StorageReference imagePath = storageReference.child("profile_images").child(userId + ".jpg");
+                        UploadTask uploadTask =   imagePath.putFile(imageUri);
+                        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                            @Override
+                            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                                if (!task.isSuccessful())
+                                {
+                                    throw task.getException();
+                                }
+                                return imagePath.getDownloadUrl();
+                            }
+                        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task) {
+                                if(task.isSuccessful())
+                                {
+                                    Log.d(TAG, "onComplete: sss" + task.getResult());
+                                    HashMap <String,String> imgMap = new HashMap<>();
+                                    imgMap.put("img",task.getResult().toString());
+                                    firebaseFirestore.collection("Users").document(userId).set(imgMap, SetOptions.merge());
+                                }
+                                else
+                                    {
+                                        Log.d(TAG, "onComplete: "+task.getException());
+                                    }
+                            }
+                        });
+                    }
+
                     userMap.put("name", name);
-                    //
-                    firebaseFirestore.collection("Users").document(userId).set(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    firebaseFirestore.collection("Users").document(userId).set(userMap,SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
@@ -129,24 +162,8 @@ public class AccountSettingsActivity extends AppCompatActivity {
                             progressBar.setVisibility(View.INVISIBLE);
                         }
                     });
-                    //think the app crash because we save img url before we even have an img
-                    final StorageReference imagePath = storageReference.child("profile_images").child(userId + ".jpg");
-                    if (imageUri != null)
-                        imagePath.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(AccountSettingsActivity.this, "image uploaded", Toast.LENGTH_LONG).show();
-
-                                } else {
-                                    String error = task.getException().getMessage();
-                                    Toast.makeText(AccountSettingsActivity.this, "Error: " + error, Toast.LENGTH_LONG).show();
-                                    progressBar.setVisibility(View.INVISIBLE);
-                                }
 
 
-                            }
-                        });
                     startActivity(new Intent(AccountSettingsActivity.this, MainActivity.class));
                     finish();
                 }

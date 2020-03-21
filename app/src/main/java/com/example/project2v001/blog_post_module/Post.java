@@ -5,16 +5,14 @@ import java.util.Date;
 
 public class Post {
     //private thump img_url
-    private String user_id,desc;
-    //private    URL img_url;
+    private String user_id,desc,img;
     private int postType;
     private Date timestamp;
-    public Post(){}
-    public Post(String user_id,String desc,Date timestamp,int postType) {
+    public Post() {} // essential for firebase to function properly.
+    public Post(String user_id, String desc, Date timestamp, int postType, String img) {
         this.user_id = user_id;
         this.desc = desc;
-//        this.img_url = img_url;
-//        this.name = name;
+        this.img = img;
         this.postType = postType;
         this.timestamp = timestamp;
     }
@@ -35,13 +33,13 @@ public class Post {
         this.desc = desc;
     }
 
-//    public URL getImg_url() {
-//        return img_url;
-//    }
-//
-//    public void setImg_url(URL img_url) {
-//        this.img_url = img_url;
-//    }
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
 
     public int getPostType() {
         return postType;
@@ -58,7 +56,5 @@ public class Post {
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
-
-
 
 }

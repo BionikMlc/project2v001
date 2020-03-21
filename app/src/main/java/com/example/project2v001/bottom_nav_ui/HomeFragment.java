@@ -1,6 +1,7 @@
 package com.example.project2v001.bottom_nav_ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,14 +32,14 @@ public class HomeFragment extends Fragment {
     private RecyclerView postListView;
     private List<Post> postsList;
     private FirebaseAuth auth;
+
     public HomeFragment() {
         // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         auth = FirebaseAuth.getInstance();
         postListView = view.findViewById(R.id.posts_list_view);
@@ -46,23 +47,31 @@ public class HomeFragment extends Fragment {
         final PostAdapter postAdapter = new PostAdapter(postsList);
         postListView.setLayoutManager(new LinearLayoutManager(getActivity()));
         postListView.setAdapter(postAdapter);
+        if (auth.getCurrentUser() != null) {
+            FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+            firebaseFirestore.collection("Posts").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                private static final String TAG = "query change event";
 
-        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseFirestore.collection("Posts").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                for(DocumentChange doc: queryDocumentSnapshots.getDocumentChanges())
-                {
-                    if(doc.getType() == DocumentChange.Type.ADDED)
-                    {
-                        Post postItem= doc.getDocument().toObject(Post.class);
-                        postsList.add(postItem);
-                        postAdapter.notifyDataSetChanged();
+                @Override
+                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                    if (e == null) {
+                        for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
+                            if (doc.getType() == DocumentChange.Type.ADDED) {
+                                Post postItem = doc.getDocument().toObject(Post.class);
+                                Log.d(TAG, "onEvent: " + postItem);
+                                postsList.add(postItem);
+                                postAdapter.notifyDataSetChanged();
+                            }
+                        }
+                    } else {
+                        Log.d(TAG, "post query change exception: " + e.getMessage());
+
+
                     }
 
                 }
-            }
-        });
+            });
+        }
 
         // Inflate the layout for this fragment
         return view;
