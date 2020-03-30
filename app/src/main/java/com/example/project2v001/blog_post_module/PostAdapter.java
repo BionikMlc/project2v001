@@ -61,7 +61,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         });
 
         long timeInMS = postList.get(position).getTimestamp().getTime();
-        String time = DateFormat.format("yyyy-MM-dd HH:mm", new Date(timeInMS)).toString();
+        String time = DateFormat.format("yyyy/MM/dd HH:mm", new Date(timeInMS)).toString();
         holder.setPostDate(time);
         String postImg = postList.get(position).getImg();
         holder.setPostImg(postImg);
