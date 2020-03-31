@@ -1,13 +1,11 @@
 package com.example.project2v001.bottom_nav_ui;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,6 +37,7 @@ public class HomeFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore;
     private PostAdapter postAdapter;
     private DocumentSnapshot lastVisible;
+    private boolean isFirstDataLoad = true;
 
     public HomeFragment() {
     } // requires empty constructor
@@ -68,26 +67,49 @@ public class HomeFragment extends Fragment {
                 }
             });
 
-            Query firstQuery = firebaseFirestore.collection("Posts").orderBy("timestamp", Query.Direction.DESCENDING).startAfter().limit(6);
-            firstQuery.addSnapshotListener(getActivity(),new EventListener<QuerySnapshot>() {
+            Query firstQuery = firebaseFirestore.collection("Posts").orderBy("timestamp", Query.Direction.DESCENDING).limit(2);
+            firstQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
-                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                    if (e == null && !queryDocumentSnapshots.isEmpty()) {
-                        lastVisible = queryDocumentSnapshots.getDocuments().get(queryDocumentSnapshots.size() - 1);
-                        for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
+                public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+
+                    if (!documentSnapshots.isEmpty()) {
+
+                        if (isFirstDataLoad) {
+
+                            lastVisible = documentSnapshots.getDocuments().get(documentSnapshots.size() - 1);
+                            postsList.clear();
+
+                        }
+
+                        for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
+
                             if (doc.getType() == DocumentChange.Type.ADDED) {
-                                Post postItem = doc.getDocument().toObject(Post.class);
-                                postsList.add(postItem);
+
+                                String blogPostId = doc.getDocument().getId();
+                                Post blogPost = doc.getDocument().toObject(Post.class).withId(blogPostId);
+
+                                if (isFirstDataLoad) {
+
+                                    postsList.add(blogPost);
+
+                                } else {
+
+                                    postsList.add(0, blogPost);
+
+                                }
+
+
                                 postAdapter.notifyDataSetChanged();
+
                             }
                         }
-                    } else {
-                        Log.d(TAG, "post query change exception: " + e.getMessage());
 
+                        isFirstDataLoad = false;
 
                     }
 
                 }
+
             });
         }
 
@@ -97,28 +119,34 @@ public class HomeFragment extends Fragment {
 
     private void loadPosts() {
         if (auth.getCurrentUser() != null) {
+            Query nextQuery = firebaseFirestore.collection("Posts")
+                    .orderBy("timestamp", Query.Direction.DESCENDING)
+                    .startAfter(lastVisible)
+                    .limit(2);
 
-            Query firstQuery = firebaseFirestore.collection("Posts").orderBy("timestamp", Query.Direction.DESCENDING).startAfter(lastVisible).limit(6);
-            firstQuery.addSnapshotListener(getActivity(),new EventListener<QuerySnapshot>() {
+            nextQuery.addSnapshotListener(getActivity(), new EventListener<QuerySnapshot>() {
                 @Override
-                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                    if (e == null && !queryDocumentSnapshots.isEmpty()) {
-                        if (!queryDocumentSnapshots.isEmpty()) {
-                            lastVisible = queryDocumentSnapshots.getDocuments().get(queryDocumentSnapshots.size() - 1);
-                            for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
-                                if (doc.getType() == DocumentChange.Type.ADDED) {
-                                    Post postItem = doc.getDocument().toObject(Post.class);
-                                    postsList.add(postItem);
-                                    postAdapter.notifyDataSetChanged();
-                                }
+                public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+
+                    if (!documentSnapshots.isEmpty()) {
+                        lastVisible = documentSnapshots.getDocuments().get(documentSnapshots.size() - 1);
+                        for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
+
+                            if (doc.getType() == DocumentChange.Type.ADDED) {
+
+                                String blogPostId = doc.getDocument().getId();
+                                Post blogPost = doc.getDocument().toObject(Post.class).withId(blogPostId);
+                                postsList.add(blogPost);
+
+                                postAdapter.notifyDataSetChanged();
                             }
-                        } else {
-                            Log.d(TAG, "post query change exception: " + e.getMessage());
+
                         }
                     }
 
                 }
             });
+
         }
     }
 }

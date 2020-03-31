@@ -15,11 +15,15 @@ import com.bumptech.glide.Glide;
 import com.example.project2v001.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -45,13 +49,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     //onBindViewHolder : inflates the layout with layout of single item that we created.
     @Override
-    public void onBindViewHolder(@NonNull final PostAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final PostAdapter.ViewHolder holder, final int position) {
 
         String descText = postList.get(position).getDesc();
         holder.setPostDesc(descText);
 
         //gets user name and sets it to the user name textView
-        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        final FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseFirestore.collection("Users").document(postList.get(position).getUser_id()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -63,8 +67,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         long timeInMS = postList.get(position).getTimestamp().getTime();
         String time = DateFormat.format("yyyy/MM/dd HH:mm", new Date(timeInMS)).toString();
         holder.setPostDate(time);
+
         String postImg = postList.get(position).getImg();
         holder.setPostImg(postImg);
+
+        holder.request.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String user_id = FirebaseAuth.getInstance().getUid();
+                String postId = postList.get(position).postId;
+                Map<String,Object> timestamp = new HashMap<>();
+                timestamp.put("timestamp", FieldValue.serverTimestamp());
+                firebaseFirestore.collection("Posts/"+postId+"/Requests").document(user_id).set(timestamp);
+            }
+        });
     }
 
     //getItemCount : gets the size of data we retrieved.
@@ -84,10 +100,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         private TextView postDateView;
         private ImageView postImgView;
         private CircleImageView userImgView;
+        private TextView request;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mView = itemView;
+            request =  mView.findViewById(R.id.post_request);
         }
 
         public void setPostDesc(String descText) {
@@ -101,7 +119,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         }
 
         public void setUserImg(String imgUri) {
-//            String user_id = FirebaseAuth.getInstance().getUid();
+
             userImgView = mView.findViewById(R.id.user_img);
             Glide.with(context)
                     .load(imgUri)

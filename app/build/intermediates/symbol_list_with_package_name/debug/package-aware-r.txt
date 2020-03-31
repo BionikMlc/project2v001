@@ -1724,6 +1724,7 @@ id pin
 id post_date
 id post_desc
 id post_img
+id post_request
 id post_type_exhange
 id post_type_give_away
 id post_type_need
@@ -1809,6 +1810,7 @@ id textSpacerNoTitle
 id textStart
 id textView
 id textView2
+id textView4
 id text_input_end_icon
 id text_input_start_icon
 id textinput_counter

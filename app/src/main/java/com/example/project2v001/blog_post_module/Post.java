@@ -3,7 +3,7 @@ package com.example.project2v001.blog_post_module;
 
 import java.util.Date;
 
-public class Post {
+public class Post extends PostId {
     //private thump img_url
     private String user_id,desc,img;
     private int postType;
