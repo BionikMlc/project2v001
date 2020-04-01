@@ -89,25 +89,17 @@ public class HomeFragment extends Fragment {
                                     Post post = doc.getDocument().toObject(Post.class).withId(postId);
 
                                     if (isFirstDataLoad) {
-
                                         postsList.add(post);
-
                                     } else {
-
                                         postsList.add(0, post);
-
                                     }
-
-
                                     postAdapter.notifyDataSetChanged();
-
                                 }
                             }
 
                             isFirstDataLoad = false;
 
                         }
-
                     }
                 }
 
@@ -118,6 +110,7 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+    ///////////////////////////////////////////////////////
     private void loadPosts() {
         if (auth.getCurrentUser() != null) {
             Query nextQuery = firebaseFirestore.collection("Posts")
@@ -145,10 +138,10 @@ public class HomeFragment extends Fragment {
 
                             }
                         }
-
                     }
                 }
                 });
         }
+        /////////////////////////////
     }
 }

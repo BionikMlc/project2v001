@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -17,8 +18,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -51,6 +54,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final PostAdapter.ViewHolder holder, final int position) {
 
+        holder.setIsRecyclable(false);
+
         String descText = postList.get(position).getDesc();
         holder.setPostDesc(descText);
 
@@ -71,14 +76,51 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         String postImg = postList.get(position).getImg();
         holder.setPostImg(postImg);
 
+        //Request Feature
+        final String user_id = FirebaseAuth.getInstance().getUid();
+        final String postId = postList.get(position).postId;
+
+        firebaseFirestore.collection("Posts/"+postId+"/Requests").document(user_id).addSnapshotListener( new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                if(!documentSnapshot.exists())
+                {
+                    holder.request.setText("Request");
+                    holder.request.setTextColor(holder.request.getResources().getColor(R.color.common_google_signin_btn_text_light_default));
+                } else {
+                    holder.request.setText("Requested");
+                    holder.request.setTextColor(holder.request.getResources().getColor(R.color.colorAccent));
+                }
+            }
+        });
+
         holder.request.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String user_id = FirebaseAuth.getInstance().getUid();
-                String postId = postList.get(position).postId;
-                Map<String,Object> timestamp = new HashMap<>();
-                timestamp.put("timestamp", FieldValue.serverTimestamp());
-                firebaseFirestore.collection("Posts/"+postId+"/Requests").document(user_id).set(timestamp);
+                final String user_id = FirebaseAuth.getInstance().getUid();
+                final String postId = postList.get(position).postId;
+
+
+                firebaseFirestore.collection("Posts/"+postId+"/Requests").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        Map<String,Object> timestamp = new HashMap<>();
+                        timestamp.put("timestamp", FieldValue.serverTimestamp());
+
+                        if(task.getResult().exists())
+                        {
+                            firebaseFirestore.collection("Posts/"+postId+"/Requests").document(user_id).delete();
+
+                        } else {
+                            firebaseFirestore.collection("Posts/"+postId+"/Requests").document(user_id).set(timestamp);
+
+                        }
+
+                    }
+                });
+
+
+
             }
         });
     }
