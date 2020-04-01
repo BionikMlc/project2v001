@@ -83,14 +83,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         firebaseFirestore.collection("Posts/"+postId+"/Requests").document(user_id).addSnapshotListener( new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                if(!documentSnapshot.exists())
-                {
-                    holder.request.setText("Request");
-                    holder.request.setTextColor(holder.request.getResources().getColor(R.color.common_google_signin_btn_text_light_default));
-                } else {
-                    holder.request.setText("Requested");
-                    holder.request.setTextColor(holder.request.getResources().getColor(R.color.colorAccent));
-                }
+                if(e == null){
+                    if(!documentSnapshot.exists())
+                    {
+                        holder.request.setText("Request");
+                        holder.request.setTextColor(holder.request.getResources().getColor(R.color.common_google_signin_btn_text_light_default));
+                    } else {
+                        holder.request.setText("Requested");
+                        holder.request.setTextColor(holder.request.getResources().getColor(R.color.colorAccent));
+                    }
+                } else
+                    {
+                        //handle errors
+                    }
             }
         });
 
