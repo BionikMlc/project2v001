@@ -125,7 +125,7 @@ public class HomeFragment extends Fragment {
                     .startAfter(lastVisible)
                     .limit(8);
 
-            nextQuery.addSnapshotListener(getActivity(), new EventListener<QuerySnapshot>() {
+            nextQuery.addSnapshotListener( new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
                     if (e == null) {
