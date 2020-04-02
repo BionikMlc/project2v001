@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
             changeFragment(homeFragment);
 
 
+
+
             /*****************************************************
              *                  LISTENERS
              ******************************************************/

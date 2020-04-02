@@ -1520,11 +1520,15 @@ id accessibility_custom_action_6
 id accessibility_custom_action_7
 id accessibility_custom_action_8
 id accessibility_custom_action_9
+id account_my_post_tab
+id account_sent_requests
 id account_settings
 id account_settings_button
 id account_settings_circle_profile_img
 id account_settings_name
 id account_settings_progressBar
+id account_tab_layout
+id account_view_pager
 id action0
 id action_bar
 id action_bar_activity_content
@@ -1928,7 +1932,9 @@ layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout fragment_account
 layout fragment_home
+layout fragment_my_posts
 layout fragment_notification
+layout fragment_sent_requests
 layout mtrl_alert_dialog
 layout mtrl_alert_dialog_actions
 layout mtrl_alert_dialog_title

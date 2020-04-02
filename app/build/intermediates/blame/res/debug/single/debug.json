@@ -160,6 +160,10 @@
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-hdpi\\add_book.png"
     },
     {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_my_posts.xml.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\layout\\fragment_my_posts.xml"
+    },
+    {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher_round.png.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_round.png"
     },
@@ -218,6 +222,10 @@
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_action_add.png.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-xhdpi\\action_add.png"
+    },
+    {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_sent_requests.xml.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\layout\\fragment_sent_requests.xml"
     },
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher.png.flat",
