@@ -1,4 +1,4 @@
-package com.example.project2v001.blog_post_module;
+package com.example.project2v001.post_module;
 
 import com.google.firebase.database.annotations.NotNull;
 import com.google.firebase.firestore.Exclude;

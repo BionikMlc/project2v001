@@ -1,4 +1,4 @@
-package com.example.project2v001.blog_post_module;
+package com.example.project2v001.post_module;
 
 
 import java.util.Date;
