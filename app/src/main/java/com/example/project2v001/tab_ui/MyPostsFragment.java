@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -12,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project2v001.R;
 import com.example.project2v001.post_module.Post;
-import com.example.project2v001.post_module.PostAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -34,10 +34,10 @@ public class MyPostsFragment extends Fragment {
   private List<Post> postsList;
   private FirebaseAuth auth;
   private FirebaseFirestore firebaseFirestore;
-  private PostAdapter postAdapter;
+  private MyPostAdapter myPostAdapter;
   private DocumentSnapshot lastVisible;
+  private TextView sendReq;
   private boolean isFirstDataLoad = true;
-//Query query = citiesRef.whereEqualTo("state", "CA");
 
   public MyPostsFragment() {
     // Required empty public constructor
@@ -50,14 +50,14 @@ public class MyPostsFragment extends Fragment {
     View view = inflater.inflate(R.layout.fragment_my_posts, container, false);
     auth = FirebaseAuth.getInstance();
     postListView = view.findViewById(R.id.my_posts_list_view);
+
     postsList = new ArrayList<>();
-    postAdapter = new PostAdapter(postsList);
+    myPostAdapter = new MyPostAdapter(postsList);
     postListView.setLayoutManager(new LinearLayoutManager(getActivity()));
-    postListView.setAdapter(postAdapter);
+    postListView.setAdapter(myPostAdapter);
     firebaseFirestore = FirebaseFirestore.getInstance();
 
     if (auth.getCurrentUser() != null) {
-
       postListView.addOnScrollListener(new RecyclerView.OnScrollListener() {
         @Override
         public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -96,7 +96,7 @@ public class MyPostsFragment extends Fragment {
                   } else {
                     postsList.add(0, post);
                   }
-                  postAdapter.notifyDataSetChanged();
+                  myPostAdapter.notifyDataSetChanged();
                 }
               }
 
@@ -128,7 +128,7 @@ public class MyPostsFragment extends Fragment {
           if (e == null) {
             if (!documentSnapshots.isEmpty()) {
               lastVisible = documentSnapshots.getDocuments().get(documentSnapshots.size() - 1);
-              //                        postsList.clear();
+//              postsList.clear();
               for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
 
                 if (doc.getType() == DocumentChange.Type.ADDED) {
@@ -137,7 +137,7 @@ public class MyPostsFragment extends Fragment {
                   Post blogPost = doc.getDocument().toObject(Post.class).withId(blogPostId);
                   postsList.add(blogPost);
 
-                  postAdapter.notifyDataSetChanged();
+                  myPostAdapter.notifyDataSetChanged();
                 }
 
               }

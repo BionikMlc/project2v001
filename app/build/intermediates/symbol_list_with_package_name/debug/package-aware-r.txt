@@ -1471,6 +1471,7 @@ drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable post_img_book_placeholder
 drawable post_img_user_placeholder
+drawable rectangle_1
 drawable test_custom_background
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -1572,6 +1573,7 @@ id bottom_action_home
 id bottom_action_notification
 id buttonPanel
 id cancel_action
+id cancel_botton
 id cancel_button
 id cardView
 id center
@@ -1818,6 +1820,7 @@ id textView2
 id textView4
 id text_input_end_icon
 id text_input_start_icon
+id text_sent_to
 id textinput_counter
 id textinput_error
 id textinput_helper_text
@@ -1912,7 +1915,6 @@ layout activity_login
 layout activity_main
 layout activity_post
 layout activity_register
-layout blog_post_item
 layout crop_image_activity
 layout crop_image_view
 layout custom_dialog
@@ -1964,6 +1966,7 @@ layout mtrl_picker_header_title_text
 layout mtrl_picker_header_toggle
 layout mtrl_picker_text_input_date
 layout mtrl_picker_text_input_date_range
+layout my_post_item
 layout notification_action
 layout notification_action_tombstone
 layout notification_media_action
@@ -1979,6 +1982,8 @@ layout notification_template_media
 layout notification_template_media_custom
 layout notification_template_part_chronometer
 layout notification_template_part_time
+layout post_item
+layout request_item
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
@@ -1999,6 +2004,7 @@ menu bottom_nav_menu
 menu crop_image_menu
 menu main_menu
 mipmap action_add
+mipmap cancel_ic
 mipmap create_account
 mipmap default_profile
 mipmap ic_launcher

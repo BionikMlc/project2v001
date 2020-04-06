@@ -80,7 +80,6 @@ public class HomeFragment extends Fragment {
                                 lastVisible = documentSnapshots.getDocuments().get(documentSnapshots.size() - 1);
                                 postsList.clear();
                             }
-
                             for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
 
                                 if (doc.getType() == DocumentChange.Type.ADDED) {

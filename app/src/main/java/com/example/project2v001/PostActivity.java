@@ -35,7 +35,9 @@ import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 //todo
@@ -55,6 +57,7 @@ public class PostActivity extends AppCompatActivity {
     private EditText postDesc;
     private Uri imguri = null;
     private RadioGroup postType;
+    private List<String> requests;
 
     private RadioButton need;
     private RadioButton giveAway;
@@ -84,7 +87,8 @@ public class PostActivity extends AppCompatActivity {
         postImg = findViewById(R.id.post_img);
         postDesc = findViewById(R.id.post_desc);
         addPostBtn = findViewById(R.id.add_new_post);
-
+        requests = new ArrayList<>();
+//        requests.add("");
         postType = findViewById(R.id.post_type_rg);
         need = findViewById(R.id.post_type_need);
         giveAway = findViewById(R.id.post_type_give_away);
@@ -140,7 +144,7 @@ public class PostActivity extends AppCompatActivity {
                             break;
                     }
 
-                    final StorageReference imagePath = storageReference.child("posts_images").child(userId + ".jpg");
+                    final StorageReference imagePath = storageReference.child("posts_images").child(userId +System.currentTimeMillis()+ ".jpg");
                     UploadTask uploadTask = imagePath.putFile(imguri);
                     Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                         @Override
@@ -161,6 +165,7 @@ public class PostActivity extends AppCompatActivity {
                                 post.put("desc", postDescription);
                                 post.put("user_id", userId);
                                 post.put("timestamp", FieldValue.serverTimestamp());
+//                                post.put("requests",requests);
                                 firebaseFirestore.collection("Posts").add(post).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                     @Override
                                     public void onComplete(@NonNull Task<DocumentReference> task) {

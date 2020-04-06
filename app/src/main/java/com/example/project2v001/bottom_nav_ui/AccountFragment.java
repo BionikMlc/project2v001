@@ -13,7 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.project2v001.R;
 import com.example.project2v001.tab_ui.MyPostsFragment;
-import com.example.project2v001.tab_ui.SentRequestsFragment;
+//import com.example.project2v001.tab_ui.SentRequestsFragment;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -41,14 +41,14 @@ public class AccountFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
         myPostsFragment = new MyPostsFragment();
-        sentRequestsFragment = new SentRequestsFragment();
+//        sentRequestsFragment = new SentRequestsFragment();
         viewPager = view.findViewById(R.id.account_view_pager);
         accountTabLayout = view.findViewById(R.id.account_tab_layout);
 
         accountTabLayout.setupWithViewPager(viewPager);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(),0);
         viewPagerAdapter.addFragment(myPostsFragment,"My Posts");
-        viewPagerAdapter.addFragment(sentRequestsFragment,"Sent Requests");
+//        viewPagerAdapter.addFragment(sentRequestsFragment,"Sent Requests");
         viewPager.setAdapter(viewPagerAdapter);
 
         // Inflate the layout for this fragment

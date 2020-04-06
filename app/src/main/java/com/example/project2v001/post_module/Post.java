@@ -8,6 +8,7 @@ public class Post extends PostId {
     private String user_id,desc,img;
     private int postType;
     private Date timestamp;
+//    private List<String> requests;
     public Post() {} // essential for firebase to function properly.
     public Post(String user_id, String desc, Date timestamp, int postType, String img) {
         this.user_id = user_id;
@@ -15,6 +16,9 @@ public class Post extends PostId {
         this.img = img;
         this.postType = postType;
         this.timestamp = timestamp;
+//        this.requests = new ArrayList<>();
+//        this.requests.add(requests);
+
     }
 
     public String getUser_id() {
@@ -56,5 +60,11 @@ public class Post extends PostId {
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
-
+//    public void setRequests(String requests) {
+//        this.requests.add(requests);
+//    }
+//
+//    public List<String> getRequests() {
+//        return requests;
+//    }
 }
