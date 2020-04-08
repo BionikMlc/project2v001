@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project2v001.R;
 import com.example.project2v001.post_module.Post;
-import com.example.project2v001.post_module.PostAdapter;
+import com.example.project2v001.post_module.adapters.PostAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;

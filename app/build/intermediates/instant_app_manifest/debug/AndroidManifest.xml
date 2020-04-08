@@ -27,6 +27,7 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
+        <activity android:name="com.example.project2v001.BookSelectionActivity" />
         <activity
             android:name="com.example.project2v001.PostActivity"
             android:parentActivityName="com.example.project2v001.MainActivity" />

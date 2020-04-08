@@ -1756,6 +1756,8 @@ id right_side
 id rounded
 id save_non_transition_alpha
 id save_overlay_view
+id saved_post_unsave
+id saved_posts_list_view
 id scale
 id screen
 id scroll
@@ -1818,7 +1820,6 @@ id textSpacerNoTitle
 id textStart
 id textView
 id textView2
-id textView4
 id text_input_end_icon
 id text_input_start_icon
 id text_sent_to
@@ -1912,6 +1913,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_account_settings
+layout activity_book_selection
 layout activity_login
 layout activity_main
 layout activity_post
@@ -1938,6 +1940,7 @@ layout fragment_account
 layout fragment_home
 layout fragment_my_posts
 layout fragment_notification
+layout fragment_saved
 layout fragment_sent_requests
 layout mtrl_alert_dialog
 layout mtrl_alert_dialog_actions
@@ -1985,6 +1988,7 @@ layout notification_template_part_chronometer
 layout notification_template_part_time
 layout post_item
 layout request_item
+layout saved_post_item
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material

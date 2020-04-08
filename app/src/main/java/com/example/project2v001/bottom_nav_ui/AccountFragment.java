@@ -13,6 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.project2v001.R;
 import com.example.project2v001.tab_ui.MyPostsFragment;
+import com.example.project2v001.tab_ui.SavedFragment;
 import com.example.project2v001.tab_ui.SentRequestsFragment;
 import com.google.android.material.tabs.TabLayout;
 
@@ -31,6 +32,7 @@ public class AccountFragment extends Fragment {
     private TabLayout   accountTabLayout;
     private Fragment    myPostsFragment;
     private Fragment    sentRequestsFragment;
+    private Fragment    savedPostsFragment;
 
 
     public AccountFragment() {
@@ -44,6 +46,7 @@ public class AccountFragment extends Fragment {
 
         myPostsFragment = new MyPostsFragment();
         sentRequestsFragment = new SentRequestsFragment();
+        savedPostsFragment = new SavedFragment();
         viewPager = view.findViewById(R.id.account_view_pager);
         accountTabLayout = view.findViewById(R.id.account_tab_layout);
 
@@ -51,6 +54,7 @@ public class AccountFragment extends Fragment {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(),0);
         viewPagerAdapter.addFragment(myPostsFragment,"My Posts");
         viewPagerAdapter.addFragment(sentRequestsFragment,"Sent Requests");
+        viewPagerAdapter.addFragment(savedPostsFragment,"Saved Posts");
         viewPager.setAdapter(viewPagerAdapter);
 
         // Inflate the layout for this fragment
@@ -83,7 +87,6 @@ public class AccountFragment extends Fragment {
         }
         @Override
         public CharSequence getPageTitle(int position) {
-
             return fragmentTitle.get(position);
         }
     }
