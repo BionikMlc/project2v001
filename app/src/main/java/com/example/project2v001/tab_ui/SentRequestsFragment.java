@@ -31,7 +31,7 @@ public class SentRequestsFragment extends Fragment {
   private List<Post> postsList;
   private FirebaseAuth auth;
   private FirebaseFirestore firebaseFirestore;
-  private MyPostAdapter myPostAdapter;
+  private SentReqAdapter sentReqAdapter;
   private DocumentSnapshot lastVisible;
   private TextView sendReq;
   private boolean isFirstDataLoad = true;
@@ -46,12 +46,12 @@ public class SentRequestsFragment extends Fragment {
 
     View view = inflater.inflate(R.layout.fragment_sent_requests, container, false);
     auth = FirebaseAuth.getInstance();
-    postListView = view.findViewById(R.id.my_posts_list_view);
+    postListView = view.findViewById(R.id.post_requests_list_view);
 
     postsList = new ArrayList<>();
-    myPostAdapter = new MyPostAdapter(postsList);
+    sentReqAdapter = new SentReqAdapter(postsList);
     postListView.setLayoutManager(new LinearLayoutManager(getActivity()));
-    postListView.setAdapter(myPostAdapter);
+    postListView.setAdapter(sentReqAdapter);
     firebaseFirestore = FirebaseFirestore.getInstance();
 
     if (auth.getCurrentUser() != null) {
@@ -62,11 +62,11 @@ public class SentRequestsFragment extends Fragment {
           boolean isReachedBottom = !recyclerView.canScrollVertically(1);
 
           if (isReachedBottom) {
-            loadPosts();
+//            loadPosts();
           }
         }
       });
-      String user_id = auth.getUid();
+      final String user_id = auth.getUid();
       Query firstQuery = firebaseFirestore.collection("Posts");
 
       firstQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -85,13 +85,11 @@ public class SentRequestsFragment extends Fragment {
 
                   String postId = doc.getDocument().getId();
                   Post post = doc.getDocument().toObject(Post.class).withId(postId);
-
-                  if (isFirstDataLoad) {
+                 List<String> requests = (List<String>) doc.getDocument().get("requests");
+                  if (requests.contains(user_id)) {
                     postsList.add(post);
-                  } else {
-                    postsList.add(0, post);
                   }
-                  myPostAdapter.notifyDataSetChanged();
+                  sentReqAdapter.notifyDataSetChanged();
                 }
               }
 
@@ -110,7 +108,7 @@ public class SentRequestsFragment extends Fragment {
 
   private void loadPosts() {
     if (auth.getCurrentUser() != null) {
-      String user_id = auth.getUid();
+      final String user_id = auth.getUid();
       Query nextQuery = firebaseFirestore.collection("Posts")
               .whereEqualTo("user_id", user_id)
               .orderBy("timestamp", Query.Direction.DESCENDING)
@@ -129,10 +127,13 @@ public class SentRequestsFragment extends Fragment {
                 if (doc.getType() == DocumentChange.Type.ADDED) {
 
                   String blogPostId = doc.getDocument().getId();
-                  Post blogPost = doc.getDocument().toObject(Post.class).withId(blogPostId);
-                  postsList.add(blogPost);
+                  Post post = doc.getDocument().toObject(Post.class).withId(blogPostId);
+                  List<String> requests = (List<String>) doc.getDocument().get("requests");
+                  if (requests.contains(user_id)) {
+                    postsList.add(post);
+                  }
 
-                  myPostAdapter.notifyDataSetChanged();
+                  sentReqAdapter.notifyDataSetChanged();
                 }
 
               }

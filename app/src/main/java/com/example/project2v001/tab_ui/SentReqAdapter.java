@@ -1,7 +1,6 @@
 package com.example.project2v001.tab_ui;
 
 import android.content.Context;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -35,7 +33,7 @@ public class SentReqAdapter extends RecyclerView.Adapter<SentReqAdapter.ViewHold
   @NonNull
   @Override
   public SentReqAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_post_item, parent, false);
+    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.request_item, parent, false);
     context = parent.getContext();
     return new ViewHolder(view);
   }
@@ -44,26 +42,23 @@ public class SentReqAdapter extends RecyclerView.Adapter<SentReqAdapter.ViewHold
   public void onBindViewHolder(@NonNull final SentReqAdapter.ViewHolder holder, final int position) {
     holder.setIsRecyclable(false);
 
-    String descText = postList.get(position).getDesc();
-    holder.setPostDesc(descText);
-
     //gets user name and sets it to the user name textView
     final FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     firebaseFirestore.collection("Users").document(postList.get(position).getUser_id()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
       @Override
       public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-        holder.setPostUserName(task.getResult().get("name").toString());
         holder.setUserImg(task.getResult().get("img").toString());
+        holder.setPostDesc(task.getResult().get("name").toString());
 
       }
     });
 
-    long timeInMS = postList.get(position).getTimestamp().getTime();
-    String time = DateFormat.format("yyyy/MM/dd HH:mm", new Date(timeInMS)).toString();
-    holder.setPostDate(time);
-
-    String postImg = postList.get(position).getImg();
-    holder.setPostImg(postImg);
+//    long timeInMS = postList.get(position).getTimestamp().getTime();
+//    String time = DateFormat.format("yyyy/MM/dd HH:mm", new Date(timeInMS)).toString();
+//    holder.setPostDate(time);
+//
+//    String postImg = postList.get(position).getImg();
+//    holder.setPostImg(postImg);
 
 
 
@@ -88,18 +83,17 @@ public class SentReqAdapter extends RecyclerView.Adapter<SentReqAdapter.ViewHold
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
       mView = itemView;
-      request =  mView.findViewById(R.id.post_request);
     }
 
     public void setPostDesc(String descText) {
-      postDescView = mView.findViewById(R.id.post_desc);
-      postDescView.setText(descText);
+      postDescView = mView.findViewById(R.id.text_sent_to);
+      postDescView.setText("a request has been sent to "+descText);
     }
 
-    public void setPostUserName(String userName) {
-      postUserNameView = mView.findViewById(R.id.user_name);
-      postUserNameView.setText(userName);
-    }
+//    public void setPostUserName(String userName) {
+//      postUserNameView = mView.findViewById(R.id.user_name);
+//      postUserNameView.setText(userName);
+//    }
 
     public void setUserImg(String imgUri) {
 
@@ -110,17 +104,17 @@ public class SentReqAdapter extends RecyclerView.Adapter<SentReqAdapter.ViewHold
               .into(userImgView);
     }
 
-    public void setPostImg(String imgUri) {
-      postImgView = mView.findViewById(R.id.post_img);
-      Glide.with(context)
-              .load(imgUri)
-              .placeholder(R.drawable.default_profile)
-              .into(postImgView);
-    }
+//    public void setPostImg(String imgUri) {
+//      postImgView = mView.findViewById(R.id.post_img);
+//      Glide.with(context)
+//              .load(imgUri)
+//              .placeholder(R.drawable.default_profile)
+//              .into(postImgView);
+//    }
 
-    public void setPostDate(String date) {
-      postDateView = mView.findViewById(R.id.post_date);
-      postDateView.setText(date);
-    }
+//    public void setPostDate(String date) {
+//      postDateView = mView.findViewById(R.id.post_date);
+//      postDateView.setText(date);
+//    }
   }
 }

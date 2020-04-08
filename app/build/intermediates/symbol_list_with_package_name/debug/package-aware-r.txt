@@ -1732,6 +1732,7 @@ id post_date
 id post_desc
 id post_img
 id post_request
+id post_requests_list_view
 id post_type_exhange
 id post_type_give_away
 id post_type_need

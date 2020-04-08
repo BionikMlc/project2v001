@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.project2v001.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -78,22 +79,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         final String user_id = FirebaseAuth.getInstance().getUid();
         final String postId = postList.get(position).postId;
 
-//        firebaseFirestore.collection("Posts/"+postId+"/Requests").document(user_id).addSnapshotListener( new EventListener<DocumentSnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-//                if(e == null){
-//                    if(!documentSnapshot.exists())
-//                    {
-//
-//                    } else {
-//
-//                    }
-//                } else
-//                    {
-//                        //handle errors
-//                    }
-//            }
-//        });
+        firebaseFirestore.collection("Posts").document(postId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                List<String> postRequests = (List<String>) documentSnapshot.get("requests");
+                if(postRequests.contains(user_id)) {
+                    holder.request.setText("Requested");
+                    holder.request.setTextColor(holder.request.getResources().getColor(R.color.colorAccent));
+                }
+            }
+        });
 
         holder.request.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,6 +158,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mView = itemView;
+
             request =  mView.findViewById(R.id.post_request);
         }
 

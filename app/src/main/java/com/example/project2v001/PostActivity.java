@@ -160,12 +160,13 @@ public class PostActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Uri> task) {
                             if (task.isSuccessful()) {
+                                List<String> requests = new ArrayList<>();
                                 Log.d(TAG, "onComplete: sss" + task.getResult());
                                 post.put("img", task.getResult().toString());
                                 post.put("desc", postDescription);
                                 post.put("user_id", userId);
                                 post.put("timestamp", FieldValue.serverTimestamp());
-//                                post.put("requests",requests);
+                                post.put("requests",requests);
                                 firebaseFirestore.collection("Posts").add(post).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                     @Override
                                     public void onComplete(@NonNull Task<DocumentReference> task) {
