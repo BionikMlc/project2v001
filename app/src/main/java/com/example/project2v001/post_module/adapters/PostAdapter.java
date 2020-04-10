@@ -91,20 +91,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
 
-//        firebaseFirestore.collection("Posts").document(postId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//            @Override
-//            public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                List<String> postRequests = (List<String>) documentSnapshot.get("saved");
-//                if(postRequests.contains(user_id)) {
-//                    holder.savedButton.setText("saved");
-//                    holder.savedButton.setTextColor(holder.savedButton.getResources().getColor(R.color.colorPrimaryDark));
-//                } else
-//                    {
-//                        holder.savedButton.setText("save");
-//                        holder.savedButton.setTextColor(holder.savedButton.getResources().getColor(R.color.colorPrimary));
-//                    }
-//            }
-//        });
+        firebaseFirestore.collection("Posts").document(postId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                List<String> postRequests = (List<String>) documentSnapshot.get("saved");
+                if(postRequests.contains(user_id)) {
+                    holder.savedButton.setText("saved");
+                    holder.savedButton.setTextColor(holder.savedButton.getResources().getColor(R.color.colorPrimaryDark));
+                } else
+                    {
+                        holder.savedButton.setText("save");
+                        holder.savedButton.setTextColor(holder.savedButton.getResources().getColor(R.color.colorPrimary));
+                    }
+            }
+        });
         holder.savedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -204,7 +204,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             mView = itemView;
 
             request =  mView.findViewById(R.id.post_request);
-            savedButton = mView.findViewById(R.id.saved_post_unsave);
+            savedButton = mView.findViewById(R.id.delete_post);
         }
 
         public void setPostDesc(String descText) {

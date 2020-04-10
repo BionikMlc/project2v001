@@ -22,8 +22,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -45,163 +47,206 @@ import java.util.Map;
 // currently filling description is mandatory it should be optional
 
 public class PostActivity extends AppCompatActivity {
-    //ids for radio button so we can check which one was checked.
-    private static final int RADIO_BTN_ID_1 = 0; // need
-    private static final int RADIO_BTN_ID_2 = 1;// give away
-    private static final int RADIO_BTN_ID_3 = 2;// exchange
+  //ids for radio button so we can check which one was checked.
+  private static final int RADIO_BTN_ID_1 = 0; // need
+  private static final int RADIO_BTN_ID_2 = 1;// give away
+  private static final int RADIO_BTN_ID_3 = 2;// exchange
 
-    //ui fields
-    private Toolbar addPostToolbar;
-    private ImageView postImg;
-    private Button addPostBtn;
-    private EditText postDesc;
-    private Uri imguri = null;
-    private RadioGroup postType;
-    private List<String> requests;
+  //ui fields
+  private Toolbar addPostToolbar;
+  private ImageView postImg;
+  private Button addPostBtn;
+  private EditText postDesc;
+  private String imguri = null;
+  private RadioGroup postType;
+  private List<String> requests;
+  private Map<String, String> postData;
 
-    private RadioButton need;
-    private RadioButton giveAway;
-    private RadioButton exchange;
+  private RadioButton need;
+  private RadioButton giveAway;
+  private RadioButton exchange;
 
-    //database references
-    private StorageReference storageReference;
-    private FirebaseAuth firebaseAuth;
-    private FirebaseFirestore firebaseFirestore;
+  //database references
+  private StorageReference storageReference;
+  private FirebaseAuth firebaseAuth;
+  private FirebaseFirestore firebaseFirestore;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_post);
 
-        addPostToolbar = findViewById(R.id.add_post_toolbar);
-        setSupportActionBar(addPostToolbar);
-        getSupportActionBar().setTitle("Add Post");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //init database reference
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
-        storageReference = FirebaseStorage.getInstance().getReference();
+    addPostToolbar = findViewById(R.id.add_post_toolbar);
+    setSupportActionBar(addPostToolbar);
+    getSupportActionBar().setTitle("Add Post");
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //init ui
-        postImg = findViewById(R.id.post_img);
-        postDesc = findViewById(R.id.post_desc);
-        addPostBtn = findViewById(R.id.add_new_post);
-        requests = new ArrayList<>();
+    //init database reference
+    firebaseFirestore = FirebaseFirestore.getInstance();
+    firebaseAuth = FirebaseAuth.getInstance();
+    storageReference = FirebaseStorage.getInstance().getReference();
+
+    //init ui
+    postImg = findViewById(R.id.post_img);
+    postDesc = findViewById(R.id.post_desc);
+    addPostBtn = findViewById(R.id.add_new_post);
+    requests = new ArrayList<>();
 //        requests.add("");
-        postType = findViewById(R.id.post_type_rg);
-        need = findViewById(R.id.post_type_need);
-        giveAway = findViewById(R.id.post_type_give_away);
-        exchange = findViewById(R.id.post_type_exhange);
+    postType = findViewById(R.id.post_type_rg);
+    need = findViewById(R.id.post_type_need);
+    giveAway = findViewById(R.id.post_type_give_away);
+    exchange = findViewById(R.id.post_type_exhange);
 
-        need.setId(RADIO_BTN_ID_1);
-        giveAway.setId(RADIO_BTN_ID_2);
-        exchange.setId(RADIO_BTN_ID_3);
-
-        //obtain post data when add post button is clicked
-        //check if the fields are not empty before submitting to the database
-
-        postImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //check device version to apply the right permissions
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (ContextCompat.checkSelfPermission(PostActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
-                            ContextCompat.checkSelfPermission(PostActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        Toast.makeText(PostActivity.this, "permission denied: Not Enough Permissions!", Toast.LENGTH_LONG).show();
-                        ActivityCompat.requestPermissions(PostActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-                    } else {
-                        CropImage
-                                .activity().setGuidelines(CropImageView.Guidelines.ON)
-                                .setAspectRatio(1, 1)
-                                .start(PostActivity.this);
-                    }
-                }
-            }
-        });
+    need.setId(RADIO_BTN_ID_1);
+    giveAway.setId(RADIO_BTN_ID_2);
+    exchange.setId(RADIO_BTN_ID_3);
 
 
-        addPostBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String postDescription = postDesc.getText().toString();
-                int checkedRadioId = postType.getCheckedRadioButtonId();
-                final String userId = firebaseAuth.getCurrentUser().getUid();
-                //check that fields are not empty
-                if (!TextUtils.isEmpty(postDescription) && checkedRadioId != -1 && imguri != null) {
-                    final Map<String, Object> post = new HashMap<>();
-                    switch (checkedRadioId) {
-                        case RADIO_BTN_ID_1:
-                            post.put("post_type", "need");
-                            break;
-                        case RADIO_BTN_ID_2:
-                            post.put("post_type", "give away");
-                            break;
-                        case RADIO_BTN_ID_3:
-                            post.put("post_type", "exchange");
-                            break;
-                        default:
-                            break;
-                    }
-
-                    final StorageReference imagePath = storageReference.child("posts_images").child(userId +System.currentTimeMillis()+ ".jpg");
-                    UploadTask uploadTask = imagePath.putFile(imguri);
-                    Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                        @Override
-                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                            if (!task.isSuccessful()) {
-                                throw task.getException();
-                            }
-                            return imagePath.getDownloadUrl();
-                        }
-                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        private static final String TAG = "Tag";
-
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            if (task.isSuccessful()) {
-                                List<String> requests = new ArrayList<>();
-                                Log.d(TAG, "onComplete: sss" + task.getResult());
-                                post.put("img", task.getResult().toString());
-                                post.put("desc", postDescription);
-                                post.put("user_id", userId);
-                                post.put("timestamp", FieldValue.serverTimestamp());
-                                post.put("requests",requests);
-                                post.put("saved",requests);
-                                firebaseFirestore.collection("Posts").add(post).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DocumentReference> task) {
-                                        Toast.makeText(PostActivity.this, "post added: ", Toast.LENGTH_LONG).show();
-                                        startActivity(new Intent(PostActivity.this, MainActivity.class));
-                                        finish();
-                                    }
-                                });
-
-                            } else {
-                                Log.d(TAG, "onComplete: " + task.getException());
-                            }
-                        }
-                    });
-
-
-
-                }
-            }
-        });
+    final Intent intent = getIntent();
+    if (intent.hasExtra("postData")) {
+      postData = (Map<String, String>) intent.getSerializableExtra("postData");
+      switch (Integer.parseInt(postData.get("type"))) {
+        case RADIO_BTN_ID_1:
+          need.setChecked(true);
+          break;
+        case RADIO_BTN_ID_2:
+          giveAway.setChecked(true);
+          break;
+        case RADIO_BTN_ID_3:
+          exchange.setChecked(true);
+          break;
+        default:
+          break;
+      }
+      Glide.with(PostActivity.this)
+              .load(postData.get("img"))
+              .placeholder(R.drawable.default_profile)
+              .into(postImg);
+      imguri = postData.get("img");
+      postDesc.setText(postData.get("desc"));
+      addPostBtn.setText("Conform Edit");
+      getSupportActionBar().setTitle("Edit Post");
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK) {
-                imguri = result.getUri();
-                postImg.setImageURI(imguri);
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Exception error = result.getError();
-            }
+    //obtain post data when add post button is clicked
+    //check if the fields are not empty before submitting to the database
+
+    postImg.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        //check device version to apply the right permissions
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+          if (ContextCompat.checkSelfPermission(PostActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
+                  ContextCompat.checkSelfPermission(PostActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(PostActivity.this, "permission denied: Not Enough Permissions!", Toast.LENGTH_LONG).show();
+            ActivityCompat.requestPermissions(PostActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+          } else {
+            CropImage
+                    .activity().setGuidelines(CropImageView.Guidelines.ON)
+                    .setAspectRatio(1, 1)
+                    .start(PostActivity.this);
+          }
         }
+      }
+    });
+
+
+    addPostBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+
+        final String postDescription = postDesc.getText().toString();
+        int checkedRadioId = postType.getCheckedRadioButtonId();
+        final String userId = firebaseAuth.getCurrentUser().getUid();
+        //check that fields are not empty
+        if (!TextUtils.isEmpty(postDescription) && checkedRadioId != -1 && imguri != null) {
+          final Map<String, Object> post = new HashMap<>();
+          switch (checkedRadioId) {
+            case RADIO_BTN_ID_1:
+              post.put("post_type", "need");
+              break;
+            case RADIO_BTN_ID_2:
+              post.put("post_type", "give away");
+              break;
+            case RADIO_BTN_ID_3:
+              post.put("post_type", "exchange");
+              break;
+            default:
+              break;
+          }
+
+          final StorageReference imagePath = storageReference.child("posts_images").child(userId + System.currentTimeMillis() + ".jpg");
+          UploadTask uploadTask = imagePath.putFile(Uri.parse(imguri));
+          Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+              if (!task.isSuccessful()) {
+                throw task.getException();
+              }
+              return imagePath.getDownloadUrl();
+            }
+          }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            private static final String TAG = "Tag";
+
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+              if (task.isSuccessful()) {
+                List<String> requests = new ArrayList<>();
+                Log.d(TAG, "onComplete: sss" + task.getResult());
+                post.put("img", task.getResult().toString());
+                post.put("desc", postDescription);
+                post.put("user_id", userId);
+                post.put("timestamp", FieldValue.serverTimestamp());
+                post.put("requests", requests);
+                post.put("saved", requests);
+                if (intent.hasExtra("postData")) {
+                  firebaseFirestore.collection("Posts").document(postData.get("postID")).update(post).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                      Toast.makeText(PostActivity.this, "post added: ", Toast.LENGTH_LONG).show();
+                      startActivity(new Intent(PostActivity.this, MainActivity.class));
+                      finish();
+                    }
+                  });
+
+                } else {
+                  firebaseFirestore.collection("Posts").add(post).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                      Toast.makeText(PostActivity.this, "post added: ", Toast.LENGTH_LONG).show();
+                      startActivity(new Intent(PostActivity.this, MainActivity.class));
+                      finish();
+                    }
+                  });
+                }
+              } else {
+                Log.d(TAG, "onComplete: " + task.getException());
+              }
+            }
+          });
+
+
+        }
+      }
+    });
+  }
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+      CropImage.ActivityResult result = CropImage.getActivityResult(data);
+      if (resultCode == RESULT_OK) {
+        imguri = result.getUri().toString();
+        Glide.with(PostActivity.this)
+                .load(imguri)
+                .placeholder(R.drawable.default_profile)
+                .into(postImg);
+      } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+        Exception error = result.getError();
+      }
     }
+  }
 
 }

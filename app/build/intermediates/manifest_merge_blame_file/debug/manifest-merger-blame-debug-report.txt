@@ -49,7 +49,7 @@
 28        android:theme="@style/AppTheme" >
 28-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:19:9-40
 29        <activity android:name="com.example.project2v001.BookSelectionActivity" />
-29-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:20:9-68
+29-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:20:9-59
 29-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:20:19-56
 30        <activity
 30-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:21:9-23:58

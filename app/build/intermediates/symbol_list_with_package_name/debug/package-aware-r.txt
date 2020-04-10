@@ -1611,6 +1611,7 @@ id dark
 id date_picker_actions
 id decor_content_parent
 id default_activity_button
+id delete_post
 id design_bottom_sheet
 id design_menu_item_action_area
 id design_menu_item_action_area_stub
@@ -1705,6 +1706,7 @@ id mtrl_picker_text_input_range_end
 id mtrl_picker_text_input_range_start
 id mtrl_picker_title_text
 id multiply
+id my_post_container
 id my_posts_list_view
 id navigation_header_container
 id never
@@ -1756,7 +1758,6 @@ id right_side
 id rounded
 id save_non_transition_alpha
 id save_overlay_view
-id saved_post_unsave
 id saved_posts_list_view
 id scale
 id screen

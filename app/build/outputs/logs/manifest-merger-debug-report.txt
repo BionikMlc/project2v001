@@ -163,7 +163,7 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\Ah
 	android:theme
 		ADDED from C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:19:9-40
 activity#com.example.project2v001.BookSelectionActivity
-ADDED from C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:20:9-68
+ADDED from C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:20:9-59
 	android:name
 		ADDED from C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:20:19-56
 activity#com.example.project2v001.PostActivity
