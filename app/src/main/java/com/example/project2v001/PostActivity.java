@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -60,6 +61,7 @@ public class PostActivity extends AppCompatActivity {
   private String imguri = null;
   private RadioGroup postType;
   private List<String> requests;
+  private ProgressBar progressBar;
   private Map<String, String> postData;
 
   private RadioButton need;
@@ -76,7 +78,7 @@ public class PostActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_post);
 
-
+    progressBar = findViewById(R.id.progressBar);
     addPostToolbar = findViewById(R.id.add_post_toolbar);
     setSupportActionBar(addPostToolbar);
     getSupportActionBar().setTitle("Add Post");
@@ -156,12 +158,93 @@ public class PostActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
 
+        final Map<String, Object> post = new HashMap<>();
         final String postDescription = postDesc.getText().toString();
         int checkedRadioId = postType.getCheckedRadioButtonId();
         final String userId = firebaseAuth.getCurrentUser().getUid();
+
+        if (intent.hasExtra("postData")) {
+          if (!TextUtils.isEmpty(postDescription) && checkedRadioId != -1) {
+            progressBar.setVisibility(View.VISIBLE);
+            addPostBtn.setEnabled(false);
+            switch (checkedRadioId) {
+              case RADIO_BTN_ID_1:
+                post.put("post_type", "need");
+                break;
+              case RADIO_BTN_ID_2:
+                post.put("post_type", "give away");
+                break;
+              case RADIO_BTN_ID_3:
+                post.put("post_type", "exchange");
+                break;
+              default:
+                break;
+            }
+            if (imguri.equals(postData.get("img"))) {
+              post.put("img", postData.get("img"));
+              post.put("desc", postDescription);
+              post.put("user_id", userId);
+              post.put("timestamp", FieldValue.serverTimestamp());
+              post.put("requests", requests);
+              post.put("saved", requests);
+              firebaseFirestore.collection("Posts").document(postData.get("postID")).update(post).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                  Toast.makeText(PostActivity.this, "post added: ", Toast.LENGTH_LONG).show();
+                  startActivity(new Intent(PostActivity.this, MainActivity.class));
+                  finish();
+                }
+              });
+            } else {
+              final StorageReference imagePath = storageReference.child("posts_images").child(userId + System.currentTimeMillis() + ".jpg");
+              UploadTask uploadTask = imagePath.putFile(Uri.parse(imguri));
+              Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                  if (!task.isSuccessful()) {
+                    throw task.getException();
+                  }
+                  return imagePath.getDownloadUrl();
+                }
+              }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                private static final String TAG = "Tag";
+
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                  if (task.isSuccessful()) {
+                    List<String> requests = new ArrayList<>();
+                    Log.d(TAG, "onComplete: sss" + task.getResult());
+                    post.put("img", task.getResult().toString());
+                    post.put("desc", postDescription);
+                    post.put("user_id", userId);
+                    post.put("timestamp", FieldValue.serverTimestamp());
+                    post.put("requests", requests);
+                    post.put("saved", requests);
+
+                    firebaseFirestore.collection("Posts").document(postData.get("postID")).update(post).addOnCompleteListener(new OnCompleteListener<Void>() {
+                      @Override
+                      public void onComplete(@NonNull Task<Void> task) {
+                        progressBar.setVisibility(View.INVISIBLE);
+                        Toast.makeText(PostActivity.this, "post added: ", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(PostActivity.this, MainActivity.class));
+                        finish();
+                      }
+                    });
+                  }
+                }
+              });
+//            UploadTask uploadTask = imagePath.putFile(Uri.parse(imguri));
+            }
+          }
+
+
+        }
+
+
         //check that fields are not empty
-        if (!TextUtils.isEmpty(postDescription) && checkedRadioId != -1 && imguri != null) {
-          final Map<String, Object> post = new HashMap<>();
+        if (!TextUtils.isEmpty(postDescription) && checkedRadioId != -1 && imguri != null && !intent.hasExtra("postData")) {
+          progressBar.setVisibility(View.VISIBLE);
+          addPostBtn.setEnabled(false);
           switch (checkedRadioId) {
             case RADIO_BTN_ID_1:
               post.put("post_type", "need");
@@ -200,26 +283,17 @@ public class PostActivity extends AppCompatActivity {
                 post.put("timestamp", FieldValue.serverTimestamp());
                 post.put("requests", requests);
                 post.put("saved", requests);
-                if (intent.hasExtra("postData")) {
-                  firebaseFirestore.collection("Posts").document(postData.get("postID")).update(post).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                      Toast.makeText(PostActivity.this, "post added: ", Toast.LENGTH_LONG).show();
-                      startActivity(new Intent(PostActivity.this, MainActivity.class));
-                      finish();
-                    }
-                  });
 
-                } else {
-                  firebaseFirestore.collection("Posts").add(post).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentReference> task) {
-                      Toast.makeText(PostActivity.this, "post added: ", Toast.LENGTH_LONG).show();
-                      startActivity(new Intent(PostActivity.this, MainActivity.class));
-                      finish();
-                    }
-                  });
-                }
+                firebaseFirestore.collection("Posts").add(post).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                  @Override
+                  public void onComplete(@NonNull Task<DocumentReference> task) {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    Toast.makeText(PostActivity.this, "post added: ", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(PostActivity.this, MainActivity.class));
+                    finish();
+                  }
+                });
+
               } else {
                 Log.d(TAG, "onComplete: " + task.getException());
               }

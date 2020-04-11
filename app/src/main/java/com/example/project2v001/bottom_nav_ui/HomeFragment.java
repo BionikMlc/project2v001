@@ -82,7 +82,7 @@ public class HomeFragment extends Fragment {
                             }
                             for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
 
-                                if (doc.getType() == DocumentChange.Type.ADDED) {
+                                if (doc.getType() == DocumentChange.Type.ADDED ){
 
                                     String postId = doc.getDocument().getId();
                                     Post post = doc.getDocument().toObject(Post.class).withId(postId);
