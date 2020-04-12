@@ -81,7 +81,7 @@ public class PostActivity extends AppCompatActivity {
     progressBar = findViewById(R.id.progressBar);
     addPostToolbar = findViewById(R.id.add_post_toolbar);
     setSupportActionBar(addPostToolbar);
-    getSupportActionBar().setTitle("Add Post");
+    getSupportActionBar().setTitle("Add Material");
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     //init database reference

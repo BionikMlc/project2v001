@@ -1435,6 +1435,7 @@ drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
 drawable ic_calendar_black_24dp
 drawable ic_clear_black_24dp
+drawable ic_delete_red_24dp
 drawable ic_edit_black_24dp
 drawable ic_keyboard_arrow_left_black_24dp
 drawable ic_keyboard_arrow_right_black_24dp
@@ -1575,7 +1576,6 @@ id buttonPanel
 id cancel_action
 id cancel_botton
 id cancel_button
-id cardView
 id center
 id centerCrop
 id centerInside
@@ -1611,7 +1611,6 @@ id dark
 id date_picker_actions
 id decor_content_parent
 id default_activity_button
-id delete_post
 id design_bottom_sheet
 id design_menu_item_action_area
 id design_menu_item_action_area_stub
@@ -1657,6 +1656,7 @@ id image
 id info
 id invisible
 id italic
+id item_container
 id item_touch_helper_previous_elevation
 id labeled
 id largeLabel
@@ -1664,6 +1664,7 @@ id left
 id light
 id line1
 id line3
+id linearLayout
 id listMode
 id list_item
 id login_button
@@ -1842,6 +1843,7 @@ id transition_transform
 id unchecked
 id uniform
 id unlabeled
+id unsave_post
 id up
 id useLogo
 id user_img

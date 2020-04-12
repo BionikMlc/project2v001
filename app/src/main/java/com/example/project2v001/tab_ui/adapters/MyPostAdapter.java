@@ -1,6 +1,7 @@
 package com.example.project2v001.tab_ui.adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import com.example.project2v001.R;
 import com.example.project2v001.post_module.Post;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -56,23 +58,24 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
 
     //gets user name and sets it to the user name textView
     final FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-    firebaseFirestore.collection("Users").document(postList.get(position).getUser_id()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-      @Override
-      public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-        holder.setPostUserName(task.getResult().get("name").toString());
-        holder.setUserImg(task.getResult().get("img").toString());
-      }
-    });
+    firebaseFirestore.collection("Users").document(postList.get(position).getUser_id()).get()
+            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+              @Override
+              public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                holder.setPostUserName(task.getResult().get("name").toString());
+                holder.setUserImg(task.getResult().get("img").toString());
+              }
+            });
 
     holder.editButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         Intent intent = new Intent(context, PostActivity.class);
-        Map<String,String> data = new HashMap<String, String>();
-        data.put("postID",postList.get(position).postId);
-        data.put("img",postList.get(position).getImg());
-        data.put("desc",postList.get(position).getDesc());
-        data.put("type",String.valueOf(postList.get(position).getPostType()));
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("postID", postList.get(position).postId);
+        data.put("img", postList.get(position).getImg());
+        data.put("desc", postList.get(position).getDesc());
+        data.put("type", String.valueOf(postList.get(position).getPostType()));
         intent.putExtra("postData", (Serializable) data);
         context.startActivity(intent);
       }
@@ -81,8 +84,25 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
     holder.deleteButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        firebaseFirestore.collection("Posts").document(postList.get(position).postId).delete();
-        holder.container.setVisibility(View.GONE);
+        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(context);
+        dialogBuilder.setTitle("Delete Post");
+        dialogBuilder.setMessage("Are you sure you want to delete this post ?");
+        dialogBuilder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+            firebaseFirestore.collection("Posts").document(postList.get(position).postId).delete();
+//            holder.container.setVisibility(View.GONE);
+            holder.container.removeAllViews();
+          }
+        });
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+
+          }
+        });
+        dialogBuilder.show();
+
       }
     });
 
@@ -92,7 +112,6 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
 
     String postImg = postList.get(position).getImg();
     holder.setPostImg(postImg);
-
 
 
   }
@@ -116,8 +135,8 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
       mView = itemView;
-      editButton =  mView.findViewById(R.id.post_request);
-      deleteButton =  mView.findViewById(R.id.delete_post);
+      editButton = mView.findViewById(R.id.post_request);
+      deleteButton = mView.findViewById(R.id.unsave_post);
       container = mView.findViewById(R.id.my_post_container);
     }
 

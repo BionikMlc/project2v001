@@ -8,7 +8,7 @@
     android:layout_marginBottom="8dp">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+        android:id="@+id/item_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -105,7 +105,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/post_img" />
 
             <TextView
-                android:id="@+id/delete_post"
+                android:id="@+id/unsave_post"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
