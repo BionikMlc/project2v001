@@ -1388,12 +1388,16 @@ drawable action_add
 drawable add_book
 drawable avd_hide_password
 drawable avd_show_password
+drawable background_app
 drawable baseline_exit_to_app_black_24dp
 drawable baseline_exit_to_app_white_24dp
 drawable baseline_home_black_24dp
+drawable baseline_notification_important_black_1x_24dp
+drawable baseline_notification_important_black_24dp
 drawable baseline_notifications_black_24dp
 drawable baseline_person_black_24dp
 drawable baseline_settings_white_24dp
+drawable bell_icon
 drawable btn_checkbox_checked_mtrl
 drawable btn_checkbox_checked_to_unchecked_mtrl_animation
 drawable btn_checkbox_unchecked_mtrl
@@ -1437,6 +1441,7 @@ drawable ic_calendar_black_24dp
 drawable ic_clear_black_24dp
 drawable ic_delete_red_24dp
 drawable ic_edit_black_24dp
+drawable ic_email_black_24dp
 drawable ic_keyboard_arrow_left_black_24dp
 drawable ic_keyboard_arrow_right_black_24dp
 drawable ic_launcher_background
@@ -1572,6 +1577,8 @@ id bottom
 id bottom_action_account
 id bottom_action_home
 id bottom_action_notification
+id button
+id button2
 id buttonPanel
 id cancel_action
 id cancel_botton
@@ -1714,7 +1721,11 @@ id never
 id noScroll
 id none
 id normal
+id notif_item_container
+id notif_item_img
+id notif_item_img2
 id notification_background
+id notification_list_view
 id notification_main_column
 id notification_main_column_container
 id off
@@ -1753,6 +1764,7 @@ id reg_have_account_button
 id reg_logo
 id reg_password
 id reg_progress
+id requests_list
 id right
 id right_icon
 id right_side
@@ -1822,9 +1834,11 @@ id textSpacerNoTitle
 id textStart
 id textView
 id textView2
+id textView3
 id text_input_end_icon
 id text_input_start_icon
 id text_sent_to
+id text_sent_to3
 id textinput_counter
 id textinput_error
 id textinput_helper_text
@@ -1921,6 +1935,7 @@ layout activity_login
 layout activity_main
 layout activity_post
 layout activity_register
+layout activity_requests
 layout crop_image_activity
 layout crop_image_view
 layout custom_dialog
@@ -1976,6 +1991,7 @@ layout mtrl_picker_text_input_date_range
 layout my_post_item
 layout notification_action
 layout notification_action_tombstone
+layout notification_item
 layout notification_media_action
 layout notification_media_cancel_action
 layout notification_template_big_media
@@ -1990,6 +2006,7 @@ layout notification_template_media_custom
 layout notification_template_part_chronometer
 layout notification_template_part_time
 layout post_item
+layout request_conformation_item
 layout request_item
 layout saved_post_item
 layout select_dialog_item_material

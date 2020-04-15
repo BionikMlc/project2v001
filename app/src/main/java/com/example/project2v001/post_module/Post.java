@@ -2,22 +2,22 @@ package com.example.project2v001.post_module;
 
 
 import java.util.Date;
+import java.util.List;
 
 public class Post extends PostId {
     //private thump img_url
     private String user_id,desc,img;
     private int postType;
     private Date timestamp;
-//    private List<String> requests;
+    private List<String> requests;
     public Post() {} // essential for firebase to function properly.
-    public Post(String user_id, String desc, Date timestamp, int postType, String img) {
+    public Post(String user_id, String desc, Date timestamp, int postType, String img, List<String> requests) {
         this.user_id = user_id;
         this.desc = desc;
         this.img = img;
         this.postType = postType;
         this.timestamp = timestamp;
-//        this.requests = new ArrayList<>();
-//        this.requests.add(requests);
+        this.requests =   requests;
 
     }
 
@@ -60,11 +60,6 @@ public class Post extends PostId {
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
-//    public void setRequests(String requests) {
-//        this.requests.add(requests);
-//    }
-//
-//    public List<String> getRequests() {
-//        return requests;
-//    }
+
+   public List<String> getRequests() { return requests; }
 }
