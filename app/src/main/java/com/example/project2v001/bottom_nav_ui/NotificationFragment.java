@@ -72,7 +72,7 @@ public class NotificationFragment extends Fragment {
       Query firstQuery = firebaseFirestore.collection("Posts")
 //                    .whereEqualTo("user_id",user_id)
               .orderBy("timestamp", Query.Direction.DESCENDING);
-      firstQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
+      firstQuery.addSnapshotListener(getActivity(),new EventListener<QuerySnapshot>() {
         @Override
         public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
           if (e == null) {

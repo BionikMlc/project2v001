@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
       });
       Query firstQuery = firebaseFirestore.collection("Posts");
 //
-      firstQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
+      firstQuery.addSnapshotListener(MainActivity.this,new EventListener<QuerySnapshot>() {
         @Override
         public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
           if (e == null) {

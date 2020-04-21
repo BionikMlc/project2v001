@@ -68,7 +68,8 @@ public class RequestsActivity extends AppCompatActivity {
 
       final String user_id = auth.getUid();
       final String finalPostID = postID;
-      firebaseFirestore.collection("Posts").document(postID).addSnapshotListener(RequestsActivity.this,new EventListener<DocumentSnapshot>() {
+      firebaseFirestore.collection("Posts").document(postID)
+              .addSnapshotListener(RequestsActivity.this,new EventListener<DocumentSnapshot>() {
         @Override
         public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
           if (e == null) {

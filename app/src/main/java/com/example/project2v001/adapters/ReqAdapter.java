@@ -2,7 +2,6 @@ package com.example.project2v001.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,7 +91,7 @@ public class ReqAdapter extends RecyclerView.Adapter<ReqAdapter.ViewHolder> {
 //           messageMap.put("timestamp", FieldValue.serverTimestamp());
            messageMap.put("messages",new ArrayList<String>());
            firebaseFirestore.collection("Chats").add(messageMap);
-           context.startActivity(new Intent());
+//           context.startActivity(new Intent());
 
 
           }

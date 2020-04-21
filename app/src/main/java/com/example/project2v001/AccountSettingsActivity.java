@@ -82,7 +82,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
 
         userId = firebaseAuth.getCurrentUser().getUid();
         //getting stored data from the database
-        firebaseFirestore.collection("Users").document(userId).get().addOnCompleteListener(AccountSettingsActivity.this,new OnCompleteListener<DocumentSnapshot>() {
+        firebaseFirestore.collection("Users").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
