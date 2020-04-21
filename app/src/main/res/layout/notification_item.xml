@@ -21,9 +21,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/user_img"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginRight="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
                 android:src="@drawable/bell_icon" />
@@ -41,6 +40,7 @@
                 android:id="@+id/notif_item_img"
                 android:layout_width="68dp"
                 android:layout_height="68dp"
+                android:layout_weight="1"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/add_book" />
 

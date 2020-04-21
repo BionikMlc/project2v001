@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.project2v001.PostActivity;
 import com.example.project2v001.R;
+import com.example.project2v001.RequestsActivity;
 import com.example.project2v001.post_module.Post;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -106,6 +107,15 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
       }
     });
 
+    holder.requestsButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent intent = new Intent(context, RequestsActivity.class);
+        intent.putExtra("postID", postList.get(position).postId);
+        context.startActivity(intent);
+      }
+    });
+
     long timeInMS = postList.get(position).getTimestamp().getTime();
     String time = DateFormat.format("yyyy/MM/dd HH:mm", new Date(timeInMS)).toString();
     holder.setPostDate(time);
@@ -130,6 +140,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
     private CircleImageView userImgView;
     private TextView editButton;
     private TextView deleteButton;
+    private TextView requestsButton;
     private ConstraintLayout container;
 
     public ViewHolder(@NonNull View itemView) {
@@ -137,6 +148,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
       mView = itemView;
       editButton = mView.findViewById(R.id.post_request);
       deleteButton = mView.findViewById(R.id.unsave_post);
+      requestsButton = mView.findViewById(R.id.my_posts_requests_button);
       container = mView.findViewById(R.id.my_post_container);
     }
 

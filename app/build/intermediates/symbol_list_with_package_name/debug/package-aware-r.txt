@@ -1453,6 +1453,8 @@ drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
 drawable ic_search
+drawable icon_check
+drawable icon_lock
 drawable mtrl_dialog_background
 drawable mtrl_dropdown_arrow
 drawable mtrl_ic_arrow_drop_down
@@ -1576,9 +1578,8 @@ id blocking
 id bottom
 id bottom_action_account
 id bottom_action_home
+id bottom_action_messages
 id bottom_action_notification
-id button
-id button2
 id buttonPanel
 id cancel_action
 id cancel_botton
@@ -1589,6 +1590,10 @@ id centerInside
 id center_horizontal
 id center_vertical
 id chains
+id chatListView
+id chat_item_date
+id chat_item_text
+id chat_item_username
 id checkbox
 id checked
 id chip
@@ -1716,6 +1721,7 @@ id mtrl_picker_title_text
 id multiply
 id my_post_container
 id my_posts_list_view
+id my_posts_requests_button
 id navigation_header_container
 id never
 id noScroll
@@ -1723,7 +1729,6 @@ id none
 id normal
 id notif_item_container
 id notif_item_img
-id notif_item_img2
 id notification_background
 id notification_list_view
 id notification_main_column
@@ -1764,6 +1769,9 @@ id reg_have_account_button
 id reg_logo
 id reg_password
 id reg_progress
+id req_conf_accept_btn
+id req_conf_post_img
+id req_conf_username
 id requests_list
 id right
 id right_icon
@@ -1834,11 +1842,9 @@ id textSpacerNoTitle
 id textStart
 id textView
 id textView2
-id textView3
 id text_input_end_icon
 id text_input_start_icon
 id text_sent_to
-id text_sent_to3
 id textinput_counter
 id textinput_error
 id textinput_helper_text
@@ -1936,6 +1942,7 @@ layout activity_main
 layout activity_post
 layout activity_register
 layout activity_requests
+layout chat_item
 layout crop_image_activity
 layout crop_image_view
 layout custom_dialog
@@ -1956,6 +1963,7 @@ layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout fragment_account
 layout fragment_home
+layout fragment_messaging
 layout fragment_my_posts
 layout fragment_notification
 layout fragment_saved

@@ -58,7 +58,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 //        holder.setIsRecyclable(false);
 
     String descText = postList.get(position).getDesc();
+    final String user_id = FirebaseAuth.getInstance().getUid();
     holder.setPostDesc(descText);
+    if(!postList.get(position).getUser_id().equals(user_id)) {
+       holder.savedButton.setVisibility(View.VISIBLE);
+       holder.requestButton.setVisibility(View.VISIBLE);
+    }
 
     //gets user name and sets it to the user name textView
     final FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
@@ -78,7 +83,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     holder.setPostImg(postImg);
 
     //Request Feature
-    final String user_id = FirebaseAuth.getInstance().getUid();
+
     final String postId = postList.get(position).postId;
 
     firebaseFirestore.collection("Posts").document(postId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -87,8 +92,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         if (documentSnapshot.exists()) {
           List<String> postRequests = (List<String>) documentSnapshot.get("requests");
           if (postRequests.contains(user_id)) {
-            holder.request.setText("Requested");
-            holder.request.setTextColor(holder.request.getResources().getColor(R.color.colorAccent));
+            holder.requestButton.setText("Requested");
+            holder.requestButton.setTextColor(holder.requestButton.getResources().getColor(R.color.colorAccent));
           }
         }
       }
@@ -135,18 +140,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
       }
     });
 
-    holder.request.setOnClickListener(new View.OnClickListener() {
+    holder.requestButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         final String user_id = FirebaseAuth.getInstance().getUid();
         final String postId = postList.get(position).postId;
 
-        if (!holder.request.getText().toString().equals("Request")) {
-          holder.request.setText("Request");
-          holder.request.setTextColor(holder.request.getResources().getColor(R.color.common_google_signin_btn_text_light_default));
+        if (!holder.requestButton.getText().toString().equals("Request")) {
+          holder.requestButton.setText("Request");
+          holder.requestButton.setTextColor(holder.requestButton.getResources().getColor(R.color.common_google_signin_btn_text_light_default));
         } else {
-          holder.request.setText("Requested");
-          holder.request.setTextColor(holder.request.getResources().getColor(R.color.colorAccent));
+          holder.requestButton.setText("Requested");
+          holder.requestButton.setTextColor(holder.requestButton.getResources().getColor(R.color.colorAccent));
         }
 
 
@@ -192,14 +197,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private TextView postDateView;
     private ImageView postImgView;
     private CircleImageView userImgView;
-    private TextView request;
+    private TextView requestButton;
     private TextView savedButton;
 
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
       mView = itemView;
 
-      request = mView.findViewById(R.id.post_request);
+      requestButton = mView.findViewById(R.id.post_request);
       savedButton = mView.findViewById(R.id.unsave_post);
     }
 

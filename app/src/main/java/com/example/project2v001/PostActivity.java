@@ -282,6 +282,7 @@ public class PostActivity extends AppCompatActivity {
                 post.put("user_id", userId);
                 post.put("timestamp", FieldValue.serverTimestamp());
                 post.put("requests", requests);
+                post.put("reserved_for","");
                 post.put("saved", requests);
 
                 firebaseFirestore.collection("Posts").add(post).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {

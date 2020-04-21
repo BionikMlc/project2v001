@@ -53,7 +53,7 @@ public class AccountFragment extends Fragment {
         accountTabLayout.setupWithViewPager(viewPager);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(),0);
         viewPagerAdapter.addFragment(myPostsFragment,"My Posts");
-        viewPagerAdapter.addFragment(sentRequestsFragment,"Sent RequestsActivity");
+        viewPagerAdapter.addFragment(sentRequestsFragment,"Sent Requests");
         viewPagerAdapter.addFragment(savedPostsFragment,"Saved Posts");
         viewPager.setAdapter(viewPagerAdapter);
 

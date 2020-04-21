@@ -2,10 +2,12 @@ package com.example.project2v001.bottom_nav_ui.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -22,10 +24,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
-public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder>  {
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
+  private static final String TAG = "tag";
   private List<Post> postList;
   private Context context;
   private FirebaseFirestore firebaseFirestore;
+
 
   public NotificationAdapter(List<Post> postList) {
     this.postList = postList;
@@ -63,29 +69,39 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
               @Override
               public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
-                    List<String> postRequests = (List<String>) documentSnapshot.get("requests");
-                    if (!postRequests.isEmpty()) {
-                      holder.setPostImg(postList.get(position).getImg());
-                    }
+                  String reserved_for = documentSnapshot.get("reserved_for").toString();
+                  Log.i(TAG, "onSuccess: " + reserved_for);
+
+                  List<String> postRequests = (List<String>) documentSnapshot.get("requests");
+                  if (reserved_for.equals(user_id)) {
+                    holder.notifIcon.setImageResource(R.drawable.icon_check);
+                    holder.notifText.setText("your request was accepted you can now contact owner of the material");
+                    holder.setPostImg(postList.get(position).getImg());
+                  } else if (!postList.get(position).getUser_id().equals(user_id) && postRequests.contains(user_id) && !reserved_for.isEmpty()) {
+                    holder.notifIcon.setImageResource(R.drawable.icon_lock);
+                    holder.notifText.setText("the material was reserved for another user");
+                    holder.setPostImg(postList.get(position).getImg());
+                  } else if (!postRequests.isEmpty()) {
+                    holder.notifIcon.setImageResource(R.drawable.bell_icon);
+                    holder.notifText.setText("there is a request for this item");
+                    holder.setPostImg(postList.get(position).getImg());
+                  }
                 }
               }
             });
 
-    holder.container.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        Intent intent = new Intent(context, RequestsActivity.class);
-//        Map<String, String> data = new HashMap<String, String>();
-//        data.put("postID", postList.get(position).postId);
-//        data.put("img", postList.get(position).getImg());
-//        data.put("desc", postList.get(position).getDesc());
-//        data.put("type", String.valueOf(postList.get(position).getPostType()));
-//        intent.putExtra("postData", (Serializable) data);
-        context.startActivity(intent);
-      }
-    });
+    if (postList.get(position).getUser_id().equals(user_id)) {
+      holder.container.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          Intent intent = new Intent(context, RequestsActivity.class);
+          intent.putExtra("postID", postId);
+          context.startActivity(intent);
+        }
+      });
 
 
+    }
   }
 
   //getItemCount : gets the size of data we retrieved.
@@ -102,24 +118,36 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     private View mView;
     private ImageView postImgView;
     private ConstraintLayout container;
+    private CircleImageView notifIcon;
+    private TextView notifText;
 
 
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
       mView = itemView;
       container = mView.findViewById(R.id.notif_item_container);
-
+      notifIcon = mView.findViewById(R.id.user_img);
+      notifText = mView.findViewById(R.id.text_sent_to);
+      postImgView = mView.findViewById(R.id.notif_item_img);
 
     }
 
 
     public void setPostImg(String imgUri) {
-      postImgView = mView.findViewById(R.id.notif_item_img);
       Glide.with(context)
               .load(imgUri)
               .placeholder(R.drawable.default_profile)
               .into(postImgView);
     }
+
+//    public void setNotifIcon(String imgUri) {
+//
+//      notifIcon = mView.findViewById(R.id.user_img);
+//      Glide.with(context)
+//              .load(imgUri)
+//              .placeholder(R.drawable.rectangle_1)
+//              .into(notifIcon);
+//    }
 
 
   }

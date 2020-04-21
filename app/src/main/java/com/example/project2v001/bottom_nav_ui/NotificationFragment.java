@@ -38,7 +38,6 @@ public class NotificationFragment extends Fragment {
   private NotificationAdapter notificationAdapter;
 
 
-
   public NotificationFragment() {
     // Required empty public constructor
   }
@@ -88,9 +87,20 @@ public class NotificationFragment extends Fragment {
                 final Post post = doc.getDocument().toObject(Post.class).withId(postId);
                 reqs = new ArrayList<>();
                 reqs = post.getRequests();
-                if (post.getUser_id().equals(user_id) && !reqs.isEmpty()) {
+                if (!reqs.isEmpty()) {
+                  if (post.getReserved_for().equals(user_id)) {
                     postsList.add(post);
+                  } else if (post.getUser_id().equals(user_id) && !reqs.isEmpty()) {
+                    postsList.add(post);
+                  } else if (!reqs.contains(user_id) && !post.getReserved_for().isEmpty()) {
+                    postsList.add(post);
+                  }
                 }
+
+
+//                else if (reqs.contains(user_id) && !post.getReserved_for().isEmpty()) {
+//                  postsList.add(post);
+//                }
                 notificationAdapter.notifyDataSetChanged();
 
               }

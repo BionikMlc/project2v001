@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.project2v001.bottom_nav_ui.AccountFragment;
 import com.example.project2v001.bottom_nav_ui.HomeFragment;
+import com.example.project2v001.bottom_nav_ui.MessagingFragment;
 import com.example.project2v001.bottom_nav_ui.NotificationFragment;
 import com.example.project2v001.post_module.Post;
 import com.example.project2v001.post_module.adapters.PostAdapter;
@@ -22,6 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
   private static final String TAG = "changes";
   private HomeFragment homeFragment;
   private AccountFragment accountFragment;
+  private MessagingFragment messagingFragment;
   private NotificationFragment notificationFragment;
 
   private Toolbar mainToolBar;
@@ -66,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
       mainBottomNav = findViewById(R.id.mainBottomNav);
       homeFragment = new HomeFragment();
       accountFragment = new AccountFragment();
+      messagingFragment = new MessagingFragment();
+
       notificationFragment = new NotificationFragment();
       mainBottomNav.setSelectedItemId(R.id.bottom_action_home);
       final BadgeDrawable badge = mainBottomNav.getOrCreateBadge(R.id.bottom_action_notification);
@@ -83,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
           startActivity(new Intent(MainActivity.this, PostActivity.class));
         }
       });
+      mainBottomNav.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
       mainBottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -96,6 +102,9 @@ public class MainActivity extends AppCompatActivity {
               return true;
             case R.id.bottom_action_account:
               changeFragment(accountFragment);
+              return true;
+            case R.id.bottom_action_messages:
+              changeFragment(messagingFragment);
               return true;
             default:
               changeFragment(homeFragment);
@@ -111,12 +120,12 @@ public class MainActivity extends AppCompatActivity {
           if (e == null) {
             if (!documentSnapshots.isEmpty()) {
               for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
-                if (doc.getType() == DocumentChange.Type.ADDED || doc.getType() == DocumentChange.Type.MODIFIED) {
-                  String postId = doc.getDocument().getId();
-                  final Post post = doc.getDocument().toObject(Post.class).withId(postId);
-                  List<String> reqs;
-                  reqs = post.getRequests();
-                  if (post.getUser_id().equals(mAuth.getUid()) && !reqs.isEmpty()) {
+                String postId = doc.getDocument().getId();
+                final Post post = doc.getDocument().toObject(Post.class).withId(postId);
+                List<String> reqs;
+                reqs = post.getRequests();
+                if (!reqs.isEmpty()) {
+                  if (post.getUser_id().equals(mAuth.getUid())) {
                     badge.setVisible(true);
                   } else
                     badge.setVisible(false);
@@ -183,7 +192,6 @@ public class MainActivity extends AppCompatActivity {
         return false;
 
     }
-
 
   }
 
