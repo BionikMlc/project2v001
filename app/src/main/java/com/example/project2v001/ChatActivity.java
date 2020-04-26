@@ -122,7 +122,7 @@ public class ChatActivity extends AppCompatActivity {
               }
             });
             firebaseFirestore.collection("Chats").document(documentSnapshot.getId())
-                    .collection("Messages").orderBy("timestamp", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    .collection("Messages").orderBy("timestamp", Query.Direction.ASCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
               @Override
               public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 if(e == null){
@@ -143,6 +143,7 @@ public class ChatActivity extends AppCompatActivity {
                             messagesListView.smoothScrollToPosition(messagesAdapter.getItemCount() - 1);
                           }
                         });
+                        messagesAdapter.notifyDataSetChanged();
 
                       }
 
