@@ -26,6 +26,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -121,32 +122,37 @@ public class ChatActivity extends AppCompatActivity {
               }
             });
             firebaseFirestore.collection("Chats").document(documentSnapshot.getId())
-                    .collection("Messages").orderBy("timestamp").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    .collection("Messages").orderBy("timestamp", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
               @Override
               public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                for (DocumentChange documentSnapshot : queryDocumentSnapshots.getDocumentChanges()) {
-                  String chatDataId = documentSnapshot.getDocument().getId();
-                  ChatData chatMessages = documentSnapshot.getDocument().toObject(ChatData.class).withId(chatDataId);
-                  Log.i(TAG, "onEvent: " + chatMessages.getOp_id());
-                  Log.i(TAG, "onEvent: " + chatMessages.getUser_id());
-                  if (documentSnapshot.getType() == DocumentChange.Type.ADDED) {
-                    if ((chatMessages.getReceiver_id().equals(chatData.get("op_id")) || chatMessages.getUser_id().equals(chatData.get("op_id")))
-                            && (chatMessages.getUser_id().equals(chatData.get("user_id")) || chatMessages.getReceiver_id().equals(chatData.get("user_id")))) {
-                      chatDataList.add(chatMessages);
-                      messagesAdapter.notifyDataSetChanged();
-                      messagesListView.post(new Runnable() {
-                        @Override
-                        public void run() {
-                          // Call smooth scroll
-                          messagesListView.smoothScrollToPosition(messagesAdapter.getItemCount() - 1);
-                        }
-                      });
+                if(e == null){
+                  for (DocumentChange documentSnapshot : queryDocumentSnapshots.getDocumentChanges()) {
+                    String chatDataId = documentSnapshot.getDocument().getId();
+                    ChatData chatMessages = documentSnapshot.getDocument().toObject(ChatData.class).withId(chatDataId);
+                    Log.i(TAG, "onEvent: " + chatMessages.getOp_id());
+                    Log.i(TAG, "onEvent: " + chatMessages.getUser_id());
+                    if (documentSnapshot.getType() == DocumentChange.Type.ADDED) {
+                      if ((chatMessages.getReceiver_id().equals(chatData.get("op_id")) || chatMessages.getUser_id().equals(chatData.get("op_id")))
+                              && (chatMessages.getUser_id().equals(chatData.get("user_id")) || chatMessages.getReceiver_id().equals(chatData.get("user_id")))) {
+                        chatDataList.add(chatMessages);
+                        messagesAdapter.notifyDataSetChanged();
+                        messagesListView.post(new Runnable() {
+                          @Override
+                          public void run() {
+                            // Call smooth scroll
+                            messagesListView.smoothScrollToPosition(messagesAdapter.getItemCount() - 1);
+                          }
+                        });
+
+                      }
 
                     }
 
                   }
 
+
                 }
+
               }
             });
 
