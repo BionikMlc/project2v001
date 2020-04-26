@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RequestsActivity"></activity>
+        <activity android:name=".ChatActivity"></activity>
+        <activity android:name=".RequestsActivity" />
         <activity android:name=".BookSelectionActivity" />
         <activity
             android:name=".PostActivity"

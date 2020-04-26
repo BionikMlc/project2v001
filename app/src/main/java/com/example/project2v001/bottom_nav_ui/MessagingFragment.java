@@ -69,8 +69,7 @@ public class MessagingFragment extends Fragment {
 
       final String user_id = auth.getUid();
       Query firstQuery = firebaseFirestore.collection("Chats");
-//                     .whereEqualTo("op_id",user_id)
-//              .orderBy("timestamp", Query.Direction.DESCENDING);
+
       firstQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
         @Override
         public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
@@ -83,7 +82,7 @@ public class MessagingFragment extends Fragment {
               if (doc.getType() == DocumentChange.Type.ADDED) {
 
 //                String postId = doc.getDocument().getId();
-                final ChatData chatData = doc.getDocument().toObject(ChatData.class);
+                 ChatData chatData = doc.getDocument().toObject(ChatData.class);
 
                   chatList.add(chatData);
 

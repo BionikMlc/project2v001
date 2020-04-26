@@ -2,7 +2,6 @@ package com.example.project2v001.bottom_nav_ui.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.project2v001.R;
 import com.example.project2v001.RequestsActivity;
 import com.example.project2v001.post_module.Post;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
@@ -62,33 +59,24 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     //Request Feature
     final String user_id = FirebaseAuth.getInstance().getUid();
     final String postId = postList.get(position).postId;
-    firebaseFirestore = FirebaseFirestore.getInstance();
-    firebaseFirestore.collection("Posts")
-            .document(postId).get()
-            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-              @Override
-              public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()) {
-                  String reserved_for = documentSnapshot.get("reserved_for").toString();
-                  Log.i(TAG, "onSuccess: " + reserved_for);
 
-                  List<String> postRequests = (List<String>) documentSnapshot.get("requests");
-                  if (reserved_for.equals(user_id)) {
-                    holder.notifIcon.setImageResource(R.drawable.icon_check);
-                    holder.notifText.setText("your request was accepted you can now contact owner of the material");
-                    holder.setPostImg(postList.get(position).getImg());
-                  } else if (!postList.get(position).getUser_id().equals(user_id) && postRequests.contains(user_id) && !reserved_for.isEmpty()) {
-                    holder.notifIcon.setImageResource(R.drawable.icon_lock);
-                    holder.notifText.setText("the material was reserved for another user");
-                    holder.setPostImg(postList.get(position).getImg());
-                  } else if (!postRequests.isEmpty()) {
-                    holder.notifIcon.setImageResource(R.drawable.bell_icon);
-                    holder.notifText.setText("there is a request for this item");
-                    holder.setPostImg(postList.get(position).getImg());
-                  }
-                }
-              }
-            });
+
+    if (postList.get(position).getUser_id().equals(user_id) && !postList.get(position).getRequests().isEmpty()) {
+        holder.notifIcon.setImageResource(R.drawable.bell_icon);
+        holder.notifText.setText("you have requests for this item");
+        holder.setPostImg(postList.get(position).getImg());
+      } else if (user_id.equals(postList.get(position).getReserved_for())) {
+        holder.notifIcon.setImageResource(R.drawable.icon_check);
+        holder.notifText.setText("request accepted!\nyou can contact item owner");
+        holder.setPostImg(postList.get(position).getImg());
+      } else if (postList.get(position).getRequests().contains(user_id) && user_id.equals(postList.get(position).getReserved_for())){
+        holder.notifIcon.setImageResource(R.drawable.icon_lock);
+        holder.notifText.setText("this item was reserved for another user");
+        holder.setPostImg(postList.get(position).getImg());
+      }
+
+
+
 
     if (postList.get(position).getUser_id().equals(user_id)) {
       holder.container.setOnClickListener(new View.OnClickListener() {

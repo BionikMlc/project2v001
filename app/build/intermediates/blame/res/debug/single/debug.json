@@ -1,15 +1,15 @@
 [
     {
-        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_baseline_exit_to_app_black_24dp.png.flat",
-        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-v24\\baseline_exit_to_app_black_24dp.png"
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_icon_lock.png.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-xhdpi\\icon_lock.png"
     },
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_baseline_home_black_24dp.png.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-v24\\baseline_home_black_24dp.png"
     },
     {
-        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_icon_lock.png.flat",
-        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-xhdpi\\icon_lock.png"
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_baseline_exit_to_app_black_24dp.png.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-v24\\baseline_exit_to_app_black_24dp.png"
     },
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\layout_saved_post_item.xml.flat",
@@ -186,6 +186,10 @@
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_account_settings.xml.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\layout\\activity_account_settings.xml"
+    },
+    {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_chat.xml.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\layout\\activity_chat.xml"
     },
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\layout_chat_item.xml.flat",
@@ -434,5 +438,9 @@
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_default_profile.png.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-hdpi\\default_profile.png"
+    },
+    {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\layout_chat_box.xml.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\layout\\chat_box.xml"
     }
 ]

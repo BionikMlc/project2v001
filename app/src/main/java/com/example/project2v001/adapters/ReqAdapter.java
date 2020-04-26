@@ -21,7 +21,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,7 +79,6 @@ public class ReqAdapter extends RecyclerView.Adapter<ReqAdapter.ViewHolder> {
         dialogBuilder.setMessage("by accepting this request this item will be reserved for this user");
         final Map<String,Object> reqData = new HashMap<>();
         reqData.put("reserved_for",postReqID.get(position));
-        reqData.put("requests",new ArrayList<String>());
         dialogBuilder.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
@@ -89,9 +87,9 @@ public class ReqAdapter extends RecyclerView.Adapter<ReqAdapter.ViewHolder> {
            messageMap.put("op_id",postList.get(position).getUser_id());
            messageMap.put("user_id",reqData.get("reserved_for"));
 //           messageMap.put("timestamp", FieldValue.serverTimestamp());
-           messageMap.put("messages",new ArrayList<String>());
+
            firebaseFirestore.collection("Chats").add(messageMap);
-//           context.startActivity(new Intent());
+//           context.startActivity(new Intent(context, HomeFragment.class));
 
 
           }

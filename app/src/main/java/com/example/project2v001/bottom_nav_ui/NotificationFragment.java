@@ -72,7 +72,7 @@ public class NotificationFragment extends Fragment {
       Query firstQuery = firebaseFirestore.collection("Posts")
 //                    .whereEqualTo("user_id",user_id)
               .orderBy("timestamp", Query.Direction.DESCENDING);
-      firstQuery.addSnapshotListener(getActivity(),new EventListener<QuerySnapshot>() {
+      firstQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
         @Override
         public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
           if (e == null) {
@@ -87,20 +87,18 @@ public class NotificationFragment extends Fragment {
                 final Post post = doc.getDocument().toObject(Post.class).withId(postId);
                 reqs = new ArrayList<>();
                 reqs = post.getRequests();
-                if (!reqs.isEmpty()) {
+
+
                   if (post.getReserved_for().equals(user_id)) {
                     postsList.add(post);
-                  } else if (post.getUser_id().equals(user_id) && !reqs.isEmpty()) {
-                    postsList.add(post);
-                  } else if (!reqs.contains(user_id) && !post.getReserved_for().isEmpty()) {
+                  }
+                  if (post.getUser_id().equals(user_id) && !reqs.isEmpty()) {
                     postsList.add(post);
                   }
-                }
+                  if (reqs.contains(user_id) && !post.getReserved_for().isEmpty()) {
+                    postsList.add(post);
+                  }
 
-
-//                else if (reqs.contains(user_id) && !post.getReserved_for().isEmpty()) {
-//                  postsList.add(post);
-//                }
                 notificationAdapter.notifyDataSetChanged();
 
               }

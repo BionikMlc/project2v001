@@ -1,20 +1,21 @@
 package com.example.project2v001.chat_module;
 
 import java.util.Date;
-import java.util.List;
 
-public class ChatData {
+public class ChatData extends ChatId{
   private String op_id;
   private String user_id;
-  private List<String> messages;
+  private String receiver_id;
+  private String message;
   private Date timestamp;
 
   public ChatData() { }
 
-  public ChatData(String op_id, String user_id,Date timestamp, List<String> messages) {
+  public ChatData(String op_id, String user_id, String receiver_id, Date timestamp, String message) {
     this.op_id = op_id;
     this.user_id = user_id;
-    this.messages = messages;
+    this.receiver_id = receiver_id;
+    this.message = message;
     this.timestamp = timestamp;
   }
 
@@ -26,12 +27,13 @@ public class ChatData {
     return user_id;
   }
 
-  public List<String> getMessages() {
-    return messages;
+  public String getMessage() {
+    return message;
   }
 
   public Date getTimestamp() {
     return timestamp;
   }
+  public String getReceiver_id() {return receiver_id;}
 
 }

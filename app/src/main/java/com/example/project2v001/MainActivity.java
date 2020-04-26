@@ -2,9 +2,9 @@ package com.example.project2v001;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,13 +18,11 @@ import com.example.project2v001.bottom_nav_ui.HomeFragment;
 import com.example.project2v001.bottom_nav_ui.MessagingFragment;
 import com.example.project2v001.bottom_nav_ui.NotificationFragment;
 import com.example.project2v001.post_module.Post;
-import com.example.project2v001.post_module.adapters.PostAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
@@ -46,13 +44,12 @@ public class MainActivity extends AppCompatActivity {
   private NotificationFragment notificationFragment;
 
   private Toolbar mainToolBar;
-  private FloatingActionButton addPostBtn;
+  //  private FloatingActionButton addPostBtn;
   private BottomNavigationView mainBottomNav;
   private FirebaseAuth mAuth;
   private FirebaseFirestore firebaseFirestore;
   private BadgeDrawable badge;
-  private PostAdapter postAdapter;
-  private List<Post> postsList;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     setSupportActionBar(mainToolBar);
     getSupportActionBar().setTitle("AcademiaExchange");
     if (mAuth.getCurrentUser() != null) {
-      addPostBtn = findViewById(R.id.add_post_float_btn);
+//      addPostBtn = findViewById(R.id.add_post_float_btn);
       mainBottomNav = findViewById(R.id.mainBottomNav);
       homeFragment = new HomeFragment();
       accountFragment = new AccountFragment();
@@ -73,21 +70,21 @@ public class MainActivity extends AppCompatActivity {
 
       notificationFragment = new NotificationFragment();
       mainBottomNav.setSelectedItemId(R.id.bottom_action_home);
-      final BadgeDrawable badge = mainBottomNav.getOrCreateBadge(R.id.bottom_action_notification);
+      badge = mainBottomNav.getOrCreateBadge(R.id.bottom_action_notification);
       badge.setVisible(false);
-      changeFragment(homeFragment);
+      changeFragment(homeFragment, "homeFragment");
       firebaseFirestore = FirebaseFirestore.getInstance();
 
 
       /*****************************************************
        *                  LISTENERS
        ******************************************************/
-      addPostBtn.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-          startActivity(new Intent(MainActivity.this, PostActivity.class));
-        }
-      });
+//      addPostBtn.setOnClickListener(new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//          startActivity(new Intent(MainActivity.this, PostActivity.class));
+//        }
+//      });
       mainBottomNav.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
       mainBottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -95,26 +92,26 @@ public class MainActivity extends AppCompatActivity {
 
           switch (item.getItemId()) {
             case R.id.bottom_action_home:
-              changeFragment(homeFragment);
+              changeFragment(homeFragment, "homeFragment");
               return true;
             case R.id.bottom_action_notification:
-              changeFragment(notificationFragment);
+              changeFragment(notificationFragment, "notificationFragment");
               return true;
             case R.id.bottom_action_account:
-              changeFragment(accountFragment);
+              changeFragment(accountFragment, "accountFragment");
               return true;
             case R.id.bottom_action_messages:
-              changeFragment(messagingFragment);
+              changeFragment(messagingFragment, "messagingFragment");
               return true;
             default:
-              changeFragment(homeFragment);
+              changeFragment(homeFragment, "HomeFragment");
               return false;
           }
         }
       });
+
       Query firstQuery = firebaseFirestore.collection("Posts");
-//
-      firstQuery.addSnapshotListener(MainActivity.this,new EventListener<QuerySnapshot>() {
+      firstQuery.addSnapshotListener( new EventListener<QuerySnapshot>() {
         @Override
         public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
           if (e == null) {
@@ -123,14 +120,21 @@ public class MainActivity extends AppCompatActivity {
                 String postId = doc.getDocument().getId();
                 final Post post = doc.getDocument().toObject(Post.class).withId(postId);
                 List<String> reqs;
+                Log.i(TAG, "onEvent: " + post.getUser_id());
                 reqs = post.getRequests();
-                if (!reqs.isEmpty()) {
-                  if (post.getUser_id().equals(mAuth.getUid())) {
+                if (post.getUser_id() != null) {
+                  if (post.getReserved_for().equals(mAuth.getUid())) {
                     badge.setVisible(true);
-                  } else
-                    badge.setVisible(false);
+                  }
+                  if (post.getUser_id().equals(mAuth.getUid()) && !reqs.isEmpty()) {
+                    badge.setVisible(true);
+                  }
+                  if (reqs.contains(mAuth.getUid()) && !post.getReserved_for().isEmpty()) {
+                    badge.setVisible(true);
+                  }
                 }
               }
+
             }
 
 
@@ -206,10 +210,14 @@ public class MainActivity extends AppCompatActivity {
     finish();
   }
 
-  private void changeFragment(Fragment fragment) {
+  private void changeFragment(Fragment fragment, String fragmentTagName) {
+
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-    transaction.replace(R.id.main_fragment_container, fragment);
+    transaction.replace(R.id.main_fragment_container, fragment, fragmentTagName);
     transaction.commit();
+    if (fragmentTagName.equals("notificationFragment")) {
+      badge.setVisible(false);
+    }
 
   }
 }

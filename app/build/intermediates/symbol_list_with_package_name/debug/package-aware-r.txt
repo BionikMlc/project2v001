@@ -1560,10 +1560,12 @@ id action_search
 id action_settings
 id action_text
 id actions
+id activity_chat_username
 id activity_chooser_view_content
 id add
 id add_new_post
 id add_post_float_btn
+id add_post_float_btn2
 id add_post_toolbar
 id adjust_height
 id adjust_width
@@ -1591,6 +1593,14 @@ id center_horizontal
 id center_vertical
 id chains
 id chatListView
+id chat_activity_message_edit_text
+id chat_activity_message_list
+id chat_activity_send_button
+id chat_box_cardView_left
+id chat_box_cardView_right
+id chat_box_text_left
+id chat_box_text_right
+id chat_item_container
 id chat_item_date
 id chat_item_text
 id chat_item_username
@@ -1677,6 +1687,7 @@ id light
 id line1
 id line3
 id linearLayout
+id linearLayout2
 id listMode
 id list_item
 id login_button
@@ -1868,6 +1879,7 @@ id up
 id useLogo
 id user_img
 id user_name
+id view
 id view_offset_helper
 id visible
 id wide
@@ -1937,11 +1949,13 @@ layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_account_settings
 layout activity_book_selection
+layout activity_chat
 layout activity_login
 layout activity_main
 layout activity_post
 layout activity_register
 layout activity_requests
+layout chat_box
 layout chat_item
 layout crop_image_activity
 layout crop_image_view
