@@ -91,13 +91,15 @@ public class MyPostsFragment extends Fragment {
 
                   String postId = doc.getDocument().getId();
                   Post post = doc.getDocument().toObject(Post.class).withId(postId);
-
-                  if (isFirstDataLoad) {
-                    postsList.add(post);
-                  } else {
-                    postsList.add(0, post);
+                  if (post.getReserved_for().isEmpty()){
+                    if (isFirstDataLoad) {
+                      postsList.add(post);
+                    } else {
+                      postsList.add(0, post);
+                    }
+                    myPostAdapter.notifyDataSetChanged();
                   }
-                  myPostAdapter.notifyDataSetChanged();
+
                 }
               }
 

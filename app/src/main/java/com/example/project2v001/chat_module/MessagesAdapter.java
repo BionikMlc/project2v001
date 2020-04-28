@@ -1,7 +1,6 @@
 package com.example.project2v001.chat_module;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,9 +46,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
   public void onBindViewHolder(@NonNull final MessagesAdapter.ViewHolder holder, final int position) {
     auth = FirebaseAuth.getInstance();
     firebaseFirestore = FirebaseFirestore.getInstance();
-    Log.i(TAG, "onBindViewHolder: "+chatDataList.get(position).getUser_id());
-    Log.i(TAG, "userid: "+chatDataList.get(position).getUser_id().equals(auth.getUid()));
-    Log.i(TAG, "reciver: "+chatDataList.get(position).getReceiver_id().equals(auth.getUid()));
+
     if (chatDataList.get(position).getUser_id().equals(auth.getUid())) {
       holder.cardViewRight.setVisibility(View.VISIBLE);
       holder.textRight.setText(chatDataList.get(position).getMessage());

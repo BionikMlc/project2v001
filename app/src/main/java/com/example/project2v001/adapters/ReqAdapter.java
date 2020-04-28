@@ -1,7 +1,10 @@
 package com.example.project2v001.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.project2v001.MainActivity;
 import com.example.project2v001.R;
 import com.example.project2v001.post_module.Post;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,6 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
@@ -57,8 +62,6 @@ public class ReqAdapter extends RecyclerView.Adapter<ReqAdapter.ViewHolder> {
     final FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
 
-
-
     firebaseFirestore.collection("Users").document(postReqID.get(position)).get()
             .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
               @Override
@@ -77,19 +80,43 @@ public class ReqAdapter extends RecyclerView.Adapter<ReqAdapter.ViewHolder> {
         MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(context);
         dialogBuilder.setTitle("Accept Request");
         dialogBuilder.setMessage("by accepting this request this item will be reserved for this user");
-        final Map<String,Object> reqData = new HashMap<>();
-        reqData.put("reserved_for",postReqID.get(position));
+        final Map<String, Object> reqData = new HashMap<>();
+        reqData.put("reserved_for", postReqID.get(position));
         dialogBuilder.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
-           firebaseFirestore.collection("Posts").document(postID).set(reqData, SetOptions.merge());
-           Map<String,Object> messageMap = new HashMap<>();
-           messageMap.put("op_id",postList.get(position).getUser_id());
-           messageMap.put("user_id",reqData.get("reserved_for"));
-//           messageMap.put("timestamp", FieldValue.serverTimestamp());
 
-           firebaseFirestore.collection("Chats").add(messageMap);
-//           context.startActivity(new Intent(context, HomeFragment.class));
+            Map<String, Object> exist = new HashMap<>();
+            exist.put("exists", true);
+            firebaseFirestore.collection("Notifs").document(reqData.get("reserved_for").toString()).set(exist);
+            firebaseFirestore.collection("Notifs").document(postList.get(position).getUser_id()).delete();
+            firebaseFirestore.collection("Posts").document(postID).set(reqData, SetOptions.merge());
+            final Map<String, Object> messageMap = new HashMap<>();
+            messageMap.put("op_id", postList.get(position).getUser_id());
+            messageMap.put("user_id", reqData.get("reserved_for"));
+//           messageMap.put("timestamp", FieldValue.serverTimestamp());
+            firebaseFirestore.collection("Chats").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+              @Override
+              public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                boolean hasConnection = false;
+                for (DocumentSnapshot doc : task.getResult().getDocuments()) {
+                  if (doc.exists()) {
+                    if ((doc.get("op_id").equals(postList.get(position).getUser_id()) || doc.get("op_id").equals(reqData.get("reserved_for"))) &&
+                            (doc.get("user_id").equals(postList.get(position).getUser_id()) || doc.get("user_id").equals(reqData.get("reserved_for")))) {
+                      hasConnection = true;
+                    } else {
+                      hasConnection = false;
+                    }
+                  }
+                }
+                Log.i(TAG, "onComplete: " + hasConnection);
+                if (!hasConnection)
+                  firebaseFirestore.collection("Chats").add(messageMap);
+              }
+            });
+            context.startActivity(new Intent(context, MainActivity.class));
+            ((Activity) context).finish();
+//           context.startActivity();
 
 
           }
@@ -103,7 +130,6 @@ public class ReqAdapter extends RecyclerView.Adapter<ReqAdapter.ViewHolder> {
         dialogBuilder.show();
       }
     });
-
 
 
   }

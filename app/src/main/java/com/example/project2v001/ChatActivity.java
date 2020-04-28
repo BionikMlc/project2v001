@@ -108,6 +108,7 @@ public class ChatActivity extends AppCompatActivity {
               @Override
               public void onClick(View v) {
                 String msg = messageEditTextView.getText().toString();
+                messageEditTextView.setText("");
                 if (!msg.isEmpty()) {
                   Map<String, Object> msgData = new HashMap<>();
                   msgData.put("message", msg);
@@ -125,7 +126,7 @@ public class ChatActivity extends AppCompatActivity {
                     .collection("Messages").orderBy("timestamp", Query.Direction.ASCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
               @Override
               public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if(e == null){
+                if (e == null) {
                   for (DocumentChange documentSnapshot : queryDocumentSnapshots.getDocumentChanges()) {
                     String chatDataId = documentSnapshot.getDocument().getId();
                     ChatData chatMessages = documentSnapshot.getDocument().toObject(ChatData.class).withId(chatDataId);

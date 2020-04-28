@@ -145,7 +145,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
       public void onClick(View v) {
         final String user_id = FirebaseAuth.getInstance().getUid();
         final String postId = postList.get(position).postId;
-
+        Map<String,Object> exist = new HashMap<>();
+        exist.put("exists",true);
+        firebaseFirestore.collection("Notifs").document(postList.get(position).getUser_id()).set(exist);
         if (!holder.requestButton.getText().toString().equals("Request")) {
           holder.requestButton.setText("Request");
           holder.requestButton.setTextColor(holder.requestButton.getResources().getColor(R.color.common_google_signin_btn_text_light_default));

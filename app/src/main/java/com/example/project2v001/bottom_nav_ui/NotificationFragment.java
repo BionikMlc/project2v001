@@ -13,8 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.project2v001.R;
 import com.example.project2v001.bottom_nav_ui.adapters.NotificationAdapter;
 import com.example.project2v001.post_module.Post;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -22,7 +25,9 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -68,48 +73,68 @@ public class NotificationFragment extends Fragment {
           }
         }
       });
-      final String user_id = auth.getUid();
-      Query firstQuery = firebaseFirestore.collection("Posts")
-//                    .whereEqualTo("user_id",user_id)
-              .orderBy("timestamp", Query.Direction.DESCENDING);
-      firstQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+      firebaseFirestore.collection("Notifs").document(auth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
         @Override
-        public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
-          if (e == null) {
-            if (!documentSnapshots.isEmpty()) {
-              postsList.clear();
-            }
-            for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
-
-              if (doc.getType() == DocumentChange.Type.ADDED) {
-
-                String postId = doc.getDocument().getId();
-                final Post post = doc.getDocument().toObject(Post.class).withId(postId);
-                reqs = new ArrayList<>();
-                reqs = post.getRequests();
-
-
-                  if (post.getReserved_for().equals(user_id)) {
-                    postsList.add(post);
-                  }
-                  if (post.getUser_id().equals(user_id) && !reqs.isEmpty()) {
-                    postsList.add(post);
-                  }
-                  if (reqs.contains(user_id) && !post.getReserved_for().isEmpty()) {
-                    postsList.add(post);
+        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+          if (task.getResult().exists())
+          {
+            final String user_id = auth.getUid();
+            Query firstQuery = firebaseFirestore.collection("Posts")
+//                    .whereEqualTo("user_id",user_id)
+                    .orderBy("timestamp", Query.Direction.DESCENDING);
+            firstQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
+              @Override
+              public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                if (e == null) {
+                  if (!documentSnapshots.isEmpty()) {
+                    postsList.clear();
                   }
 
-                notificationAdapter.notifyDataSetChanged();
+                  for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
 
+                    if (doc.getType() == DocumentChange.Type.ADDED) {
+
+                      String postId = doc.getDocument().getId();
+                      final Post post = doc.getDocument().toObject(Post.class).withId(postId);
+                      reqs = new ArrayList<>();
+                      reqs = post.getRequests();
+                      Map<String,Object> exist = new HashMap<>();
+                      exist.put("exists",true);
+                      if (post.getReserved_for().equals(user_id)) {
+                        postsList.add(post);
+                        firebaseFirestore.collection("Notifs").document(auth.getUid()).set(exist);
+                      }
+                      if (post.getUser_id().equals(user_id) && !reqs.isEmpty()) {
+                        postsList.add(post);
+                        firebaseFirestore.collection("Notifs").document(auth.getUid()).set(exist);
+                      }
+                      if (reqs.contains(user_id) && !post.getReserved_for().isEmpty()) {
+                        postsList.add(post);
+                        firebaseFirestore.collection("Notifs").document(auth.getUid()).set(exist);
+                      }
+                      notificationAdapter.notifyDataSetChanged();
+
+                    }
+                  }
+                }
               }
-            }
+            });
           }
+
         }
       });
+
+
     }
 
     // Inflate the layout for this fragment
     return view;
   }
 
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+    firebaseFirestore.collection("Notifs").document(auth.getUid()).delete();
+  }
 }

@@ -10,10 +10,4 @@
         android:id="@+id/action_logout"
         android:icon="@drawable/baseline_exit_to_app_white_24dp"
         android:title="@string/log_out" />
-    <item
-        android:id="@+id/action_search"
-        android:icon="@drawable/ic_search"
-        android:title="@android:string/search_go"
-        android:visible="true"
-        app:showAsAction="always" />
 </menu>
