@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.example.project2v001.R;
 import com.example.project2v001.post_module.Post;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
@@ -77,12 +78,12 @@ public class SavedPostAdapter extends RecyclerView.Adapter<SavedPostAdapter.View
             firebaseFirestore.collection("Posts").document(postList.get(position).postId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
               @Override
               public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.getResult().exists()) {
+                if (task.getResult().exists()) {
                   List<String> savedBy = (List<String>) task.getResult().get("saved");
-                  if (savedBy.contains(FirebaseAuth.getInstance().getUid()));
+                  if (savedBy.contains(FirebaseAuth.getInstance().getUid())) ;
                   savedBy.remove(FirebaseAuth.getInstance().getUid());
                   Map<String, Object> saved = new HashMap<>();
-                  saved.put("saved",savedBy);
+                  saved.put("saved", savedBy);
                   firebaseFirestore.collection("Posts").document(postList.get(position).postId).set(saved, SetOptions.merge());
 
                 }
@@ -99,6 +100,61 @@ public class SavedPostAdapter extends RecyclerView.Adapter<SavedPostAdapter.View
           }
         });
         dialogBuilder.show();
+      }
+    });
+
+
+    final String user_id = FirebaseAuth.getInstance().getUid();
+    final String postId = postList.get(position).postId;
+    firebaseFirestore.collection("Posts").document(postId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+      @Override
+      public void onSuccess(DocumentSnapshot documentSnapshot) {
+        if (documentSnapshot.exists()) {
+          List<String> postRequests = (List<String>) documentSnapshot.get("requests");
+          if (postRequests.contains(user_id)) {
+            holder.requestButton.setText("Requested");
+            holder.requestButton.setTextColor(holder.requestButton.getResources().getColor(R.color.colorAccent));
+          }
+        }
+      }
+    });
+
+    holder.requestButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Map<String,Object> exist = new HashMap<>();
+        exist.put("exists",true);
+        firebaseFirestore.collection("Notifs").document(postList.get(position).getUser_id()).set(exist);
+        if (!holder.requestButton.getText().toString().equals("Request")) {
+          holder.requestButton.setText("Request");
+          holder.requestButton.setTextColor(holder.requestButton.getResources().getColor(R.color.common_google_signin_btn_text_light_default));
+        } else {
+          holder.requestButton.setText("Requested");
+          holder.requestButton.setTextColor(holder.requestButton.getResources().getColor(R.color.colorAccent));
+        }
+
+
+        firebaseFirestore.collection("Posts").document(postId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+          @Override
+          public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            Map<String, Object> req = new HashMap<>();
+            List<String> userIds;
+            userIds = (List<String>) task.getResult().get("requests");
+
+            if (!userIds.contains(user_id)) {
+              userIds.add(user_id);
+
+            } else {
+              userIds.remove(user_id);
+
+            }
+
+            req.put("requests", userIds);
+            firebaseFirestore.collection("Posts").document(postId).set(req, SetOptions.merge());
+          }
+        });
+
+
       }
     });
 
@@ -125,13 +181,13 @@ public class SavedPostAdapter extends RecyclerView.Adapter<SavedPostAdapter.View
     private CircleImageView userImgView;
     private ConstraintLayout container;
     private TextView unsave;
-    private TextView request;
+    private TextView requestButton;
 
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
 
       mView = itemView;
-      request = mView.findViewById(R.id.post_request);
+      requestButton = mView.findViewById(R.id.post_request);
       unsave = mView.findViewById(R.id.unsave_post);
       container = mView.findViewById(R.id.item_container);
     }

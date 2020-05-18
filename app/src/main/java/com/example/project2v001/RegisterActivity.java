@@ -17,6 +17,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -36,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         regEmail = findViewById(R.id.reg_email);
         regPassword = findViewById(R.id.reg_password);
-        regConformPass = findViewById(R.id.reg_email);
+        regConformPass = findViewById(R.id.reg_conform_password);
         regCreateAccountButton = findViewById(R.id.reg_button);
         regHaveAccountButton = findViewById(R.id.reg_have_account_button);
         regProgressBar = findViewById(R.id.reg_progress);
@@ -44,9 +48,9 @@ public class RegisterActivity extends AppCompatActivity {
         regCreateAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = regEmail.getText().toString();
-                String password = regPassword.getText().toString();
-                String conformPassword = regPassword.getText().toString();
+                final String email = regEmail.getText().toString();
+                final String password = regPassword.getText().toString();
+                String conformPassword = regConformPass.getText().toString();
 
                 if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(conformPassword)) {
                     if (password.equals(conformPassword)) {
@@ -56,10 +60,15 @@ public class RegisterActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(RegisterActivity.this, "Registration Successful!", Toast.LENGTH_LONG).show();
-                                    startActivity(new Intent(RegisterActivity.this, AccountSettingsActivity.class));
+                                    Intent intent = new Intent(RegisterActivity.this, AccountSettingsActivity.class);
+                                    Map<String,String> userData = new HashMap<>();
+                                    userData.put("uid",mAuth.getUid());
+                                    userData.put("email",email);
+                                    intent.putExtra("userData",(Serializable) userData);
+                                    startActivity(intent);
                                 } else {
                                     String err = task.getException().getMessage();
-                                    Toast.makeText(RegisterActivity.this, "loginError: " + err, Toast.LENGTH_LONG).show();
+                                    Toast.makeText(RegisterActivity.this, "Registration Error: " + err, Toast.LENGTH_LONG).show();
                                 }
                                 regProgressBar.setVisibility(View.INVISIBLE);
                             }

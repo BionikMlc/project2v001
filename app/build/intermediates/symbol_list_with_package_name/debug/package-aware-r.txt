@@ -84,6 +84,7 @@ attr alertDialogButtonGroupStyle
 attr alertDialogCenterButtons
 attr alertDialogStyle
 attr alertDialogTheme
+attr alignmentMode
 attr allowStacking
 attr alpha
 attr alphabeticModifiers
@@ -231,6 +232,8 @@ attr colorSecondary
 attr colorSecondaryVariant
 attr colorSurface
 attr colorSwitchThumbNormal
+attr columnCount
+attr columnOrderPreserved
 attr commitIcon
 attr constraintSet
 attr constraint_referenced_ids
@@ -453,6 +456,9 @@ attr layout_anchorGravity
 attr layout_behavior
 attr layout_collapseMode
 attr layout_collapseParallaxMultiplier
+attr layout_column
+attr layout_columnSpan
+attr layout_columnWeight
 attr layout_constrainedHeight
 attr layout_constrainedWidth
 attr layout_constraintBaseline_creator
@@ -503,9 +509,13 @@ attr layout_goneMarginLeft
 attr layout_goneMarginRight
 attr layout_goneMarginStart
 attr layout_goneMarginTop
+attr layout_gravity
 attr layout_insetEdge
 attr layout_keyline
 attr layout_optimizationLevel
+attr layout_row
+attr layout_rowSpan
+attr layout_rowWeight
 attr layout_scrollFlags
 attr layout_scrollInterpolator
 attr liftOnScroll
@@ -563,6 +573,7 @@ attr navigationMode
 attr navigationViewStyle
 attr number
 attr numericModifiers
+attr orientation
 attr overlapAnchor
 attr paddingBottomNoButtons
 attr paddingEnd
@@ -594,6 +605,8 @@ attr ratingBarStyleSmall
 attr recyclerViewStyle
 attr reverseLayout
 attr rippleColor
+attr rowCount
+attr rowOrderPreserved
 attr scopeUris
 attr scrimAnimationDuration
 attr scrimBackground
@@ -742,6 +755,7 @@ attr trackTint
 attr trackTintMode
 attr ttcIndex
 attr useCompatPadding
+attr useDefaultMargins
 attr useMaterialThemeColors
 attr viewInflaterClass
 attr voiceIcon
@@ -1059,6 +1073,7 @@ dimen compat_control_corner_material
 dimen compat_notification_large_icon_max_height
 dimen compat_notification_large_icon_max_width
 dimen default_dimension
+dimen default_gap
 dimen design_appbar_elevation
 dimen design_bottom_navigation_active_item_max_width
 dimen design_bottom_navigation_active_item_min_width
@@ -1388,6 +1403,7 @@ drawable action_add
 drawable add_book
 drawable avd_hide_password
 drawable avd_show_password
+drawable background
 drawable background_app
 drawable baseline_exit_to_app_black_24dp
 drawable baseline_exit_to_app_white_24dp
@@ -1398,6 +1414,7 @@ drawable baseline_notifications_black_24dp
 drawable baseline_person_black_24dp
 drawable baseline_settings_white_24dp
 drawable bell_icon
+drawable bg
 drawable btn_checkbox_checked_mtrl
 drawable btn_checkbox_checked_to_unchecked_mtrl_animation
 drawable btn_checkbox_unchecked_mtrl
@@ -1440,8 +1457,12 @@ drawable googleg_standard_color_18
 drawable ic_calendar_black_24dp
 drawable ic_clear_black_24dp
 drawable ic_delete_red_24dp
+drawable ic_description_black_24dp
+drawable ic_description_black_48dp
 drawable ic_edit_black_24dp
 drawable ic_email_black_24dp
+drawable ic_face_black_24dp
+drawable ic_face_black_48dp
 drawable ic_keyboard_arrow_left_black_24dp
 drawable ic_keyboard_arrow_right_black_24dp
 drawable ic_launcher_background
@@ -1452,7 +1473,10 @@ drawable ic_mtrl_checked_circle
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
+drawable ic_report_black_24dp
+drawable ic_report_black_48dp
 drawable ic_search
+drawable ic_volume_up_black_48dp
 drawable icon_check
 drawable icon_lock
 drawable mtrl_dialog_background
@@ -1568,7 +1592,15 @@ id add_post_float_btn2
 id add_post_toolbar
 id adjust_height
 id adjust_width
+id admin_dashboard_announce_cardView
+id admin_dashboard_posts_cardView
+id admin_dashboard_reports_cardView
+id admin_dashboard_users_cardView
+id admin_post_item_container
+id admin_posts_post_list_view
 id alertTitle
+id alignBounds
+id alignMargins
 id all
 id always
 id async
@@ -1669,6 +1701,7 @@ id groups
 id hideable
 id home
 id homeAsUp
+id horizontal
 id icon
 id icon_group
 id icon_only
@@ -1852,6 +1885,7 @@ id textSpacerNoTitle
 id textStart
 id textView
 id textView2
+id textView3
 id text_input_end_icon
 id text_input_start_icon
 id text_sent_to
@@ -1878,6 +1912,13 @@ id up
 id useLogo
 id user_img
 id user_name
+id users_activity_users_list
+id users_list_item_container
+id users_list_item_delete_button
+id users_list_item_user_email
+id users_list_item_user_img
+id users_list_item_user_name
+id vertical
 id view
 id view_offset_helper
 id visible
@@ -1947,6 +1988,9 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_account_settings
+layout activity_admin_dashboard
+layout activity_admin_posts
+layout activity_admin_users
 layout activity_book_selection
 layout activity_chat
 layout activity_login
@@ -1954,6 +1998,7 @@ layout activity_main
 layout activity_post
 layout activity_register
 layout activity_requests
+layout admin_post_item
 layout chat_box
 layout chat_item
 layout crop_image_activity
@@ -2046,6 +2091,8 @@ layout text_view_with_line_height_from_layout
 layout text_view_with_line_height_from_style
 layout text_view_with_theme_line_height
 layout text_view_without_line_height
+layout users_list_item
+menu admin_menu
 menu bottom_nav_menu
 menu crop_image_menu
 menu main_menu
@@ -2910,6 +2957,8 @@ styleable FontFamilyFont android_font android_fontWeight android_fontStyle andro
 styleable ForegroundLinearLayout android_foreground android_foregroundGravity foregroundInsidePadding
 styleable GradientColor android_startColor android_endColor android_type android_centerX android_centerY android_gradientRadius android_tileMode android_centerColor android_startX android_startY android_endX android_endY
 styleable GradientColorItem android_color android_offset
+styleable GridLayout alignmentMode columnCount columnOrderPreserved orientation rowCount rowOrderPreserved useDefaultMargins
+styleable GridLayout_Layout android_layout_width android_layout_height android_layout_margin android_layout_marginLeft android_layout_marginTop android_layout_marginRight android_layout_marginBottom layout_column layout_columnSpan layout_columnWeight layout_gravity layout_row layout_rowSpan layout_rowWeight
 styleable LinearConstraintLayout android_orientation
 styleable LinearLayoutCompat android_gravity android_orientation android_baselineAligned android_baselineAlignedChildIndex android_weightSum divider dividerPadding measureWithLargestChild showDividers
 styleable LinearLayoutCompat_Layout android_layout_gravity android_layout_width android_layout_height android_layout_weight

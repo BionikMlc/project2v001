@@ -54,6 +54,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
     private final Map<String, String> userMap = new HashMap<>();
     private EditText nameText;
     private Button saveBtn;
+    private Map<String, String> userData;
     private ProgressBar progressBar;
 
     private String userId;
@@ -66,6 +67,9 @@ public class AccountSettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_settings);
+
+        final Intent intent = getIntent();
+
 
         Toolbar accountSettingsToolBar = findViewById(R.id.account_settings);
         setSupportActionBar(accountSettingsToolBar);
@@ -150,6 +154,12 @@ public class AccountSettingsActivity extends AppCompatActivity {
                     }
 
                     userMap.put("name", name);
+                    if(intent.hasExtra("userData")) {
+                        userData = (Map<String, String>) intent.getSerializableExtra("userData");
+                        userMap.put("email",userData.get("email"));
+                        userMap.put("uid",userData.get("uid"));
+                    }
+
                     firebaseFirestore.collection("Users").document(userId).set(userMap,SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {

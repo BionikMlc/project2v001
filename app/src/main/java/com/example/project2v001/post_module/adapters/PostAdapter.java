@@ -22,7 +22,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -161,7 +160,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
           @Override
           public void onComplete(@NonNull Task<DocumentSnapshot> task) {
             Map<String, Object> req = new HashMap<>();
-            List<String> userIds = new ArrayList<>();
+            List<String> userIds;
             userIds = (List<String>) task.getResult().get("requests");
 
             if (!userIds.contains(user_id)) {

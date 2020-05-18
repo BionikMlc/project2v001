@@ -17,7 +17,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChatActivity"></activity>
+        <activity android:name=".admin.AdminAnnouncementActivity"></activity>
+        <activity android:name=".admin.AdminAddAnnouncementActivity" />
+        <activity android:name=".admin.AdminPostsActivity" />
+        <activity android:name=".admin.AdminUsersActivity" />
+        <activity android:name=".admin.AdminDashboardActivity" />
+        <activity android:name=".ChatActivity" />
         <activity android:name=".RequestsActivity" />
         <activity android:name=".BookSelectionActivity" />
         <activity

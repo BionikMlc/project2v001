@@ -104,7 +104,9 @@ public class PostActivity extends AppCompatActivity {
     giveAway.setId(RADIO_BTN_ID_2);
     exchange.setId(RADIO_BTN_ID_3);
 
-
+/********************************************************************************
+ *  Edit post feature
+ *******************************************************************************/
     final Intent intent = getIntent();
     if (intent.hasExtra("postData")) {
       postData = (Map<String, String>) intent.getSerializableExtra("postData");
@@ -130,6 +132,14 @@ public class PostActivity extends AppCompatActivity {
       addPostBtn.setText("Conform Edit");
       getSupportActionBar().setTitle("Edit Post");
     }
+
+    /********************************************************************************
+     *  END Edit Post Feature End
+     *******************************************************************************/
+
+
+
+
 
     //obtain post data when add post button is clicked
     //check if the fields are not empty before submitting to the database
@@ -233,7 +243,6 @@ public class PostActivity extends AppCompatActivity {
                   }
                 }
               });
-//            UploadTask uploadTask = imagePath.putFile(Uri.parse(imguri));
             }
           }
 

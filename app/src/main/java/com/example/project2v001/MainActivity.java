@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.project2v001.admin.AdminDashboardActivity;
 import com.example.project2v001.bottom_nav_ui.AccountFragment;
 import com.example.project2v001.bottom_nav_ui.HomeFragment;
 import com.example.project2v001.bottom_nav_ui.MessagingFragment;
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    startActivity(new Intent(MainActivity.this, AdminDashboardActivity.class));
+    finish();
     //init firebase ref
     mAuth = FirebaseAuth.getInstance();
     //init UI
@@ -68,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
       badge.setVisible(false);
       changeFragment(homeFragment, "homeFragment");
       firebaseFirestore = FirebaseFirestore.getInstance();
+
 
 
       /*****************************************************
