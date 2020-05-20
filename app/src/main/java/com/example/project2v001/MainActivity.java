@@ -65,18 +65,27 @@ public class MainActivity extends AppCompatActivity {
     firebaseFirestore = FirebaseFirestore.getInstance();
 //    setClaims(mAuth.getCurrentUser().getEmail());
     //check if the user is admin then go to dashboard
-    mAuth.getCurrentUser().getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
-      @Override
-      public void onSuccess(GetTokenResult result) {
-        Log.i(TAG, "onSuccess: admin claim"+result.getClaims().get("admin"));
-        boolean isAdmin =  result.getClaims().get("admin").equals(true);
-        if (isAdmin) {
-          // Show admin UI.
-         startActivity(new Intent(MainActivity.this, DashboardAdminActivity.class));
-         finish();
+    if(mAuth.getCurrentUser() != null){
+      mAuth.getCurrentUser().getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
+        @Override
+        public void onSuccess(GetTokenResult result) {
+          Log.i(TAG, "onSuccess: admin claim"+result.getClaims().get("admin"));
+          Object admin = result.getClaims().get("admin");
+          if (admin != null && admin instanceof Boolean) {
+            boolean isAdmin = (Boolean) admin;
+            if (isAdmin) {
+              // Show admin UI.
+              startActivity(new Intent(MainActivity.this, DashboardAdminActivity.class));
+              finish();
+            }
+          }
+
         }
-      }
-    });
+      });
+    } else {
+      sendToLogin();
+    }
+
 
 
     //init UI
