@@ -1401,6 +1401,8 @@ drawable abc_textfield_search_material
 drawable abc_vector_test
 drawable action_add
 drawable add_book
+drawable admin_img
+drawable announce
 drawable avd_hide_password
 drawable avd_show_password
 drawable background
@@ -1587,11 +1589,14 @@ id activity_chat_username
 id activity_chooser_view_content
 id add
 id add_new_post
+id add_new_post2
 id add_post_float_btn
 id add_post_float_btn2
 id add_post_toolbar
 id adjust_height
 id adjust_width
+id admin_add_post_float_btn
+id admin_announcement_list_view
 id admin_dashboard_announce_cardView
 id admin_dashboard_posts_cardView
 id admin_dashboard_reports_cardView
@@ -1730,6 +1735,8 @@ id login_progress
 id mainBottomNav
 id main_fragment_container
 id main_toolbar
+id main_toolbar2
+id main_toolbar3
 id masked
 id media_actions
 id message
@@ -1793,6 +1800,8 @@ id pin
 id post_date
 id post_desc
 id post_img
+id post_report
+id post_report2
 id post_request
 id post_requests_list_view
 id post_type_exhange
@@ -1801,6 +1810,7 @@ id post_type_need
 id post_type_rg
 id posts_list_view
 id progressBar
+id progressBar2
 id progress_circular
 id progress_horizontal
 id radio
@@ -1886,6 +1896,7 @@ id textStart
 id textView
 id textView2
 id textView3
+id textView4
 id text_input_end_icon
 id text_input_start_icon
 id text_sent_to
@@ -1988,6 +1999,8 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_account_settings
+layout activity_admin_add_announcement
+layout activity_admin_announcment
 layout activity_admin_dashboard
 layout activity_admin_posts
 layout activity_admin_users

@@ -59,7 +59,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     String descText = postList.get(position).getDesc();
     final String user_id = FirebaseAuth.getInstance().getUid();
     holder.setPostDesc(descText);
-    if(!postList.get(position).getUser_id().equals(user_id)) {
+    if(!postList.get(position).getUser_id().equals(user_id) && postList.get(position).getPostType() != -1) {
        holder.savedButton.setVisibility(View.VISIBLE);
        holder.requestButton.setVisibility(View.VISIBLE);
     }

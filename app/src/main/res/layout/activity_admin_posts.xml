@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".admin.AdminPostsActivity">
+    tools:context=".admin.PostsAdminActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/admin_posts_post_list_view"

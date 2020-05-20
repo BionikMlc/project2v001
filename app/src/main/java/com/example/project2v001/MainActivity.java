@@ -13,22 +13,30 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.project2v001.admin.AdminDashboardActivity;
+import com.example.project2v001.admin.DashboardAdminActivity;
 import com.example.project2v001.bottom_nav_ui.AccountFragment;
 import com.example.project2v001.bottom_nav_ui.HomeFragment;
 import com.example.project2v001.bottom_nav_ui.MessagingFragment;
 import com.example.project2v001.bottom_nav_ui.NotificationFragment;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.functions.HttpsCallableResult;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,9 +45,10 @@ public class MainActivity extends AppCompatActivity {
   private AccountFragment accountFragment;
   private MessagingFragment messagingFragment;
   private NotificationFragment notificationFragment;
+  private FirebaseFunctions firebaseFunctions = FirebaseFunctions.getInstance();
 
   private Toolbar mainToolBar;
-  //  private FloatingActionButton addPostBtn;
+//  private FloatingActionButton addPostBtn;
   private BottomNavigationView mainBottomNav;
   private FirebaseAuth mAuth;
   private FirebaseFirestore firebaseFirestore;
@@ -50,10 +59,24 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    startActivity(new Intent(MainActivity.this, AdminDashboardActivity.class));
-    finish();
-    //init firebase ref
+    //init firebase variables
     mAuth = FirebaseAuth.getInstance();
+    firebaseFirestore = FirebaseFirestore.getInstance();
+//    setClaims(mAuth.getCurrentUser().getEmail());
+    //check if the user is admin then go to dashboard
+    mAuth.getCurrentUser().getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
+      @Override
+      public void onSuccess(GetTokenResult result) {
+        boolean isAdmin = (boolean) result.getClaims().get("admin");
+        if (isAdmin) {
+          // Show admin UI.
+         startActivity(new Intent(MainActivity.this, DashboardAdminActivity.class));
+         finish();
+        }
+      }
+    });
+
+
     //init UI
     mainToolBar = findViewById(R.id.main_toolbar);
     setSupportActionBar(mainToolBar);
@@ -128,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
       sendToLogin();
     } else {
       String userId = mAuth.getCurrentUser().getUid();
-      firebaseFirestore = FirebaseFirestore.getInstance();
       firebaseFirestore.collection("Users").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
         @Override
         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -191,5 +213,23 @@ public class MainActivity extends AppCompatActivity {
       badge.setVisible(false);
     }
 
+  }
+    private Task<String> setClaims(String email) {
+    // Create the arguments to the callable function.
+    Map<String, String> data = new HashMap<>();
+    data.put("email", email);
+    return firebaseFunctions
+            .getHttpsCallable("addAdminRole")
+            .call(data)
+            .continueWith(new Continuation<HttpsCallableResult, String>() {
+              @Override
+              public String then(@NonNull Task<HttpsCallableResult> task) throws Exception {
+                // This continuation runs on either success or failure, but if the task
+                // has failed then getResult() will throw an Exception which will be
+                // propagated down.
+                String result = (String) task.getResult().getData();
+                return result;
+              }
+            });
   }
 }

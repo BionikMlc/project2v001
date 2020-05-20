@@ -28,9 +28,11 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
-        <activity android:name="com.example.project2v001.admin.AdminPostsActivity" />
-        <activity android:name="com.example.project2v001.admin.AdminUsersActivity" />
-        <activity android:name="com.example.project2v001.admin.AdminDashboardActivity" />
+        <activity android:name="com.example.project2v001.admin.AnnouncementAdminActivity" />
+        <activity android:name="com.example.project2v001.admin.AddAnnouncemenAdmintActivity" />
+        <activity android:name="com.example.project2v001.admin.PostsAdminActivity" />
+        <activity android:name="com.example.project2v001.admin.UsersAdminActivity" />
+        <activity android:name="com.example.project2v001.admin.DashboardAdminActivity" />
         <activity android:name="com.example.project2v001.ChatActivity" />
         <activity android:name="com.example.project2v001.RequestsActivity" />
         <activity android:name="com.example.project2v001.BookSelectionActivity" />

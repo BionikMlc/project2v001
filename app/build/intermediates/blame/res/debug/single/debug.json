@@ -12,6 +12,10 @@
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-xhdpi\\icon_lock.png"
     },
     {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_admin_add_announcement.xml.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\layout\\activity_admin_add_announcement.xml"
+    },
+    {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\layout_saved_post_item.xml.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\layout\\saved_post_item.xml"
     },
@@ -26,6 +30,10 @@
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_icon_check.png.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-xhdpi\\icon_check.png"
+    },
+    {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_admin_img.png.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-hdpi\\admin_img.png"
     },
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_delete_red_24dp.xml.flat",
@@ -64,12 +72,12 @@
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\mipmap-xxhdpi\\create_account.png"
     },
     {
-        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_create_account.png.flat",
-        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\mipmap-xxxhdpi\\create_account.png"
-    },
-    {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\menu_admin_menu.xml.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\menu\\admin_menu.xml"
+    },
+    {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_create_account.png.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\mipmap-xxxhdpi\\create_account.png"
     },
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_admin_users.xml.flat",
@@ -264,6 +272,10 @@
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-mdpi\\background.png"
     },
     {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_announce.png.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\drawable-hdpi\\announce.png"
+    },
+    {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher_round.png.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_round.png"
     },
@@ -322,6 +334,10 @@
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_logo.png.flat",
         "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\mipmap-xhdpi\\logo.png"
+    },
+    {
+        "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_admin_announcment.xml.flat",
+        "source": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\src\\main\\res\\layout\\activity_admin_announcment.xml"
     },
     {
         "merged": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher.png.flat",

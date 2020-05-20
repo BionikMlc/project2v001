@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg"
     android:orientation="vertical"
-    tools:context=".admin.AdminDashboardActivity">
+    tools:context=".admin.DashboardAdminActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/main_toolbar"
@@ -19,26 +19,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/user_img2"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/adminImg"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_weight="1"
         android:background="@android:color/transparent"
         android:gravity="center_horizontal"
         android:text="Dashboard"
-        android:textColor="@color/design_default_color_on_primary"
+        android:textColor="@android:color/white"
         android:textSize="36sp" />
 
     <androidx.gridlayout.widget.GridLayout
