@@ -46,7 +46,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
   @Override
   public PostAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_item, parent, false);
-    context = parent.getContext();
+    context = parent.getContext().getApplicationContext();
     return new ViewHolder(view);
   }
 
@@ -222,7 +222,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public void setUserImg(String imgUri) {
 
       userImgView = mView.findViewById(R.id.user_img);
-      Glide.with(context.getApplicationContext())
+      Glide.with(context)
               .load(imgUri)
               .placeholder(R.drawable.rectangle_1)
               .into(userImgView);
@@ -230,7 +230,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     public void setPostImg(String imgUri) {
       postImgView = mView.findViewById(R.id.post_img);
-      Glide.with(context.getApplicationContext())
+      Glide.with(context)
               .load(imgUri)
               .placeholder(R.drawable.default_profile)
               .into(postImgView);

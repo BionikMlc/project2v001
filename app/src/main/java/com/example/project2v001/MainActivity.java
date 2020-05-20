@@ -68,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
     mAuth.getCurrentUser().getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
       @Override
       public void onSuccess(GetTokenResult result) {
-        Log.i(TAG, "onSuccess: admin claim"+result.getClaims());
-        boolean isAdmin = (boolean) result.getClaims().get("admin");
+        Log.i(TAG, "onSuccess: admin claim"+result.getClaims().get("admin"));
+        boolean isAdmin =  result.getClaims().get("admin").equals(true);
         if (isAdmin) {
           // Show admin UI.
          startActivity(new Intent(MainActivity.this, DashboardAdminActivity.class));
