@@ -40,7 +40,7 @@ public class AdminPostAdapter extends RecyclerView.Adapter<AdminPostAdapter.View
   @Override
   public AdminPostAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.admin_post_item, parent, false);
-    context = parent.getContext().getApplicationContext();
+    context = parent.getContext();
     return new ViewHolder(view);
   }
 
