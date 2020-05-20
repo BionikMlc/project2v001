@@ -28,6 +28,7 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
+        <activity android:name="com.example.project2v001.ReportPostActivity" />
         <activity android:name="com.example.project2v001.admin.AnnouncementAdminActivity" />
         <activity android:name="com.example.project2v001.admin.AddAnnouncemenAdmintActivity" />
         <activity android:name="com.example.project2v001.admin.PostsAdminActivity" />

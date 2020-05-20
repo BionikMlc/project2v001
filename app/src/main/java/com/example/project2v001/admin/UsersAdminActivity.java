@@ -2,7 +2,6 @@ package com.example.project2v001.admin;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,10 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.project2v001.R;
 import com.example.project2v001.admin.adapters.User;
 import com.example.project2v001.admin.adapters.UsersAdapter;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -24,6 +24,7 @@ public class UsersAdminActivity extends AppCompatActivity {
   private RecyclerView userListView;
   private List<User> usersList;
   private UsersAdapter userAdapter;
+  private FirebaseFirestore firebaseFirestore;
 
 // ...
 
@@ -39,20 +40,30 @@ public class UsersAdminActivity extends AppCompatActivity {
     userListView = findViewById(R.id.users_activity_users_list);
     userListView.setLayoutManager(new LinearLayoutManager(this));
     userListView.setAdapter(userAdapter);
+    firebaseFirestore = FirebaseFirestore.getInstance();
 
-    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
-    firebaseFirestore.collection("Users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+    Query firstQuery = firebaseFirestore.collection("Users");
+    firstQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
       @Override
-      public void onComplete(@NonNull Task<QuerySnapshot> task) {
-        if(!task.getResult().isEmpty())
-        {
-          for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments())
-          {
-            User user = documentSnapshot.toObject(User.class);
-            usersList.add(user);
-            userAdapter.notifyDataSetChanged();
+      public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+        if (e == null) {
+          if (!documentSnapshots.isEmpty()) {
+            for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
+
+              if (doc.getType() == DocumentChange.Type.ADDED) {
+
+                String postId = doc.getDocument().getId();
+                User user = doc.getDocument().toObject(User.class);
+                usersList.add(user);
+              }
+
+              userAdapter.notifyDataSetChanged();
+            }
           }
+
+
         }
       }
     });

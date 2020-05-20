@@ -2,6 +2,7 @@ package com.example.project2v001;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     mAuth.getCurrentUser().getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
       @Override
       public void onSuccess(GetTokenResult result) {
+        Log.i(TAG, "onSuccess: admin claim"+result.getClaims());
         boolean isAdmin = (boolean) result.getClaims().get("admin");
         if (isAdmin) {
           // Show admin UI.

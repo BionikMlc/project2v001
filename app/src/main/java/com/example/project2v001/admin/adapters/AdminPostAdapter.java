@@ -139,7 +139,7 @@ public class AdminPostAdapter extends RecyclerView.Adapter<AdminPostAdapter.View
     public void setUserImg(String imgUri) {
 
       userImgView = mView.findViewById(R.id.user_img);
-      Glide.with(context)
+      Glide.with(context.getApplicationContext())
               .load(imgUri)
               .placeholder(R.drawable.rectangle_1)
               .into(userImgView);
@@ -147,7 +147,7 @@ public class AdminPostAdapter extends RecyclerView.Adapter<AdminPostAdapter.View
 
     public void setPostImg(String imgUri) {
       postImgView = mView.findViewById(R.id.post_img);
-      Glide.with(context)
+      Glide.with(context.getApplicationContext())
               .load(imgUri)
               .placeholder(R.drawable.default_profile)
               .into(postImgView);
