@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ReportPostActivity"></activity>
+        <activity android:name=".admin.ReportsAdminActivity"></activity>
+        <activity android:name=".ReportPostActivity" />
         <activity android:name=".admin.AnnouncementAdminActivity" />
         <activity android:name=".admin.AddAnnouncemenAdmintActivity" />
         <activity android:name=".admin.PostsAdminActivity" />

@@ -61,6 +61,12 @@ public class DashboardAdminActivity extends AppCompatActivity {
         startActivity(new Intent(DashboardAdminActivity.this, AnnouncementAdminActivity.class));
       }
     });
+    reportsCardView.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        startActivity(new Intent(DashboardAdminActivity.this, ReportsAdminActivity.class));
+      }
+    });
   }
 
 

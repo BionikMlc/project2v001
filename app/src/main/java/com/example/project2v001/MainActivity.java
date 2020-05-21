@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         public void onSuccess(GetTokenResult result) {
           Log.i(TAG, "onSuccess: admin claim"+result.getClaims().get("admin"));
           Object admin = result.getClaims().get("admin");
-          if (admin != null && admin instanceof Boolean) {
+          if (admin instanceof Boolean) {
             boolean isAdmin = (Boolean) admin;
             if (isAdmin) {
               // Show admin UI.

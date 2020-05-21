@@ -68,7 +68,7 @@ public class AddAnnouncemenAdmintActivity extends AppCompatActivity {
           anouncementData.put("timestamp", FieldValue.serverTimestamp());
           anouncementData.put("requests", new ArrayList<>());
           anouncementData.put("saved", new ArrayList<>());
-          anouncementData.put("postType", "-1");
+//          anouncementData.put("postType", -1);
           anouncementData.put("reserved_for","");
           firebaseFirestore.collection("Posts").add(anouncementData).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
@@ -81,6 +81,7 @@ public class AddAnnouncemenAdmintActivity extends AppCompatActivity {
                 Toast.makeText(AddAnnouncemenAdmintActivity.this, "error: " + task.getException(), Toast.LENGTH_LONG).show();
               }
               startActivity(new Intent(AddAnnouncemenAdmintActivity.this, AnnouncementAdminActivity.class));
+              Toast.makeText(AddAnnouncemenAdmintActivity.this, "announcement posted: ", Toast.LENGTH_LONG).show();
               finish();
             }
           });
@@ -122,4 +123,5 @@ public class AddAnnouncemenAdmintActivity extends AppCompatActivity {
     sendToLogin();
 
   }
+
 }

@@ -1,6 +1,7 @@
 package com.example.project2v001.post_module.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.project2v001.R;
+import com.example.project2v001.ReportPostActivity;
 import com.example.project2v001.post_module.Post;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -22,6 +24,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -59,9 +62,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     String descText = postList.get(position).getDesc();
     final String user_id = FirebaseAuth.getInstance().getUid();
     holder.setPostDesc(descText);
-    if(!postList.get(position).getUser_id().equals(user_id) && postList.get(position).getPostType() != -1) {
+    if(!postList.get(position).getUser_id().equals(user_id) && !postList.get(position).getUser_id().equals("Yok8QtUMnthwUaBT6JdeSRcymNJ3")) {
        holder.savedButton.setVisibility(View.VISIBLE);
        holder.requestButton.setVisibility(View.VISIBLE);
+       holder.reportButton.setVisibility(View.VISIBLE);
     }
 
     //gets user name and sets it to the user name textView
@@ -155,6 +159,31 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
           holder.requestButton.setTextColor(holder.requestButton.getResources().getColor(R.color.colorAccent));
         }
 
+        holder.reportButton.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            firebaseFirestore.collection("Users").document(postList.get(position).getUser_id()).get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                      @Override
+                      public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        Intent intent = new Intent(context, ReportPostActivity.class);
+                        Map<String, String> data = new HashMap<String, String>();
+                        data.put("postID", postList.get(position).postId);
+                        data.put("img", postList.get(position).getImg());
+                        data.put("desc", postList.get(position).getDesc());
+                        data.put("userImg",task.getResult().get("img").toString());
+                        data.put("type", String.valueOf(postList.get(position).getPostType()));
+                        data.put("name", task.getResult().get("name").toString());
+                        long timeInMS = postList.get(position).getTimestamp().getTime();
+                        String time = DateFormat.format("yyyy/MM/dd HH:mm", new Date(timeInMS)).toString();
+                        data.put("timestamp",time);
+                        intent.putExtra("postData", (Serializable) data);
+                        context.startActivity(intent);
+                      }
+                    });
+          }
+        });
+
 
         firebaseFirestore.collection("Posts").document(postId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
           @Override
@@ -200,6 +229,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private CircleImageView userImgView;
     private TextView requestButton;
     private TextView savedButton;
+    private TextView reportButton;
 
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
@@ -207,6 +237,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
       requestButton = mView.findViewById(R.id.post_request);
       savedButton = mView.findViewById(R.id.unsave_post);
+      reportButton= mView.findViewById(R.id.post_report2);
     }
 
     public void setPostDesc(String descText) {
@@ -222,7 +253,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public void setUserImg(String imgUri) {
 
       userImgView = mView.findViewById(R.id.user_img);
-      Glide.with(context)
+      Glide.with(context.getApplicationContext())
               .load(imgUri)
               .placeholder(R.drawable.rectangle_1)
               .into(userImgView);
@@ -230,7 +261,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     public void setPostImg(String imgUri) {
       postImgView = mView.findViewById(R.id.post_img);
-      Glide.with(context)
+      Glide.with(context.getApplicationContext())
               .load(imgUri)
               .placeholder(R.drawable.default_profile)
               .into(postImgView);
@@ -241,6 +272,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
       postDateView.setText(date);
     }
   }
+
 
 
 }

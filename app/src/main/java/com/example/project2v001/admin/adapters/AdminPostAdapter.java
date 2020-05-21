@@ -72,9 +72,10 @@ public class AdminPostAdapter extends RecyclerView.Adapter<AdminPostAdapter.View
         dialogBuilder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
-            firebaseFirestore.collection("Posts").document(postList.get(position).postId).delete();
 //            holder.container.setVisibility(View.GONE);
             holder.container.removeAllViews();
+            firebaseFirestore.collection("Posts").document(postList.get(position).postId).delete();
+
           }
         });
         dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

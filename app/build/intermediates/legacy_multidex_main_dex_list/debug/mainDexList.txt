@@ -171,7 +171,6 @@ com/google/android/gms/common/util/RetainForClient.class
 com/google/android/gms/common/util/VisibleForTesting.class
 com/google/android/gms/common/zzc.class
 com/google/android/gms/common/zzm.class
-com/google/android/gms/stats/CodePackage.class
 com/google/android/material/appbar/AppBarLayout$LayoutParams$ScrollFlags.class
 com/google/android/material/badge/BadgeDrawable$BadgeGravity.class
 com/google/android/material/bottomappbar/BottomAppBar$FabAlignmentMode.class
@@ -337,7 +336,6 @@ javax/annotation/meta/TypeQualifierDefault.class
 javax/annotation/meta/TypeQualifierNickname.class
 javax/annotation/meta/TypeQualifierValidator.class
 javax/annotation/meta/When.class
-okhttp3/internal/annotations/EverythingIsNonNull.class
 org/checkerframework/checker/nullness/compatqual/KeyForDecl.class
 org/checkerframework/checker/nullness/compatqual/KeyForType.class
 org/checkerframework/checker/nullness/compatqual/MonotonicNonNullDecl.class

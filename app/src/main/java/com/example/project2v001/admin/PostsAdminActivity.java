@@ -27,6 +27,7 @@ public class PostsAdminActivity extends AppCompatActivity {
   private AdminPostAdapter adminPostAdapter;
   private FirebaseFirestore firebaseFirestore;
   private FirebaseAuth auth;
+  private boolean isFirstDataLoad = true;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -60,6 +61,9 @@ public class PostsAdminActivity extends AppCompatActivity {
         @Override
         public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
           if (e == null) {
+            if (isFirstDataLoad) {
+              postsList.clear();
+            }
             if (!documentSnapshots.isEmpty()) {
               for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
 
@@ -68,9 +72,10 @@ public class PostsAdminActivity extends AppCompatActivity {
                   String postId = doc.getDocument().getId();
                   Post post = doc.getDocument().toObject(Post.class).withId(postId);
                       postsList.add(post);
+                  adminPostAdapter.notifyDataSetChanged();
                   }
 
-                adminPostAdapter.notifyDataSetChanged();
+
                 }
               }
 
@@ -81,6 +86,7 @@ public class PostsAdminActivity extends AppCompatActivity {
 
       }
     }
+
 
   }
 

@@ -1679,7 +1679,6 @@ id dimensions
 id direct
 id disableHome
 id dropdown_menu
-id editText
 id edit_query
 id end
 id end_padder
@@ -1823,6 +1822,7 @@ id reg_have_account_button
 id reg_logo
 id reg_password
 id reg_progress
+id report_desc
 id report_post_btn
 id req_conf_accept_btn
 id req_conf_post_img
@@ -2014,6 +2014,7 @@ layout activity_main
 layout activity_post
 layout activity_register
 layout activity_report_post
+layout activity_reports_admin
 layout activity_requests
 layout admin_post_item
 layout chat_box

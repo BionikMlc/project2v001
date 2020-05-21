@@ -2,6 +2,7 @@ package com.example.project2v001.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -78,9 +79,10 @@ public class AnnouncementAdminActivity extends AppCompatActivity {
                 String postId = doc.getDocument().getId();
                 Post post = doc.getDocument().toObject(Post.class).withId(postId);
                     announcementsList.add(post);
-
-                  postAdapter.notifyDataSetChanged();
+                    postAdapter.notifyDataSetChanged();
               }
+
+
             }
 
 
@@ -131,5 +133,15 @@ public class AnnouncementAdminActivity extends AppCompatActivity {
     auth.signOut();
     sendToLogin();
 
+  }
+  public boolean onKeyDown(int keyCode, KeyEvent event)
+  {
+    if ((keyCode == KeyEvent.KEYCODE_BACK))
+    {
+      startActivity(new Intent(AnnouncementAdminActivity.this,DashboardAdminActivity.class));
+      finish();
+
+    }
+    return super.onKeyDown(keyCode, event);
   }
 }
