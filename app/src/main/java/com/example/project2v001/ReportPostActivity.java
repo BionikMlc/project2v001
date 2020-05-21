@@ -90,7 +90,7 @@ public class ReportPostActivity extends AppCompatActivity {
               .placeholder(R.drawable.rectangle_1)
               .into(postImgView);
       Glide.with(this)
-              .load(postData.get("user_img"))
+              .load(postData.get("userImg"))
               .placeholder(R.drawable.default_profile)
               .into(userImgView);
 

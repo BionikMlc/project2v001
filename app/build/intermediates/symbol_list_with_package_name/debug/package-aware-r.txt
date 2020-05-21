@@ -1777,6 +1777,7 @@ id never
 id noScroll
 id none
 id normal
+id not_edit_textView
 id notif_item_container
 id notif_item_img
 id notification_background
@@ -1822,7 +1823,9 @@ id reg_have_account_button
 id reg_logo
 id reg_password
 id reg_progress
+id report_container
 id report_desc
+id report_list_view
 id report_post_btn
 id req_conf_accept_btn
 id req_conf_post_img

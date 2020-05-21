@@ -169,6 +169,15 @@ public class MainActivity extends AppCompatActivity {
             if (!task.getResult().exists()) {
               startActivity(new Intent(MainActivity.this, AccountSettingsActivity.class));
               finish();
+
+              Intent intent = getIntent();
+              if(intent.hasExtra("complete")){
+                Map<String,String> messageMap = new HashMap<>();
+                messageMap.put("op_id","Yok8QtUMnthwUaBT6JdeSRcymNJ3");
+                messageMap.put("user_id",mAuth.getCurrentUser().getUid());
+                firebaseFirestore.collection("Chats").add(messageMap);
+              }
+
             }
           } else {
             Toast.makeText(MainActivity.this, "error: " + task.getException(), Toast.LENGTH_LONG).show();
