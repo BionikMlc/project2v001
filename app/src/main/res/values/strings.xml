@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">project2v0.01</string>
+    <string name="app_name">Academia Exchange</string>
     <string name="email_hint">Your Email</string>
     <string name="login_logo">login_logo</string>
     <string name="password_hint">Your Password</string>

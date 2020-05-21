@@ -82,6 +82,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     String time = DateFormat.format("yyyy/MM/dd HH:mm", new Date(timeInMS)).toString();
     holder.setPostDate(time);
 
+    holder.postTypeTextView.setText(postList.get(position).getPost_type());
     String postImg = postList.get(position).getImg();
     holder.setPostImg(postImg);
 
@@ -195,7 +196,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     data.put("img", postList.get(position).getImg());
                     data.put("desc", postList.get(position).getDesc());
                     data.put("userImg", task.getResult().get("img").toString());
-                    data.put("type", String.valueOf(postList.get(position).getPostType()));
+                    data.put("type", String.valueOf(postList.get(position).getPost_type()));
                     data.put("name", task.getResult().get("name").toString());
                     data.put("op_id",postList.get(position).getUser_id());
                     long timeInMS = postList.get(position).getTimestamp().getTime();
@@ -229,6 +230,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private TextView requestButton;
     private TextView savedButton;
     private TextView reportButton;
+    private TextView postTypeTextView;
 
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
@@ -237,6 +239,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
       requestButton = mView.findViewById(R.id.post_request);
       savedButton = mView.findViewById(R.id.unsave_post);
       reportButton = mView.findViewById(R.id.post_report2);
+      postTypeTextView = mView.findViewById(R.id.post_type_text_view);
     }
 
     public void setPostDesc(String descText) {

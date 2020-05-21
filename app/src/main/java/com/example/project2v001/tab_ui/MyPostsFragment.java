@@ -1,5 +1,6 @@
 package com.example.project2v001.tab_ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +12,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.project2v001.PostActivity;
 import com.example.project2v001.R;
 import com.example.project2v001.post_module.Post;
 import com.example.project2v001.tab_ui.adapters.MyPostAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -39,6 +42,7 @@ public class MyPostsFragment extends Fragment {
   private DocumentSnapshot lastVisible;
   private TextView sendReq;
   private boolean isFirstDataLoad = true;
+  private FloatingActionButton floatingActionButton;
 
   public MyPostsFragment() {
     // Required empty public constructor
@@ -52,13 +56,25 @@ public class MyPostsFragment extends Fragment {
     auth = FirebaseAuth.getInstance();
     postListView = view.findViewById(R.id.my_posts_list_view);
 
+    floatingActionButton = view.findViewById(R.id.add_post_float_btn2);
     postsList = new ArrayList<>();
     myPostAdapter = new MyPostAdapter(postsList);
     postListView.setLayoutManager(new LinearLayoutManager(getActivity()));
     postListView.setAdapter(myPostAdapter);
     firebaseFirestore = FirebaseFirestore.getInstance();
 
+
+
+
     if (auth.getCurrentUser() != null) {
+
+      floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          startActivity(new Intent(getActivity(), PostActivity.class));
+        }
+      });
+
       postListView.addOnScrollListener(new RecyclerView.OnScrollListener() {
         @Override
         public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {

@@ -1810,6 +1810,9 @@ id post_type_exhange
 id post_type_give_away
 id post_type_need
 id post_type_rg
+id post_type_text_view
+id post_type_text_view2
+id post_type_text_view3
 id posts_list_view
 id progressBar
 id progressBar2

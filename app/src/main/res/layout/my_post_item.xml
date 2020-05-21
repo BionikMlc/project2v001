@@ -22,6 +22,21 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/post_type_text_view2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/design_default_color_secondary"
+                android:paddingLeft="4dp"
+                android:paddingTop="2dp"
+                android:paddingRight="4dp"
+                android:paddingBottom="2dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/unsave_post"
+                app:layout_constraintStart_toEndOf="@+id/user_name"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
                 android:id="@+id/post_desc"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

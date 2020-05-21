@@ -158,6 +158,8 @@ public class SavedPostAdapter extends RecyclerView.Adapter<SavedPostAdapter.View
       }
     });
 
+    holder.postTypeTextView.setText(postList.get(position).getPost_type());
+
     long timeInMS = postList.get(position).getTimestamp().getTime();
     String time = DateFormat.format("yyyy/MM/dd HH:mm", new Date(timeInMS)).toString();
     holder.setPostDate(time);
@@ -182,6 +184,7 @@ public class SavedPostAdapter extends RecyclerView.Adapter<SavedPostAdapter.View
     private ConstraintLayout container;
     private TextView unsave;
     private TextView requestButton;
+    private TextView postTypeTextView;
 
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
@@ -190,6 +193,7 @@ public class SavedPostAdapter extends RecyclerView.Adapter<SavedPostAdapter.View
       requestButton = mView.findViewById(R.id.post_request);
       unsave = mView.findViewById(R.id.unsave_post);
       container = mView.findViewById(R.id.item_container);
+      postTypeTextView = mView.findViewById(R.id.post_type_text_view3);
     }
 
     public void setPostDesc(String descText) {

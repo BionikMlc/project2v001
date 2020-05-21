@@ -7,7 +7,7 @@ import java.util.List;
 public class Post extends PostId {
   //private thump img_url
   private String user_id, desc, img;
-  private int postType;
+  private String post_type;
   private Date timestamp;
   private List<String> requests;
   private String reserved_for;
@@ -15,11 +15,11 @@ public class Post extends PostId {
   public Post() {
   } // essential for firebase to function properly.
 
-  public Post(String user_id, String desc, Date timestamp, int postType, String img, String reserved_for, List<String> requests) {
+  public Post(String user_id, String desc, Date timestamp, String post_type, String img, String reserved_for, List<String> requests) {
     this.user_id = user_id;
     this.desc = desc;
     this.img = img;
-    this.postType = postType;
+    this.post_type = post_type;
     this.timestamp = timestamp;
     this.requests = requests;
     this.reserved_for = reserved_for;
@@ -50,12 +50,12 @@ public class Post extends PostId {
     this.img = img;
   }
 
-  public int getPostType() {
-    return postType;
+  public String getPost_type() {
+    return this.post_type;
   }
 
-  public void setPostType(int postType) {
-    this.postType = postType;
+  public void setPost_type(String post_type) {
+    this.post_type = post_type;
   }
 
   public Date getTimestamp() {
