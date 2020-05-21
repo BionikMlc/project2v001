@@ -53,7 +53,9 @@ public class SentRequestsFragment extends Fragment {
     sentReqAdapter = new SentReqAdapter(postsList);
     postListView.setLayoutManager(new LinearLayoutManager(getActivity()));
     postListView.setAdapter(sentReqAdapter);
+
     firebaseFirestore = FirebaseFirestore.getInstance();
+    auth = FirebaseAuth.getInstance();
 
     if (auth.getCurrentUser() != null) {
       postListView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -87,10 +89,12 @@ public class SentRequestsFragment extends Fragment {
                   String postId = doc.getDocument().getId();
                   Post post = doc.getDocument().toObject(Post.class).withId(postId);
                  List<String> requests = (List<String>) doc.getDocument().get("requests");
-                  if (requests.contains(user_id)) {
-                    postsList.add(post);
+                 if(!requests.isEmpty()){
+                    if (requests.contains(user_id)) {
+                      postsList.add(post);
+                    }
+                    sentReqAdapter.notifyDataSetChanged();
                   }
-                  sentReqAdapter.notifyDataSetChanged();
                 }
               }
 
