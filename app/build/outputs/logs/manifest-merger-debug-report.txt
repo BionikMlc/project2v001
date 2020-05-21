@@ -174,9 +174,9 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\Ah
 	android:label
 		ADDED from C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:16:9-41
 	android:roundIcon
-		ADDED from C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:17:9-54
+		ADDED from C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:17:9-53
 	android:icon
-		ADDED from C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:15:9-43
+		ADDED from C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:15:9-48
 	android:allowBackup
 		ADDED from C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:14:9-35
 	android:theme

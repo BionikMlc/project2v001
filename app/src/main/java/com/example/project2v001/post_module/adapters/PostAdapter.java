@@ -197,6 +197,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     data.put("userImg", task.getResult().get("img").toString());
                     data.put("type", String.valueOf(postList.get(position).getPostType()));
                     data.put("name", task.getResult().get("name").toString());
+                    data.put("op_id",postList.get(position).getUser_id());
                     long timeInMS = postList.get(position).getTimestamp().getTime();
                     String time = DateFormat.format("yyyy/MM/dd HH:mm", new Date(timeInMS)).toString();
                     data.put("timestamp", time);

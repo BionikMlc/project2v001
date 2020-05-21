@@ -1481,6 +1481,7 @@ drawable ic_search
 drawable ic_volume_up_black_48dp
 drawable icon_check
 drawable icon_lock
+drawable lc_icon_custom
 drawable mtrl_dialog_background
 drawable mtrl_dropdown_arrow
 drawable mtrl_ic_arrow_drop_down

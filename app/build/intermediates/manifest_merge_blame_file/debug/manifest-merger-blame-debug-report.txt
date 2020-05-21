@@ -43,12 +43,12 @@
 23        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 23-->[androidx.core:core:1.1.0] C:\Users\Ahmad Jaber\.gradle\caches\transforms-2\files-2.1\f961a727fd6ff1bec6d760c391cc6822\core-1.1.0\AndroidManifest.xml:24:18-86
 24        android:debuggable="true"
-25        android:icon="@mipmap/ic_launcher"
-25-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:15:9-43
+25        android:icon="@drawable/lc_icon_custom"
+25-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:15:9-48
 26        android:label="@string/app_name"
 26-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:16:9-41
-27        android:roundIcon="@mipmap/ic_launcher_round"
-27-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:17:9-54
+27        android:roundIcon="@drawable/lc_icon_custom"
+27-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:17:9-53
 28        android:supportsRtl="true"
 28-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:18:9-35
 29        android:testOnly="true"

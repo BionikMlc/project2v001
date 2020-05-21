@@ -17,7 +17,6 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Map;
@@ -69,16 +68,6 @@ public class ReportPostActivity extends AppCompatActivity {
     final Intent intent = getIntent();
     if (intent.hasExtra("postData")) {
 
-//      Map<String, String> data = new HashMap<String, String>();
-//      data.put("postID", postList.get(position).postId);
-//      data.put("img", postList.get(position).getImg());
-//      data.put("desc", postList.get(position).getDesc());
-//      data.put("userImg",task.getResult().get("img").toString());
-//      data.put("type", String.valueOf(postList.get(position).getPostType()));
-//      data.put("name", task.getResult().get("name").toString());
-//      long timeInMS = postList.get(position).getTimestamp().getTime();
-//      String time = DateFormat.format("yyyy/MM/dd HH:mm", new Date(timeInMS)).toString();
-//      data.put("timestamp",time);
 
       final Map<String, String> postData = (Map<String, String>) intent.getSerializableExtra("postData");
       postDescView.setText(postData.get("desc"));
@@ -104,15 +93,12 @@ public class ReportPostActivity extends AppCompatActivity {
             //add report info to reports the database
             postData.put("reportDesc",reportDesc);
             postData.put("reporterId",auth.getCurrentUser().getUid());
-            firebaseFirestore.collection("Reports").add(postData).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            firebaseFirestore.collection("Reports").document(postData.get("postID")).set(postData).addOnCompleteListener(new OnCompleteListener<Void>() {
               @Override
-              public void onComplete(@NonNull Task<DocumentReference> task) {
-                if(task.isSuccessful())
-                {
-                  Toast.makeText(ReportPostActivity.this, "Report Sent, and will be reviewed by moderator. thanks for making this app better", Toast.LENGTH_LONG).show();
-                  startActivity(new Intent(ReportPostActivity.this,MainActivity.class));
-                  finish();
-                }
+              public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(ReportPostActivity.this, "Report Sent, and will be reviewed by moderator. thanks for making this app better", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(ReportPostActivity.this,MainActivity.class));
+                finish();
               }
             });
 

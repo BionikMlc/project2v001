@@ -17,6 +17,7 @@ import com.example.project2v001.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -32,6 +33,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder> {
   private List<Report> userList;
   private Context context;
+  private FirebaseFirestore firebaseFirestore;
+  private FirebaseAuth auth;
 
 
   public ReportAdapter(List<Report> userList) {
@@ -51,13 +54,48 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
   @Override
   public void onBindViewHolder(@NonNull final ReportAdapter.ViewHolder holder, final int position) {
 //    holder.setIsRecyclable(false);
+
+    firebaseFirestore =FirebaseFirestore.getInstance();
+    auth = FirebaseAuth.getInstance();
+
     holder.hidePostReportButton();
+    holder.deleteUserButton.setVisibility(View.VISIBLE);
+    holder.discardReportButton.setVisibility(View.VISIBLE);
+    holder.deletePostButton.setVisibility(View.VISIBLE);
     holder.setUsername(userList.get(position).getName());
     holder.setUserImg(userList.get(position).getUserImg());
     holder.setPostImg(userList.get(position).getImg());
     holder.setReportDescEditTextView(userList.get(position).getReportDesc());
     holder.setPostDateView(userList.get(position).getTimestamp());
     holder.setPostDescView(userList.get(position).getDesc());
+
+    holder.discardReportButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        firebaseFirestore.collection("Reports").document(userList.get(position).getPostID()).delete();
+        holder.container.removeAllViews();
+      }
+    });
+
+    holder.deletePostButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        firebaseFirestore.collection("Reports").document(userList.get(position).getPostID()).delete();
+        firebaseFirestore.collection("Posts").document(userList.get(position).getPostID()).delete();
+        holder.container.removeAllViews();
+      }
+    });
+
+    holder.deleteUserButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        firebaseFirestore.collection("Reports").document(userList.get(position).getPostID()).delete();
+        holder.deleteUserData(userList.get(position).getOp_id());
+        holder.deleteUser(userList.get(position).getOp_id());
+
+        holder.container.removeAllViews();
+      }
+    });
 
 
 
@@ -115,6 +153,11 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
       noEditTextView = mView.findViewById(R.id.not_edit_textView);
       reportDescEditTextView = mView.findViewById(R.id.report_desc);
       postReportButton = mView.findViewById(R.id.report_post_btn);
+
+      discardReportButton = mView.findViewById(R.id.post_request);
+      deletePostButton = mView.findViewById(R.id.post_report2);
+      deleteUserButton = mView.findViewById(R.id.unsave_post);
+
 
       firebaseFunctions = FirebaseFunctions.getInstance();
     }
@@ -175,17 +218,17 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
 
 
 
-    public void setDiscardReportButton(TextView discardReportButton) {
-      this.discardReportButton = discardReportButton;
-    }
-
-    public void setDeleteUserButton(TextView deleteUserButton) {
-      this.deleteUserButton = deleteUserButton;
-    }
-
-    public void setDeletePostButton(TextView deletePostButton) {
-      this.deletePostButton = deletePostButton;
-    }
+//    public void setDiscardReportButton(TextView discardReportButton) {
+//      this.discardReportButton = discardReportButton;
+//    }
+//
+//    public void setDeleteUserButton(TextView deleteUserButton) {
+//      this.deleteUserButton = deleteUserButton;
+//    }
+//
+//    public void setDeletePostButton(TextView deletePostButton) {
+//      this.deletePostButton = deletePostButton;
+//    }
 
 
     private Task<String> deleteUser(String uid) {

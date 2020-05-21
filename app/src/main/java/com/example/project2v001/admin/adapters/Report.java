@@ -8,11 +8,11 @@ public class Report {
   private String reportDesc;
   private String timestamp;
   private String userImg;
+  private String op_id;
   private String postID;
 
 
-
-  public Report(String img, String name, String desc, String reportDesc, String timestamp, String userImg, String postID) {
+  public Report(String img, String name, String desc, String reportDesc, String timestamp, String userImg, String postID, String op_id) {
     this.img = img;
     this.name = name;
     this.desc = desc;
@@ -20,9 +20,14 @@ public class Report {
     this.timestamp = timestamp;
     this.userImg = userImg;
     this.postID = postID;
+    this.op_id = op_id;
   }
 
   public Report() {
+  }
+
+  public String getOp_id() {
+    return op_id;
   }
 
   public String getDesc() {
