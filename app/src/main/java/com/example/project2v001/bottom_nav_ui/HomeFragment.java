@@ -36,9 +36,12 @@ public class HomeFragment extends Fragment {
     private static final String TAG = "query err";
     private RecyclerView postListView;
     private List<Post> postsList;
+
     private FirebaseAuth auth;
     private FirebaseFirestore firebaseFirestore;
+
     private PostAdapter postAdapter;
+
     private DocumentSnapshot lastVisible;
     private FloatingActionButton addPostBtn;
     private boolean isFirstDataLoad = true;

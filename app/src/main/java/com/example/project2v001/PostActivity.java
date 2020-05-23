@@ -200,7 +200,7 @@ public class PostActivity extends AppCompatActivity {
               firebaseFirestore.collection("Posts").document(postData.get("postID")).update(post).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                  Toast.makeText(PostActivity.this, "post added: ", Toast.LENGTH_LONG).show();
+                  Toast.makeText(PostActivity.this, "post added ", Toast.LENGTH_LONG).show();
                   startActivity(new Intent(PostActivity.this, MainActivity.class));
                   finish();
                 }
@@ -235,7 +235,7 @@ public class PostActivity extends AppCompatActivity {
                       @Override
                       public void onComplete(@NonNull Task<Void> task) {
                         progressBar.setVisibility(View.INVISIBLE);
-                        Toast.makeText(PostActivity.this, "post added: ", Toast.LENGTH_LONG).show();
+                        Toast.makeText(PostActivity.this, "post added ", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(PostActivity.this, MainActivity.class));
                         finish();
                       }

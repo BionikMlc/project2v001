@@ -19,7 +19,6 @@ import com.example.project2v001.bottom_nav_ui.AccountFragment;
 import com.example.project2v001.bottom_nav_ui.HomeFragment;
 import com.example.project2v001.bottom_nav_ui.MessagingFragment;
 import com.example.project2v001.bottom_nav_ui.NotificationFragment;
-import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -35,10 +34,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.functions.FirebaseFunctions;
-import com.google.firebase.functions.HttpsCallableResult;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
   private AccountFragment accountFragment;
   private MessagingFragment messagingFragment;
   private NotificationFragment notificationFragment;
+
   private FirebaseFunctions firebaseFunctions = FirebaseFunctions.getInstance();
 
   private Toolbar mainToolBar;
@@ -175,17 +171,17 @@ public class MainActivity extends AppCompatActivity {
               startActivity(new Intent(MainActivity.this, AccountSettingsActivity.class));
               finish();
 
-              Intent intent = getIntent();
-              if(intent.hasExtra("complete")){
-                Map<String,String> messageMap = new HashMap<>();
-                messageMap.put("op_id","Yok8QtUMnthwUaBT6JdeSRcymNJ3");
-                messageMap.put("user_id",mAuth.getCurrentUser().getUid());
-                firebaseFirestore.collection("Chats").add(messageMap);
-              }
+//              Intent intent = getIntent();
+//              if(intent.hasExtra("complete")){
+//                Map<String,String> messageMap = new HashMap<>();
+//                messageMap.put("op_id","Yok8QtUMnthwUaBT6JdeSRcymNJ3");
+//                messageMap.put("user_id",mAuth.getCurrentUser().getUid());
+//                firebaseFirestore.collection("Chats").add(messageMap);
+//              }
 
             }
           } else {
-            Toast.makeText(MainActivity.this, "error: " + task.getException(), Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "error " + task.getException(), Toast.LENGTH_LONG).show();
           }
         }
       });
@@ -239,22 +235,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
   }
-    private Task<String> setClaims(String email) {
-    // Create the arguments to the callable function.
-    Map<String, String> data = new HashMap<>();
-    data.put("email", email);
-    return firebaseFunctions
-            .getHttpsCallable("addAdminRole")
-            .call(data)
-            .continueWith(new Continuation<HttpsCallableResult, String>() {
-              @Override
-              public String then(@NonNull Task<HttpsCallableResult> task) throws Exception {
-                // This continuation runs on either success or failure, but if the task
-                // has failed then getResult() will throw an Exception which will be
-                // propagated down.
-                String result = (String) task.getResult().getData();
-                return result;
-              }
-            });
-  }
+//    private Task<String> setClaims(String email) {
+//    // Create the arguments to the callable function.
+//    Map<String, String> data = new HashMap<>();
+//    data.put("email", email);
+//    return firebaseFunctions
+//            .getHttpsCallable("addAdminRole")
+//            .call(data)
+//            .continueWith(new Continuation<HttpsCallableResult, String>() {
+//              @Override
+//              public String then(@NonNull Task<HttpsCallableResult> task) throws Exception {
+//                // This continuation runs on either success or failure, but if the task
+//                // has failed then getResult() will throw an Exception which will be
+//                // propagated down.
+//                String result = (String) task.getResult().getData();
+//                return result;
+//              }
+//            });
+//  }
 }
