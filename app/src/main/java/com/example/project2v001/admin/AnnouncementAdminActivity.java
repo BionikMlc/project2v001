@@ -84,9 +84,6 @@ public class AnnouncementAdminActivity extends AppCompatActivity {
 
 
             }
-
-
-
           }
         }
       }

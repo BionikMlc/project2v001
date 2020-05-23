@@ -2,6 +2,7 @@ package com.example.project2v001.tab_ui.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.project2v001.R;
+import com.example.project2v001.ReportPostActivity;
 import com.example.project2v001.post_module.Post;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -119,6 +121,13 @@ public class SavedPostAdapter extends RecyclerView.Adapter<SavedPostAdapter.View
       }
     });
 
+    holder.reportButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        context.startActivity(new Intent(context, ReportPostActivity.class));
+      }
+    });
+
     holder.requestButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -185,6 +194,7 @@ public class SavedPostAdapter extends RecyclerView.Adapter<SavedPostAdapter.View
     private TextView unsave;
     private TextView requestButton;
     private TextView postTypeTextView;
+    private TextView reportButton;
 
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
@@ -194,6 +204,7 @@ public class SavedPostAdapter extends RecyclerView.Adapter<SavedPostAdapter.View
       unsave = mView.findViewById(R.id.unsave_post);
       container = mView.findViewById(R.id.item_container);
       postTypeTextView = mView.findViewById(R.id.post_type_text_view3);
+      reportButton = mView.findViewById(R.id.post_report);
     }
 
     public void setPostDesc(String descText) {
@@ -219,7 +230,7 @@ public class SavedPostAdapter extends RecyclerView.Adapter<SavedPostAdapter.View
       postImgView = mView.findViewById(R.id.post_img);
       Glide.with(context)
               .load(imgUri)
-              .placeholder(R.drawable.default_profile)
+              .placeholder(R.drawable.rectangle_1)
               .into(postImgView);
     }
 

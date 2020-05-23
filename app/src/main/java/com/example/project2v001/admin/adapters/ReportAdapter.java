@@ -1,15 +1,16 @@
 package com.example.project2v001.admin.adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -17,6 +18,7 @@ import com.example.project2v001.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -39,6 +41,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
 
   public ReportAdapter(List<Report> userList) {
     this.userList = userList;
+    setHasStableIds(true);
   }
 
   @NonNull
@@ -53,7 +56,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
 
   @Override
   public void onBindViewHolder(@NonNull final ReportAdapter.ViewHolder holder, final int position) {
-//    holder.setIsRecyclable(false);
+//   holder.setIsRecyclable(false);
 
     firebaseFirestore =FirebaseFirestore.getInstance();
     auth = FirebaseAuth.getInstance();
@@ -72,28 +75,75 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
     holder.discardReportButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        firebaseFirestore.collection("Reports").document(userList.get(position).getPostID()).delete();
-        holder.container.removeAllViews();
+        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(context);
+        dialogBuilder.setTitle("Discard Report");
+        dialogBuilder.setMessage("Are you sure you want to discard this report ?");
+        dialogBuilder.setPositiveButton("discard", new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+            firebaseFirestore.collection("Reports").document(userList.get(position).getPostID()).delete();
+//        holder.container.setVisibility(View.GONE);
+            holder.container.removeAllViews();
+          }
+        });
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+
+          }
+        });
+        dialogBuilder.show();
+
       }
     });
 
     holder.deletePostButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        firebaseFirestore.collection("Reports").document(userList.get(position).getPostID()).delete();
-        firebaseFirestore.collection("Posts").document(userList.get(position).getPostID()).delete();
-        holder.container.removeAllViews();
+        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(context);
+      dialogBuilder.setTitle("Delete Post");
+      dialogBuilder.setMessage("Are you sure you want to delete this Post  ?");
+      dialogBuilder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+      firebaseFirestore.collection("Reports").document(userList.get(position).getPostID()).delete();
+      firebaseFirestore.collection("Posts").document(userList.get(position).getPostID()).delete();
+      holder.container.removeAllViews();
+    }
+  });
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+
+    }
+  });
+        dialogBuilder.show();
       }
     });
 
     holder.deleteUserButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        firebaseFirestore.collection("Reports").document(userList.get(position).getPostID()).delete();
-        holder.deleteUserData(userList.get(position).getOp_id());
-        holder.deleteUser(userList.get(position).getOp_id());
+        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(context);
+        dialogBuilder.setTitle("Delete User");
+        dialogBuilder.setMessage("Are you sure you want to delete this user ?");
+        dialogBuilder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+      firebaseFirestore.collection("Reports").document(userList.get(position).getPostID()).delete();
+      holder.deleteUserData(userList.get(position).getOp_id());
+//        holder.deleteUser(userList.get(position).getOp_id());
+    }
+  });
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
 
-        holder.container.removeAllViews();
+    }
+  });
+        dialogBuilder.show();
+
+
       }
     });
 
@@ -121,13 +171,23 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
 //
 
   @Override
+  public long getItemId(int position) {
+    return position;
+  }
+
+  @Override
+  public int getItemViewType(int position) {
+    return position;
+  }
+
+    @Override
   public int getItemCount() {
     return userList.size();
   }
 
   public class ViewHolder extends RecyclerView.ViewHolder {
     private View mView;
-    private ScrollView container;
+    private ConstraintLayout container;
     private TextView postDescView;
     private TextView usernameTextView;
     private TextView postDateView;
@@ -153,6 +213,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
       noEditTextView = mView.findViewById(R.id.not_edit_textView);
       reportDescEditTextView = mView.findViewById(R.id.report_desc);
       postReportButton = mView.findViewById(R.id.report_post_btn);
+      container = mView.findViewById(R.id.report_container);
 
       discardReportButton = mView.findViewById(R.id.post_request);
       deletePostButton = mView.findViewById(R.id.post_report2);
@@ -252,20 +313,33 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
 
     private void deleteUserData(final String uid) {
       container.removeAllViews();//hides removed item
-      deleteUser(uid);
-      FirebaseFirestore.getInstance().collection("Users").document(uid).delete();
-      FirebaseFirestore.getInstance().collection("Chats").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+      FirebaseFirestore.getInstance().collection("Posts").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
         @Override
         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-          for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots)
-          {
-            if (documentSnapshot.get("op_id").equals(uid)|| documentSnapshot.get("receiver_id").equals(uid))
-            {
-              FirebaseFirestore.getInstance().collection("Chats").document(documentSnapshot.getId()).delete();
+          for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+            if (documentSnapshot.exists()) {
+              if (documentSnapshot.get("user_id").equals(auth.getUid())) {
+                FirebaseFirestore.getInstance().collection("Posts").document(documentSnapshot.getId()).delete();
+              }
             }
           }
+          FirebaseFirestore.getInstance().collection("Chats").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+              for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+              {
+                if (documentSnapshot.get("op_id").equals(uid)|| documentSnapshot.get("receiver_id").equals(uid))
+                {
+                  FirebaseFirestore.getInstance().collection("Chats").document(documentSnapshot.getId()).delete();
+                }
+              }
+              FirebaseFirestore.getInstance().collection("Users").document(uid).delete();
+            }
+          });
+
         }
       });
+      deleteUser(uid);
     }
   }
 }

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-es-rGT\\values-es-rGT.xml",
+            "outputFile": "C:\\Users\\Ahmad Jaber\\Desktop\\academia_exchange\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-es-rGT\\values-es-rGT.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Ahmad Jaber\\.gradle\\caches\\transforms-2\\files-2.1\\c65a6d3221a418caa3ebbdd8c82b9d5a\\android-image-cropper-2.8.0\\res\\values-es-rGT\\values-es-rGT.xml",

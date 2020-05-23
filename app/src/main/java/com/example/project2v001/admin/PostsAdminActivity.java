@@ -2,7 +2,6 @@ package com.example.project2v001.admin;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,15 +44,6 @@ public class PostsAdminActivity extends AppCompatActivity {
     postListView.setAdapter(adminPostAdapter);
 
     if (auth.getCurrentUser() != null) {
-      postListView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-        @Override
-        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-          super.onScrolled(recyclerView, dx, dy);
-          boolean isReachedBottom = !recyclerView.canScrollVertically(1);
-
-
-        }
-      });
       String user_id = auth.getUid();
       Query firstQuery = firebaseFirestore.collection("Posts")
               .orderBy("timestamp", Query.Direction.DESCENDING);
@@ -71,15 +61,16 @@ public class PostsAdminActivity extends AppCompatActivity {
 
                   String postId = doc.getDocument().getId();
                   Post post = doc.getDocument().toObject(Post.class).withId(postId);
-                      postsList.add(post);
-                  adminPostAdapter.notifyDataSetChanged();
+                  if(doc.getDocument().exists()) {
+                    postsList.add(post);
+                    adminPostAdapter.notifyDataSetChanged();
+                  }
                   }
 
 
                 }
+              isFirstDataLoad = false;
               }
-
-
             }
           }
         });

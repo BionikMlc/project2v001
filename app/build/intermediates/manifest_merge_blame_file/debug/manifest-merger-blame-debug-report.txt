@@ -6,28 +6,28 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="16"
-8-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml
+8-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml
 9        android:targetSdkVersion="29" />
-9-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml
+9-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml
 10
 11    <uses-permission android:name="android.permission.INTERNET" />
-11-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:6:5-67
-11-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:6:22-64
+11-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:6:5-67
+11-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:6:22-64
 12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-12-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:7:5-79
-12-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:7:22-76
+12-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:7:5-79
+12-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:7:22-76
 13    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-13-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:8:5-80
-13-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:8:22-77
+13-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:8:5-80
+13-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:8:22-77
 14    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-14-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:9:5-81
-14-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:9:22-78
+14-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:9:5-81
+14-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:9:22-78
 15    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" />
-15-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:10:5-87
-15-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:10:22-84
+15-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:10:5-87
+15-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:10:22-84
 16    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" />
-16-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:10:5-87
-16-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:10:22-84
+16-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:10:5-87
+16-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:10:22-84
 17    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required by older versions of Google Play services to create IID tokens -->
 17-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\Ahmad Jaber\.gradle\caches\transforms-2\files-2.1\5a8778c0bd7fb64fb9fce754154adf3f\jetified-firebase-iid-20.0.1\AndroidManifest.xml:24:5-68
 17-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\Ahmad Jaber\.gradle\caches\transforms-2\files-2.1\5a8778c0bd7fb64fb9fce754154adf3f\jetified-firebase-iid-20.0.1\AndroidManifest.xml:24:22-65
@@ -36,96 +36,96 @@
 18-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\Ahmad Jaber\.gradle\caches\transforms-2\files-2.1\5a8778c0bd7fb64fb9fce754154adf3f\jetified-firebase-iid-20.0.1\AndroidManifest.xml:26:22-79
 19
 20    <application
-20-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:13:5-55:19
+20-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:13:5-59:19
 21        android:name="androidx.multidex.MultiDexApplication"
 22        android:allowBackup="true"
-22-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:14:9-35
+22-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:14:9-35
 23        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 23-->[androidx.core:core:1.1.0] C:\Users\Ahmad Jaber\.gradle\caches\transforms-2\files-2.1\f961a727fd6ff1bec6d760c391cc6822\core-1.1.0\AndroidManifest.xml:24:18-86
 24        android:debuggable="true"
 25        android:icon="@drawable/lc_icon_custom"
-25-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:15:9-48
+25-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:15:9-48
 26        android:label="@string/app_name"
-26-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:16:9-41
+26-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:16:9-41
 27        android:roundIcon="@drawable/lc_icon_custom"
-27-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:17:9-53
+27-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:17:9-53
 28        android:supportsRtl="true"
-28-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:18:9-35
+28-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:18:9-35
 29        android:testOnly="true"
 30        android:theme="@style/AppTheme" >
-30-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:19:9-40
+30-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:19:9-40
 31        <activity android:name="com.example.project2v001.admin.ReportsAdminActivity" />
-31-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:20:9-73
-31-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:20:19-61
+31-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:20:9-64
+31-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:20:19-61
 32        <activity android:name="com.example.project2v001.ReportPostActivity" />
-32-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:21:9-56
-32-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:21:19-53
+32-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:21:9-56
+32-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:21:19-53
 33        <activity android:name="com.example.project2v001.admin.AnnouncementAdminActivity" />
-33-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:22:9-69
-33-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:22:19-66
+33-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:22:9-70
+33-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:22:19-66
 34        <activity android:name="com.example.project2v001.admin.AddAnnouncemenAdmintActivity" />
-34-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:23:9-72
-34-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:23:19-69
+34-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:23:9-73
+34-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:23:19-69
 35        <activity android:name="com.example.project2v001.admin.PostsAdminActivity" />
-35-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:24:9-62
-35-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:24:19-59
+35-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:24:9-63
+35-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:24:19-59
 36        <activity android:name="com.example.project2v001.admin.UsersAdminActivity" />
-36-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:25:9-62
-36-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:25:19-59
+36-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:25:9-62
+36-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:25:19-59
 37        <activity android:name="com.example.project2v001.admin.DashboardAdminActivity" />
-37-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:26:9-66
-37-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:26:19-63
+37-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:26:9-67
+37-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:26:19-63
 38        <activity android:name="com.example.project2v001.ChatActivity" />
-38-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:27:9-50
-38-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:27:19-47
+38-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:27:9-51
+38-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:27:19-47
 39        <activity android:name="com.example.project2v001.RequestsActivity" />
-39-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:28:9-54
-39-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:28:19-51
+39-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:28:9-55
+39-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:28:19-51
 40        <activity android:name="com.example.project2v001.BookSelectionActivity" />
-40-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:29:9-59
-40-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:29:19-56
+40-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:29:9-60
+40-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:29:19-56
 41        <activity
-41-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:30:9-32:58
+41-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:30:9-32:58
 42            android:name="com.example.project2v001.PostActivity"
-42-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:31:13-41
+42-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:31:13-41
 43            android:parentActivityName="com.example.project2v001.MainActivity" />
-43-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:32:13-55
+43-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:32:13-55
 44        <activity
-44-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:33:9-35:59
+44-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:33:9-36:59
 45            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-45-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:34:13-76
+45-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:34:13-76
 46            android:theme="@style/Base.Theme.AppCompat" /> <!-- optional (needed if default theme has no action bar) -->
-46-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:35:13-56
+46-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:36:13-56
 47        <activity android:name="com.example.project2v001.AccountSettingsActivity" />
-47-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:36:9-61
-47-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:36:19-58
+47-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:37:9-62
+47-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:37:19-58
 48        <activity
-48-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:37:9-40:56
+48-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:38:9-42:56
 49            android:name="com.example.project2v001.RegisterActivity"
-49-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:38:13-45
+49-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:39:13-45
 50            android:screenOrientation="portrait" />
-50-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:39:13-49
+50-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:41:13-49
 51        <activity
-51-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:41:9-44:56
+51-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:43:9-47:56
 52            android:name="com.example.project2v001.LoginActivity"
-52-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:42:13-42
+52-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:44:13-42
 53            android:screenOrientation="portrait" />
-53-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:43:13-49
+53-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:46:13-49
 54        <activity
-54-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:45:9-54:20
+54-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:48:9-58:20
 55            android:name="com.example.project2v001.MainActivity"
-55-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:46:13-41
+55-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:49:13-41
 56            android:screenOrientation="portrait" >
-56-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:47:13-49
+56-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:51:13-49
 57            <intent-filter>
-57-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:49:13-53:29
+57-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:53:13-57:29
 58                <action android:name="android.intent.action.MAIN" />
-58-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:50:17-69
-58-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:50:25-66
+58-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:54:17-69
+58-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:54:25-66
 59
 60                <category android:name="android.intent.category.LAUNCHER" />
-60-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:52:17-77
-60-->C:\Users\Ahmad Jaber\Desktop\project2v001\app\src\main\AndroidManifest.xml:52:27-74
+60-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:56:17-77
+60-->C:\Users\Ahmad Jaber\Desktop\academia_exchange\app\src\main\AndroidManifest.xml:56:27-74
 61            </intent-filter>
 62        </activity>
 63        <activity

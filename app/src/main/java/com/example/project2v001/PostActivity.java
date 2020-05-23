@@ -110,14 +110,14 @@ public class PostActivity extends AppCompatActivity {
     final Intent intent = getIntent();
     if (intent.hasExtra("postData")) {
       postData = (Map<String, String>) intent.getSerializableExtra("postData");
-      switch (Integer.parseInt(postData.get("type"))) {
-        case RADIO_BTN_ID_1:
+      switch (postData.get("type")) {
+        case "Need":
           need.setChecked(true);
           break;
-        case RADIO_BTN_ID_2:
+        case "Give Away":
           giveAway.setChecked(true);
           break;
-        case RADIO_BTN_ID_3:
+        case "Exchange":
           exchange.setChecked(true);
           break;
         default:
@@ -179,13 +179,13 @@ public class PostActivity extends AppCompatActivity {
             addPostBtn.setEnabled(false);
             switch (checkedRadioId) {
               case RADIO_BTN_ID_1:
-                post.put("post_type", "need");
+                post.put("post_type", "Need");
                 break;
               case RADIO_BTN_ID_2:
-                post.put("post_type", "give away");
+                post.put("post_type", "Give Away");
                 break;
               case RADIO_BTN_ID_3:
-                post.put("post_type", "exchange");
+                post.put("post_type", "Exchange");
                 break;
               default:
                 break;
@@ -256,13 +256,13 @@ public class PostActivity extends AppCompatActivity {
           addPostBtn.setEnabled(false);
           switch (checkedRadioId) {
             case RADIO_BTN_ID_1:
-              post.put("post_type", "need");
+              post.put("post_type", "Need");
               break;
             case RADIO_BTN_ID_2:
-              post.put("post_type", "give away");
+              post.put("post_type", "Give Away");
               break;
             case RADIO_BTN_ID_3:
-              post.put("post_type", "exchange");
+              post.put("post_type", "Exchange");
               break;
             default:
               break;

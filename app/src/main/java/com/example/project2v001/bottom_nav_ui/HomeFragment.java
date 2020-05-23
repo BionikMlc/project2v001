@@ -141,8 +141,8 @@ public class HomeFragment extends Fragment {
                                     String blogPostId = doc.getDocument().getId();
                                     Post blogPost = doc.getDocument().toObject(Post.class).withId(blogPostId);
                                     postsList.add(blogPost);
-
                                     postAdapter.notifyDataSetChanged();
+
                                 }
 
                             }

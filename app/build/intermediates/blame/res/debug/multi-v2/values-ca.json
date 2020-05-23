@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Ahmad Jaber\\Desktop\\project2v001\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ca\\values-ca.xml",
+            "outputFile": "C:\\Users\\Ahmad Jaber\\Desktop\\academia_exchange\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ca\\values-ca.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Ahmad Jaber\\.gradle\\caches\\transforms-2\\files-2.1\\d515fa0142795af05e3369fe0848cba8\\play-services-base-17.1.0\\res\\values-ca\\values.xml",

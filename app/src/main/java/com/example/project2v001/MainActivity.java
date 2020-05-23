@@ -33,6 +33,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
 
@@ -105,6 +106,10 @@ public class MainActivity extends AppCompatActivity {
       badge.setVisible(false);
       changeFragment(homeFragment, "homeFragment");
       firebaseFirestore = FirebaseFirestore.getInstance();
+      FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+              .setPersistenceEnabled(true)
+              .build();
+      firebaseFirestore.setFirestoreSettings(settings);
 
 
 

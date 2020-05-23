@@ -68,7 +68,7 @@ public class AddAnnouncemenAdmintActivity extends AppCompatActivity {
           anouncementData.put("timestamp", FieldValue.serverTimestamp());
           anouncementData.put("requests", new ArrayList<>());
           anouncementData.put("saved", new ArrayList<>());
-          anouncementData.put("post_type", "0");
+          anouncementData.put("post_type", "Announcement");
           anouncementData.put("reserved_for","");
           firebaseFirestore.collection("Posts").add(anouncementData).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override

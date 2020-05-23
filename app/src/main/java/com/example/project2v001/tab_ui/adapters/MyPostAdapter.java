@@ -76,7 +76,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
         data.put("postID", postList.get(position).postId);
         data.put("img", postList.get(position).getImg());
         data.put("desc", postList.get(position).getDesc());
-        data.put("type", String.valueOf(postList.get(position).getPost_type()));
+        data.put("type", postList.get(position).getPost_type());
         intent.putExtra("postData", (Serializable) data);
         context.startActivity(intent);
       }

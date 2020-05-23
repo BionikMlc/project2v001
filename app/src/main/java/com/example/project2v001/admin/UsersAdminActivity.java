@@ -1,6 +1,7 @@
 package com.example.project2v001.admin;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,6 +42,7 @@ public class UsersAdminActivity extends AppCompatActivity {
     userListView.setLayoutManager(new LinearLayoutManager(this));
     userListView.setAdapter(userAdapter);
     firebaseFirestore = FirebaseFirestore.getInstance();
+    Log.i(TAG, "onCreate: settings"+firebaseFirestore.getFirestoreSettings().isPersistenceEnabled());
 
 
 
@@ -52,14 +54,13 @@ public class UsersAdminActivity extends AppCompatActivity {
           if (!documentSnapshots.isEmpty()) {
             for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
 
-              if (doc.getType() == DocumentChange.Type.ADDED) {
-
-                String postId = doc.getDocument().getId();
+              if (doc.getType() == DocumentChange.Type.ADDED && !doc.getDocument().get("uid").equals("Yok8QtUMnthwUaBT6JdeSRcymNJ3")) {
                 User user = doc.getDocument().toObject(User.class);
-                usersList.add(user);
+                if(doc.getDocument().exists())
+                  usersList.add(user);
+                userAdapter.notifyDataSetChanged();
               }
 
-              userAdapter.notifyDataSetChanged();
             }
           }
 

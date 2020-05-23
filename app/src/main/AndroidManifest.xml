@@ -17,33 +17,37 @@
         android:roundIcon="@drawable/lc_icon_custom"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".admin.ReportsAdminActivity"></activity>
+        <activity android:name=".admin.ReportsAdminActivity" />
         <activity android:name=".ReportPostActivity" />
-        <activity android:name=".admin.AnnouncementAdminActivity" />
-        <activity android:name=".admin.AddAnnouncemenAdmintActivity" />
-        <activity android:name=".admin.PostsAdminActivity" />
+        <activity android:name=".admin.AnnouncementAdminActivity"  />
+        <activity android:name=".admin.AddAnnouncemenAdmintActivity"  />
+        <activity android:name=".admin.PostsAdminActivity"  />
         <activity android:name=".admin.UsersAdminActivity" />
-        <activity android:name=".admin.DashboardAdminActivity" />
-        <activity android:name=".ChatActivity" />
-        <activity android:name=".RequestsActivity" />
-        <activity android:name=".BookSelectionActivity" />
+        <activity android:name=".admin.DashboardAdminActivity"  />
+        <activity android:name=".ChatActivity"  />
+        <activity android:name=".RequestsActivity"  />
+        <activity android:name=".BookSelectionActivity"  />
         <activity
             android:name=".PostActivity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+
             android:theme="@style/Base.Theme.AppCompat" /> <!-- optional (needed if default theme has no action bar) -->
-        <activity android:name=".AccountSettingsActivity" />
+        <activity android:name=".AccountSettingsActivity"  />
         <activity
             android:name=".RegisterActivity"
+
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".LoginActivity"
+
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".MainActivity"
+
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>

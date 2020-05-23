@@ -47,7 +47,6 @@ public class AdminPostAdapter extends RecyclerView.Adapter<AdminPostAdapter.View
   @Override
   public void onBindViewHolder(@NonNull final AdminPostAdapter.ViewHolder holder, final int position) {
     holder.setIsRecyclable(false);
-
     String descText = postList.get(position).getDesc();
     holder.setPostDesc(descText);
 
@@ -72,9 +71,9 @@ public class AdminPostAdapter extends RecyclerView.Adapter<AdminPostAdapter.View
         dialogBuilder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
-//            holder.container.setVisibility(View.GONE);
-            holder.container.removeAllViews();
             firebaseFirestore.collection("Posts").document(postList.get(position).postId).delete();
+            holder.container.setVisibility(View.GONE);
+            holder.container.removeAllViews();
 
           }
         });
@@ -142,7 +141,7 @@ public class AdminPostAdapter extends RecyclerView.Adapter<AdminPostAdapter.View
       userImgView = mView.findViewById(R.id.user_img);
       Glide.with(context)
               .load(imgUri)
-              .placeholder(R.drawable.rectangle_1)
+              .placeholder(R.drawable.default_profile)
               .into(userImgView);
     }
 
@@ -150,7 +149,7 @@ public class AdminPostAdapter extends RecyclerView.Adapter<AdminPostAdapter.View
       postImgView = mView.findViewById(R.id.post_img);
       Glide.with(context)
               .load(imgUri)
-              .placeholder(R.drawable.default_profile)
+              .placeholder(R.drawable.rectangle_1)
               .into(postImgView);
     }
 

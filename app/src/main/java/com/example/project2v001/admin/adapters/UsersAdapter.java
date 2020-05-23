@@ -2,6 +2,7 @@ package com.example.project2v001.admin.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -53,6 +55,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
   @Override
   public void onBindViewHolder(@NonNull final UsersAdapter.ViewHolder holder, final int position) {
 //    holder.setIsRecyclable(false);
+    Log.i(TAG, "onBindViewHolder: "+userList.get(position).getName());
     holder.setUsername(userList.get(position).getName());
     holder.setUserEmail(userList.get(position).getEmail());
     holder.setUserImg(userList.get(position).getImg());
@@ -66,6 +69,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         dialogBuilder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
+//            holder.container.removeAllViews();
+//            holder.container.setVisibility(View.GONE);
             holder.deleteUserData(userList.get(position).getUid());
           }
         });
@@ -93,6 +98,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     private TextView usernameTextView;
     private ImageButton deleteUserImageButton;
     private FirebaseFunctions firebaseFunctions;
+    private FirebaseAuth auth;
 
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
@@ -100,6 +106,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
       container = mView.findViewById(R.id.users_list_item_container);
       deleteUserImageButton = mView.findViewById(R.id.users_list_item_delete_button);
       firebaseFunctions = FirebaseFunctions.getInstance();
+      auth = FirebaseAuth.getInstance();
     }
 
 
@@ -142,8 +149,19 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 
     private void deleteUserData(final String uid) {
       container.removeAllViews();//hides removed item
-      deleteUser(uid);
-      FirebaseFirestore.getInstance().collection("Users").document(uid).delete();
+
+      FirebaseFirestore.getInstance().collection("Posts").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        @Override
+        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+          for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+            if (documentSnapshot.exists()) {
+              if (documentSnapshot.get("user_id").equals(auth.getUid())) {
+                FirebaseFirestore.getInstance().collection("Posts").document(documentSnapshot.getId()).delete();
+              }
+            }
+          }
+        }
+      });
       FirebaseFirestore.getInstance().collection("Chats").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
         @Override
         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -156,6 +174,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
           }
         }
       });
+      FirebaseFirestore.getInstance().collection("Users").document(uid).delete();
+      deleteUser(uid);
     }
   }
 }

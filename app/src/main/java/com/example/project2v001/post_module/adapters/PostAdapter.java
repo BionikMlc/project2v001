@@ -57,7 +57,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
   @Override
   public void onBindViewHolder(@NonNull final PostAdapter.ViewHolder holder, final int position) {
 
-//        holder.setIsRecyclable(false);
+        holder.setIsRecyclable(false);
 
     String descText = postList.get(position).getDesc();
     final String user_id = FirebaseAuth.getInstance().getUid();
@@ -73,8 +73,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     firebaseFirestore.collection("Users").document(postList.get(position).getUser_id()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
       @Override
       public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-        holder.setPostUserName(task.getResult().get("name").toString());
-        holder.setUserImg(task.getResult().get("img").toString());
+        if(task.getResult().exists())
+        {
+          holder.setPostUserName(task.getResult().get("name").toString());
+          holder.setUserImg(task.getResult().get("img").toString());
+        }
       }
     });
 
@@ -257,7 +260,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
       userImgView = mView.findViewById(R.id.user_img);
       Glide.with(context.getApplicationContext())
               .load(imgUri)
-              .placeholder(R.drawable.rectangle_1)
+              .placeholder(R.drawable.default_profile)
               .into(userImgView);
     }
 
@@ -265,7 +268,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
       postImgView = mView.findViewById(R.id.post_img);
       Glide.with(context.getApplicationContext())
               .load(imgUri)
-              .placeholder(R.drawable.default_profile)
+              .placeholder(R.drawable.rectangle_1)
               .into(postImgView);
     }
 
