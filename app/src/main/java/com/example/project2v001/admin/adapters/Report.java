@@ -1,7 +1,7 @@
 package com.example.project2v001.admin.adapters;
 
 
-public class Report {
+public class Report extends ReportId {
   private String img;
   private String name;
   private String desc;

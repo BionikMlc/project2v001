@@ -70,7 +70,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
           @Override
           public void onClick(DialogInterface dialog, int which) {
 //            holder.container.removeAllViews();
-//            holder.container.setVisibility(View.GONE);
+            holder.container.setVisibility(View.GONE);
+            userList.remove(position);
             holder.deleteUserData(userList.get(position).getUid());
           }
         });

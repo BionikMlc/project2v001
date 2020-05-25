@@ -81,9 +81,11 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
         dialogBuilder.setPositiveButton("discard", new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
-            firebaseFirestore.collection("Reports").document(userList.get(position).getPostID()).delete();
-//        holder.container.setVisibility(View.GONE);
+            firebaseFirestore.collection("Reports").document(userList.get(position).reportId).delete();
+
             holder.container.removeAllViews();
+            holder.container.setVisibility(View.GONE);
+            userList.remove(position);
           }
         });
         dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -106,9 +108,10 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
       dialogBuilder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
     @Override
     public void onClick(DialogInterface dialog, int which) {
-      firebaseFirestore.collection("Reports").document(userList.get(position).getPostID()).delete();
+      firebaseFirestore.collection("Reports").document(userList.get(position).reportId).delete();
       firebaseFirestore.collection("Posts").document(userList.get(position).getPostID()).delete();
       holder.container.removeAllViews();
+      userList.remove(position);
     }
   });
         dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -130,9 +133,12 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
         dialogBuilder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
     @Override
     public void onClick(DialogInterface dialog, int which) {
-      firebaseFirestore.collection("Reports").document(userList.get(position).getPostID()).delete();
+      firebaseFirestore.collection("Reports").document(userList.get(position).reportId).delete();
       holder.deleteUserData(userList.get(position).getOp_id());
 //        holder.deleteUser(userList.get(position).getOp_id());
+      holder.container.removeAllViews();
+      holder.container.setVisibility(View.GONE);
+      userList.remove(position);
     }
   });
         dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

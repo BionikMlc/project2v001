@@ -74,8 +74,9 @@ public class AdminPostAdapter extends RecyclerView.Adapter<AdminPostAdapter.View
           @Override
           public void onClick(DialogInterface dialog, int which) {
             firebaseFirestore.collection("Posts").document(postList.get(position).postId).delete();
-            holder.container.setVisibility(View.GONE);
+            postList.remove(position);
             holder.container.removeAllViews();
+            holder.container.setVisibility(View.GONE);
 
           }
         });

@@ -82,7 +82,7 @@ public class ReportsAdminActivity extends AppCompatActivity {
               if (doc.getType() == DocumentChange.Type.ADDED) {
 
                 String postId = doc.getDocument().getId();
-                Report report = doc.getDocument().toObject(Report.class);
+                Report report = doc.getDocument().toObject(Report.class).withId(postId);
                   if (doc.getDocument().exists()) {
                     reportList.add(report);
                   }

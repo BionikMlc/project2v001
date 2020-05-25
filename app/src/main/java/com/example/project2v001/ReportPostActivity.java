@@ -10,12 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -56,13 +53,12 @@ public class ReportPostActivity extends AppCompatActivity {
 
 
     //check if useer is logged in
-    if(auth.getCurrentUser().getUid() != null){
+    if (auth.getCurrentUser().getUid() != null) {
 
 
-    }else
-      {
+    } else {
 
-      }
+    }
 
     //get data from intent
     final Intent intent = getIntent();
@@ -88,28 +84,24 @@ public class ReportPostActivity extends AppCompatActivity {
         public void onClick(View v) {
           //check if report desc was filled
           String reportDesc = reportDescEditTextView.getText().toString();
-          if(!TextUtils.isEmpty(reportDesc))
-          {
+          if (!TextUtils.isEmpty(reportDesc)) {
             //add report info to reports the database
-            postData.put("reportDesc",reportDesc);
-            postData.put("reporterId",auth.getCurrentUser().getUid());
-            firebaseFirestore.collection("Reports").document(postData.get("postID")).set(postData).addOnCompleteListener(new OnCompleteListener<Void>() {
-              @Override
-              public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(ReportPostActivity.this, "Report Sent, and will be reviewed by moderator. thanks for making this app better", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(ReportPostActivity.this,MainActivity.class));
-                finish();
-              }
-            });
+            postData.put("reportDesc", reportDesc);
+            postData.put("reporterId", auth.getCurrentUser().getUid());
+            firebaseFirestore.collection("Reports").add(postData);
 
-          }else {
-            Toast.makeText(ReportPostActivity.this, "please fill report description", Toast.LENGTH_LONG).show();
-          }
+            Toast.makeText(ReportPostActivity.this, "Report Sent, and will be reviewed by moderator. thanks for making this app better", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(ReportPostActivity.this, MainActivity.class));
+            finish();
+
+          }else
+            {
+              Toast.makeText(ReportPostActivity.this, "please fill required fields", Toast.LENGTH_LONG).show();
+            }
+
         }
       });
 
-
     }
-
   }
 }
