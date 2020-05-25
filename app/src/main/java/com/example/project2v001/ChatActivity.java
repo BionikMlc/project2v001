@@ -89,11 +89,13 @@ public class ChatActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                   @Override
                   public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    username.setText(task.getResult().get("name").toString());
-                    Glide.with(ChatActivity.this)
-                            .load(task.getResult().get("img"))
-                            .placeholder(R.drawable.rectangle_1)
-                            .into(userImageView);
+                    if(task.getResult().exists()) {
+                      username.setText(task.getResult().get("name").toString());
+                      Glide.with(ChatActivity.this)
+                              .load(task.getResult().get("img"))
+                              .placeholder(R.drawable.rectangle_1)
+                              .into(userImageView);
+                    }
                   }
                 });
       }

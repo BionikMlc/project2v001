@@ -41,6 +41,7 @@ public class NotificationFragment extends Fragment {
   private FirebaseAuth auth;
   private FirebaseFirestore firebaseFirestore;
   private NotificationAdapter notificationAdapter;
+  private boolean isFirstLoad = true;
 
 
   public NotificationFragment() {
@@ -61,7 +62,7 @@ public class NotificationFragment extends Fragment {
     postListView.setAdapter(notificationAdapter);
     firebaseFirestore = FirebaseFirestore.getInstance();
 
-    if (auth.getCurrentUser() != null) {
+    if (auth.getUid() != null) {
       postListView.addOnScrollListener(new RecyclerView.OnScrollListener() {
         @Override
         public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -88,7 +89,9 @@ public class NotificationFragment extends Fragment {
               public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
                 if (e == null) {
                   if (!documentSnapshots.isEmpty()) {
-                    postsList.clear();
+                    if(isFirstLoad) {
+                      postsList.clear();
+                    }
                   }
 
                   for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
@@ -100,16 +103,16 @@ public class NotificationFragment extends Fragment {
                       reqs = new ArrayList<>();
                       reqs = post.getRequests();
                       Map<String,Object> exist = new HashMap<>();
-                      exist.put("exists",true);
+                      exist.put("exists",auth.getUid());
                       if (post.getReserved_for().equals(user_id)) {
                         postsList.add(post);
                         firebaseFirestore.collection("Notifs").document(auth.getUid()).set(exist);
                       }
-                      if (post.getUser_id().equals(user_id) && !reqs.isEmpty()) {
+                      else if (post.getUser_id().equals(user_id) && !reqs.isEmpty()) {
                         postsList.add(post);
                         firebaseFirestore.collection("Notifs").document(auth.getUid()).set(exist);
                       }
-                      if (reqs.contains(user_id) && !post.getReserved_for().isEmpty()) {
+                      else if (reqs.contains(user_id) && !post.getReserved_for().equals(user_id)) {
                         postsList.add(post);
                         firebaseFirestore.collection("Notifs").document(auth.getUid()).set(exist);
                       }
@@ -117,6 +120,7 @@ public class NotificationFragment extends Fragment {
 
                     }
                   }
+                  isFirstLoad = false;
                 }
               }
             });

@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -58,6 +59,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
   public void onBindViewHolder(@NonNull final ChatAdapter.ViewHolder holder, final int position) {
     firebaseFirestore = FirebaseFirestore.getInstance();
     auth = FirebaseAuth.getInstance();
+    FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+            .setPersistenceEnabled(true)
+            .build();
+    firebaseFirestore.setFirestoreSettings(settings);
 
 
 
@@ -66,8 +71,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
               .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                  holder.setUsername(task.getResult().get("name").toString());
-                  holder.setUserImg(task.getResult().get("img").toString());
+                  if(task.getResult().exists()) {
+                    holder.setUsername(task.getResult().get("name").toString());
+                    holder.setUserImg(task.getResult().get("img").toString());
+                  }
 
                 }
               });
@@ -76,8 +83,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
               .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                  holder.setUsername(task.getResult().get("name").toString());
-                  holder.setUserImg(task.getResult().get("img").toString());
+                  if(task.getResult().exists()) {
+                    holder.setUsername(task.getResult().get("name").toString());
+                    holder.setUserImg(task.getResult().get("img").toString());
+                  }
 //                              holder.setText(chatData.get(""));
 
 

@@ -54,7 +54,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 
   @Override
   public void onBindViewHolder(@NonNull final UsersAdapter.ViewHolder holder, final int position) {
-//    holder.setIsRecyclable(false);
+
     Log.i(TAG, "onBindViewHolder: "+userList.get(position).getName());
     holder.setUsername(userList.get(position).getName());
     holder.setUserEmail(userList.get(position).getEmail());
@@ -155,26 +155,26 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
           for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
             if (documentSnapshot.exists()) {
-              if (documentSnapshot.get("user_id").equals(auth.getUid())) {
+              if (documentSnapshot.get("user_id").equals(uid)) {
                 FirebaseFirestore.getInstance().collection("Posts").document(documentSnapshot.getId()).delete();
               }
             }
           }
-        }
-      });
-      FirebaseFirestore.getInstance().collection("Chats").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-        @Override
-        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-          for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots)
-          {
-            if (documentSnapshot.get("op_id").equals(uid)|| documentSnapshot.get("receiver_id").equals(uid))
-            {
-              FirebaseFirestore.getInstance().collection("Chats").document(documentSnapshot.getId()).delete();
+          FirebaseFirestore.getInstance().collection("Chats").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+              for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+              {
+                if (documentSnapshot.get("op_id").equals(uid)|| documentSnapshot.get("receiver_id").equals(uid))
+                {
+                  FirebaseFirestore.getInstance().collection("Chats").document(documentSnapshot.getId()).delete();
+                }
+              }
+              FirebaseFirestore.getInstance().collection("Users").document(uid).delete();
             }
-          }
+          });
         }
       });
-      FirebaseFirestore.getInstance().collection("Users").document(uid).delete();
       deleteUser(uid);
     }
   }

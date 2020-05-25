@@ -46,7 +46,7 @@ public class AdminPostAdapter extends RecyclerView.Adapter<AdminPostAdapter.View
 
   @Override
   public void onBindViewHolder(@NonNull final AdminPostAdapter.ViewHolder holder, final int position) {
-    holder.setIsRecyclable(false);
+//    holder.setIsRecyclable(false);
     String descText = postList.get(position).getDesc();
     holder.setPostDesc(descText);
 
@@ -56,8 +56,10 @@ public class AdminPostAdapter extends RecyclerView.Adapter<AdminPostAdapter.View
             .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
               @Override
               public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                holder.setPostUserName(task.getResult().get("name").toString());
-                holder.setUserImg(task.getResult().get("img").toString());
+                if(task.getResult().exists()) {
+                  holder.setPostUserName(task.getResult().get("name").toString());
+                  holder.setUserImg(task.getResult().get("img").toString());
+                }
               }
             });
 

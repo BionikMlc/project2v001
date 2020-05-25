@@ -66,8 +66,10 @@ public class ReqAdapter extends RecyclerView.Adapter<ReqAdapter.ViewHolder> {
             .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
               @Override
               public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                holder.setPostUserName(task.getResult().get("name").toString());
-                holder.setUserImg(task.getResult().get("img").toString());
+                if(task.getResult().exists()) {
+                  holder.setPostUserName(task.getResult().get("name").toString());
+                  holder.setUserImg(task.getResult().get("img").toString());
+                }
               }
             });
 
@@ -161,7 +163,7 @@ public class ReqAdapter extends RecyclerView.Adapter<ReqAdapter.ViewHolder> {
     public void setUserImg(String imgUri) {
 
       userImgView = mView.findViewById(R.id.user_img);
-      Glide.with(context)
+      Glide.with(context.getApplicationContext())
               .load(imgUri)
               .placeholder(R.drawable.rectangle_1)
               .into(userImgView);

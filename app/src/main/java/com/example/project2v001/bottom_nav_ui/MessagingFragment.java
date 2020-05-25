@@ -18,6 +18,7 @@ import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -34,6 +35,7 @@ public class MessagingFragment extends Fragment {
   private List<ChatData> chatList;
   private RecyclerView chatListView;
   private ChatAdapter chatAdapter;
+  private boolean isFirstDataLoad  = true;
 
 
   public MessagingFragment() {
@@ -41,7 +43,7 @@ public class MessagingFragment extends Fragment {
   }
 
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+  public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                            Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_messaging, container, false);
 
@@ -53,6 +55,10 @@ public class MessagingFragment extends Fragment {
     chatListView.setLayoutManager(new LinearLayoutManager(getActivity()));
     chatListView.setAdapter(chatAdapter);
     firebaseFirestore = FirebaseFirestore.getInstance();
+    FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+            .setPersistenceEnabled(true)
+            .build();
+    firebaseFirestore.setFirestoreSettings(settings);
 //
     if (auth.getCurrentUser() != null) {
       chatListView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -69,30 +75,39 @@ public class MessagingFragment extends Fragment {
 
       final String user_id = auth.getUid();
       Query firstQuery = firebaseFirestore.collection("Chats");
+      if (chatAdapter.getItemCount() == 0) {
+        firstQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
+          @Override
+          public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+            if (e == null) {
+              if (!documentSnapshots.isEmpty()) {
+                if (isFirstDataLoad) {
+                  chatList.clear();
+                }
 
-      firstQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
-        @Override
-        public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
-          if (e == null) {
-            if (!documentSnapshots.isEmpty()) {
-              chatList.clear();
-            }
-            for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
+                for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
 
-              if (doc.getType() == DocumentChange.Type.ADDED) {
+                  if (doc.getType() == DocumentChange.Type.ADDED) {
 
+                    if (doc.getDocument().exists() && !documentSnapshots.isEmpty()) {
 //                String postId = doc.getDocument().getId();
-                 ChatData chatData = doc.getDocument().toObject(ChatData.class);
+                      ChatData chatData = doc.getDocument().toObject(ChatData.class);
+                      if(chatData.getUser_id().equals(user_id)|| chatData.getOp_id().equals(user_id)) {
+                        chatList.add(chatData);
+                      }
+                      chatAdapter.notifyDataSetChanged();
+                    }
 
-                  chatList.add(chatData);
 
-
-                chatAdapter.notifyDataSetChanged();
+                  }
+                }
+                isFirstDataLoad = false;
               }
+            } else {
             }
           }
-        }
-      });
+        });
+      }
     }
     return view;
   }

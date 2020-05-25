@@ -7,10 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -187,7 +187,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
 
   public class ViewHolder extends RecyclerView.ViewHolder {
     private View mView;
-    private ConstraintLayout container;
+    private LinearLayout container;
     private TextView postDescView;
     private TextView usernameTextView;
     private TextView postDateView;
@@ -318,7 +318,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
           for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
             if (documentSnapshot.exists()) {
-              if (documentSnapshot.get("user_id").equals(auth.getUid())) {
+              if (documentSnapshot.get("user_id").equals(uid)) {
                 FirebaseFirestore.getInstance().collection("Posts").document(documentSnapshot.getId()).delete();
               }
             }

@@ -29,6 +29,7 @@ public class RequestsActivity extends AppCompatActivity {
   private List<Post> postsList;
   private FirebaseFirestore firebaseFirestore;
   private boolean firstLoad = true;
+  private boolean isFirstLoad = true;
   private List<String> reqs;
 
 
@@ -74,7 +75,9 @@ public class RequestsActivity extends AppCompatActivity {
         public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
           if (e == null) {
             if (!documentSnapshot.exists()) {
-              postsList.clear();
+              if(isFirstLoad) {
+                postsList.clear();
+              }
             }
             Post post = documentSnapshot.toObject(Post.class).withId(finalPostID);
             Log.i(TAG, "onEvent: "+post.getRequests());
@@ -86,6 +89,7 @@ public class RequestsActivity extends AppCompatActivity {
             firstLoad = false;
             reqAdapter.notifyDataSetChanged();
           }
+          isFirstLoad = false;
         }
 
       });

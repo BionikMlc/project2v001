@@ -173,7 +173,6 @@ public class AccountSettingsActivity extends AppCompatActivity {
                         }
                     });
                     Intent intent = new Intent(AccountSettingsActivity.this,MainActivity.class);
-                    intent.putExtra("complete",true);
                     startActivity(intent);
                     finish();
                 }

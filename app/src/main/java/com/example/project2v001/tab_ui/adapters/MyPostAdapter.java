@@ -56,7 +56,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
 
     String descText = postList.get(position).getDesc();
     holder.setPostDesc(descText);
-
+    holder.requestsButton.setVisibility(View.VISIBLE);
     //gets user name and sets it to the user name textView
     final FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     firebaseFirestore.collection("Users").document(postList.get(position).getUser_id()).get()

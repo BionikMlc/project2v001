@@ -27,6 +27,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -124,7 +125,26 @@ public class SavedPostAdapter extends RecyclerView.Adapter<SavedPostAdapter.View
     holder.reportButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        context.startActivity(new Intent(context, ReportPostActivity.class));
+        firebaseFirestore.collection("Users").document(postList.get(position).getUser_id()).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                  @Override
+                  public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    Intent intent = new Intent(context, ReportPostActivity.class);
+                    Map<String, String> data = new HashMap<String, String>();
+                    data.put("postID", postList.get(position).postId);
+                    data.put("img", postList.get(position).getImg());
+                    data.put("desc", postList.get(position).getDesc());
+                    data.put("userImg", task.getResult().get("img").toString());
+                    data.put("type", String.valueOf(postList.get(position).getPost_type()));
+                    data.put("name", task.getResult().get("name").toString());
+                    data.put("op_id",postList.get(position).getUser_id());
+                    long timeInMS = postList.get(position).getTimestamp().getTime();
+                    String time = DateFormat.format("yyyy/MM/dd HH:mm", new Date(timeInMS)).toString();
+                    data.put("timestamp", time);
+                    intent.putExtra("postData", (Serializable) data);
+                    context.startActivity(intent);
+                  }
+                });
       }
     });
 
