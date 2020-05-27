@@ -37,6 +37,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
   private List<User> userList;
   private Context context;
 
+  private FirebaseAuth firebaseAuth;
 
   public UsersAdapter(List<User> userList) {
     this.userList = userList;
@@ -59,6 +60,11 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     holder.setUsername(userList.get(position).getName());
     holder.setUserEmail(userList.get(position).getEmail());
     holder.setUserImg(userList.get(position).getImg());
+    firebaseAuth = FirebaseAuth.getInstance();
+    if(firebaseAuth.getUid().equals("Yok8QtUMnthwUaBT6JdeSRcymNJ3"))
+    {
+      holder.deleteUserImageButton.setVisibility(View.GONE);
+    }
 
     holder.deleteUserImageButton.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -70,9 +76,9 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
           @Override
           public void onClick(DialogInterface dialog, int which) {
 //            holder.container.removeAllViews();
-            holder.container.setVisibility(View.GONE);
-            userList.remove(position);
+//            holder.container.setVisibility(View.GONE);
             holder.deleteUserData(userList.get(position).getUid());
+            userList.remove(position);
           }
         });
         dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -150,7 +156,6 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 
     private void deleteUserData(final String uid) {
       container.removeAllViews();//hides removed item
-
       FirebaseFirestore.getInstance().collection("Posts").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
         @Override
         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -161,19 +166,23 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
               }
             }
           }
-          FirebaseFirestore.getInstance().collection("Chats").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+          FirebaseFirestore.getInstance().collection("Chats").get()
+                  .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-              for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots)
-              {
-                if (documentSnapshot.get("op_id").equals(uid)|| documentSnapshot.get("receiver_id").equals(uid))
-                {
-                  FirebaseFirestore.getInstance().collection("Chats").document(documentSnapshot.getId()).delete();
+              if (!queryDocumentSnapshots.isEmpty()) {
+              for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+
+                  if (documentSnapshot.get("op_id").equals(uid) || documentSnapshot.get("receiver_id").equals(uid)) {
+                    FirebaseFirestore.getInstance().collection("Chats").document(documentSnapshot.getId()).delete();
+//                    FirebaseFirestore.getInstance().collection("Chats").document(documentSnapshot
+//                            .getId()).collection("Messages").document().;
+                  }
                 }
               }
-              FirebaseFirestore.getInstance().collection("Users").document(uid).delete();
             }
           });
+          FirebaseFirestore.getInstance().collection("Users").document(uid).delete();
         }
       });
       deleteUser(uid);
