@@ -243,6 +243,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
       savedButton = mView.findViewById(R.id.unsave_post);
       reportButton = mView.findViewById(R.id.post_report2);
       postTypeTextView = mView.findViewById(R.id.post_type_text_view);
+      postDateView = mView.findViewById(R.id.post_date);
     }
 
     public void setPostDesc(String descText) {
@@ -273,7 +274,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
 
     public void setPostDate(String date) {
-      postDateView = mView.findViewById(R.id.post_date);
+
       postDateView.setText(date);
     }
   }

@@ -89,8 +89,9 @@ public class SentRequestsFragment extends Fragment {
                   String postId = doc.getDocument().getId();
                   Post post = doc.getDocument().toObject(Post.class).withId(postId);
                  List<String> requests = (List<String>) doc.getDocument().get("requests");
+                  String reserved = (String) doc.getDocument().get("reserved_for");
                  if(!requests.isEmpty()){
-                    if (requests.contains(user_id)) {
+                    if (requests.contains(user_id) && reserved.isEmpty()) {
                       postsList.add(post);
                     }
                     sentReqAdapter.notifyDataSetChanged();

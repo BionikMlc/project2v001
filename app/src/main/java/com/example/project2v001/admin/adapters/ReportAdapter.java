@@ -84,8 +84,8 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
             firebaseFirestore.collection("Reports").document(userList.get(position).reportId).delete();
 
             holder.container.removeAllViews();
-            holder.container.setVisibility(View.GONE);
-            userList.remove(position);
+
+//            userList.remove(position);
           }
         });
         dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -111,7 +111,8 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
       firebaseFirestore.collection("Reports").document(userList.get(position).reportId).delete();
       firebaseFirestore.collection("Posts").document(userList.get(position).getPostID()).delete();
       holder.container.removeAllViews();
-      userList.remove(position);
+      holder.container.setVisibility(View.GONE);
+//      userList.remove(position);
     }
   });
         dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -138,7 +139,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
 //        holder.deleteUser(userList.get(position).getOp_id());
       holder.container.removeAllViews();
       holder.container.setVisibility(View.GONE);
-      userList.remove(position);
+//      userList.remove(position);
     }
   });
         dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -316,7 +317,6 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
                 }
               });
     }
-
     private void deleteUserData(final String uid) {
       container.removeAllViews();//hides removed item
       FirebaseFirestore.getInstance().collection("Posts").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -329,23 +329,27 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
               }
             }
           }
-          FirebaseFirestore.getInstance().collection("Chats").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-              for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots)
-              {
-                if (documentSnapshot.get("op_id").equals(uid)|| documentSnapshot.get("receiver_id").equals(uid))
-                {
-                  FirebaseFirestore.getInstance().collection("Chats").document(documentSnapshot.getId()).delete();
-                }
-              }
-              FirebaseFirestore.getInstance().collection("Users").document(uid).delete();
-            }
-          });
-
+//          FirebaseFirestore.getInstance().collection("Chats").get()
+//                  .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                      if (!queryDocumentSnapshots.isEmpty()) {
+//                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+//
+//                          if (documentSnapshot.get("op_id").equals(uid) || documentSnapshot.get("receiver_id").equals(uid)) {
+//                            FirebaseFirestore.getInstance().collection("Chats").document(documentSnapshot.getId()).delete();
+////                    FirebaseFirestore.getInstance().collection("Chats").document(documentSnapshot
+////                            .getId()).collection("Messages").document().;
+//                          }
+//                        }
+//                      }
+//                    }
+//                  });
+          FirebaseFirestore.getInstance().collection("Users").document(uid).delete();
         }
       });
       deleteUser(uid);
     }
+
   }
 }

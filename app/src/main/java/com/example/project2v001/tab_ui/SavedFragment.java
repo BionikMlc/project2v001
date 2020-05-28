@@ -84,8 +84,9 @@ public class SavedFragment extends Fragment {
                   String postId = doc.getDocument().getId();
                   List<String> saved = (List<String>) doc.getDocument().get("saved");
                   Post post = doc.getDocument().toObject(Post.class).withId(postId);
+                  String reserved = (String) doc.getDocument().get("reserved_for");
 
-                  if (saved.contains(user_id))
+                  if (saved.contains(user_id) && reserved.isEmpty())
                     postsList.add(post);
 
                   savedPostAdapter.notifyDataSetChanged();

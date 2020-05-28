@@ -298,7 +298,7 @@ public class PostActivity extends AppCompatActivity {
                   @Override
                   public void onComplete(@NonNull Task<DocumentReference> task) {
                     progressBar.setVisibility(View.INVISIBLE);
-                    Toast.makeText(PostActivity.this, "post added: ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(PostActivity.this, "post added ", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(PostActivity.this, MainActivity.class));
                     finish();
                   }

@@ -36,6 +36,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
   private static final String TAG = "emailTag";
   private List<User> userList;
   private Context context;
+  private int position;
 
   private FirebaseAuth firebaseAuth;
 
@@ -49,6 +50,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.users_list_item, parent, false);
     context = parent.getContext();
 
+
     return new ViewHolder(view);
 
   }
@@ -56,14 +58,15 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
   @Override
   public void onBindViewHolder(@NonNull final UsersAdapter.ViewHolder holder, final int position) {
 
+
     Log.i(TAG, "onBindViewHolder: "+userList.get(position).getName());
     holder.setUsername(userList.get(position).getName());
     holder.setUserEmail(userList.get(position).getEmail());
     holder.setUserImg(userList.get(position).getImg());
     firebaseAuth = FirebaseAuth.getInstance();
-    if(firebaseAuth.getUid().equals("Yok8QtUMnthwUaBT6JdeSRcymNJ3"))
+    if(userList.get(position).getUid().equals("Yok8QtUMnthwUaBT6JdeSRcymNJ3"))
     {
-      holder.deleteUserImageButton.setVisibility(View.GONE);
+      holder.deleteUserImageButton.setVisibility(View.INVISIBLE);
     }
 
     holder.deleteUserImageButton.setOnClickListener(new View.OnClickListener() {
@@ -76,9 +79,9 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
           @Override
           public void onClick(DialogInterface dialog, int which) {
 //            holder.container.removeAllViews();
-//            holder.container.setVisibility(View.GONE);
+            holder.container.setVisibility(View.GONE);
             holder.deleteUserData(userList.get(position).getUid());
-            userList.remove(position);
+
           }
         });
         dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -166,22 +169,22 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
               }
             }
           }
-          FirebaseFirestore.getInstance().collection("Chats").get()
-                  .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-              if (!queryDocumentSnapshots.isEmpty()) {
-              for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-
-                  if (documentSnapshot.get("op_id").equals(uid) || documentSnapshot.get("receiver_id").equals(uid)) {
-                    FirebaseFirestore.getInstance().collection("Chats").document(documentSnapshot.getId()).delete();
-//                    FirebaseFirestore.getInstance().collection("Chats").document(documentSnapshot
-//                            .getId()).collection("Messages").document().;
-                  }
-                }
-              }
-            }
-          });
+//          FirebaseFirestore.getInstance().collection("Chats").get()
+//                  .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//            @Override
+//            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//              if (!queryDocumentSnapshots.isEmpty()) {
+//              for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+//
+//                  if (userList.get(position).equals(uid) || documentSnapshot.get("receiver_id").equals(uid)) {
+//                    FirebaseFirestore.getInstance().collection("Chats").document(documentSnapshot.getId()).delete();
+////                    FirebaseFirestore.getInstance().collection("Chats").document(documentSnapshot
+////                            .getId()).collection("Messages").document().;
+//                  }
+//                }
+//              }
+//            }
+//          });
           FirebaseFirestore.getInstance().collection("Users").document(uid).delete();
         }
       });
